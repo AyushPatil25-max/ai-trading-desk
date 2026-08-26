@@ -1,0 +1,21 @@
+{
+    "risk_limits": {
+        "max_position_value": 50000.0,
+        "max_order_value": 25000.0,
+        "max_portfolio_exposure": 0.8,
+        "max_daily_loss": 10000.0,
+        "max_single_symbol_exposure": 0.3,
+        "max_orders_per_symbol": 5,
+        "minimum_confidence": 0.5,
+        "maximum_context_age_seconds": 300.0
+    },
+    "portfolio": {
+        "initial_cash": 100000.0,
+        "commission_rate": 0.0003
+    },
+    "safety": {
+        "kill_switch_enabled": false,
+        "allow_short_selling": false,
+        "enforce_provenance": true
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "llm_validation": {
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0.1,
+    "max_tokens": 2048,
+    "sample_symbols": ["RELIANCE.NS", "TCS.NS", "INFY.NS", "HDFCBANK.NS", "TATAMOTORS.NS"],
+    "sample_contexts": 10,
+    "max_budget_usd": 5.00,
+    "max_requests": 200,
+    "cache_enabled": true,
+    "replay_enabled": true,
+    "cache_file_path": "backend/cache/llm_historical_replay_cache.json"
+  }
+}

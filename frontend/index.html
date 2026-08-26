@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quantitative Trading Desk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #08090d;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .neon-border {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(18, 20, 29, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        .glow-accent {
+            box-shadow: 0 0 20px -5px rgba(56, 189, 248, 0.25);
+        }
+    </style>
+</head>
+<body class="text-zinc-200 min-h-screen p-6 md:p-10">
+
+    <div class="max-w-6xl mx-auto space-y-6">
+        <!-- Header & Search -->
+        <header class="flex flex-col md:flex-row md:items-center md:justify-between pb-6 border-b border-zinc-800 gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 inline-block animate-pulse"></span>
+                    AI TRADING DESK
+                </h1>
+                <p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Multi-Agent Quantitative Engine</p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <input id="symbolInput" type="text" value="TCS.NS" placeholder="Enter Ticker (e.g., TCS.NS)" 
+                    class="bg-zinc-900 border border-zinc-700 text-sm rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500 uppercase tracking-wide">
+                <button onclick="runAnalysis()" id="analyzeBtn" 
+                    class="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-sm px-5 py-2 rounded-lg transition-all shadow-md">
+                    Analyze
+                </button>
+            </div>
+        </header>
+
+        <!-- Final Verdict Banner -->
+        <div id="verdictCard" class="neon-border rounded-xl p-5 flex items-center justify-between">
+            <div>
+                <div class="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Orchestrator Decision</div>
+                <div id="verdictText" class="text-xl font-bold text-zinc-300 mt-1">Awaiting Analysis...</div>
+            </div>
+            <div id="badge" class="px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-zinc-800 text-zinc-400">IDLE</div>
+        </div>
+
+        <!-- 3-Column Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Live Market Metrics -->
+            <div class="neon-border rounded-xl p-5 space-y-4">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-zinc-400 border-b border-zinc-800 pb-2">1. Market Metrics</h2>
+                <div class="space-y-3 font-mono text-sm">
+                    <div class="flex justify-between"><span class="text-zinc-500">Close</span><span id="metricClose" class="text-white">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">20D High</span><span id="metricHigh" class="text-white">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">EMA 20</span><span id="metricEma20" class="text-zinc-300">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">EMA 50</span><span id="metricEma50" class="text-zinc-300">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">RSI (14)</span><span id="metricRsi" class="text-cyan-400 font-bold">--</span></div>
+                </div>
+            </div>
+
+            <!-- Technical Agent -->
+            <div class="neon-border rounded-xl p-5 space-y-4">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-cyan-400 border-b border-zinc-800 pb-2">2. Technical Agent</h2>
+                <div class="space-y-3 font-mono text-sm">
+                    <div class="flex justify-between"><span class="text-zinc-500">Trend</span><span id="techTrend" class="text-white">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Setup</span><span id="techSetup" class="text-white">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Conviction</span><span id="techScore" class="text-white">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Confirmation</span><span id="techConfirm" class="text-white">--</span></div>
+                </div>
+            </div>
+
+            <!-- Risk Agent -->
+            <div class="neon-border rounded-xl p-5 space-y-4">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-rose-400 border-b border-zinc-800 pb-2">3. Risk Agent</h2>
+                <div class="space-y-3 font-mono text-sm">
+                    <div class="flex justify-between"><span class="text-zinc-500">Risk Level</span><span id="riskLevel" class="text-white">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Max Sizing</span><span id="riskSize" class="text-white">--</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Stop Loss</span><span id="riskStop" class="text-white">--</span></div>
+                    <div class="text-xs text-zinc-400 pt-2 border-t border-zinc-800/60" id="riskSummary">--</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        async function runAnalysis() {
+            const symbol = document.getElementById('symbolInput').value.trim();
+            const btn = document.getElementById('analyzeBtn');
+            btn.disabled = true;
+            btn.innerText = "Analyzing...";
+
+            try {
+                const res = await fetch(`/api/analyze?symbol=${encodeURIComponent(symbol)}`);
+                const data = await res.json();
+                
+                if (!res.ok) throw new Error(data.detail || "Analysis failed");
+
+                // Populate Market Metrics
+                document.getElementById('metricClose').innerText = `₹${data.market_data.latest_close}`;
+                document.getElementById('metricHigh').innerText = `₹${data.market_data["20_day_high"]}`;
+                document.getElementById('metricEma20').innerText = `₹${data.market_data.ema20}`;
+                document.getElementById('metricEma50').innerText = `₹${data.market_data.ema50}`;
+                document.getElementById('metricRsi').innerText = data.market_data.rsi;
+
+                // Populate Technical Agent
+                document.getElementById('techTrend').innerText = data.technical.trend;
+                document.getElementById('techSetup').innerText = data.technical.setup;
+                document.getElementById('techScore').innerText = `${data.technical.technical_score}/10`;
+                document.getElementById('techConfirm').innerText = data.technical.confirmation ? "VALIDATED" : "INVALID";
+                document.getElementById('techConfirm').className = data.technical.confirmation ? "text-emerald-400 font-bold" : "text-rose-400 font-bold";
+
+                // Populate Risk Agent
+                document.getElementById('riskLevel').innerText = data.risk.risk_level;
+                document.getElementById('riskSize').innerText = `${data.risk.max_position_size_pct}%`;
+                document.getElementById('riskStop').innerText = `${data.risk.stop_loss_pct}%`;
+                document.getElementById('riskSummary').innerText = data.risk.risk_summary;
+
+                // Verdict Banner
+                const verdictEl = document.getElementById('verdictText');
+                const badgeEl = document.getElementById('badge');
+                verdictEl.innerText = data.final_verdict;
+                
+                if (data.final_verdict.startsWith("APPROVED")) {
+                    verdictEl.className = "text-xl font-bold text-emerald-400 mt-1";
+                    badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800";
+                    badgeEl.innerText = "EXECUTE";
+                } else {
+                    verdictEl.className = "text-xl font-bold text-rose-400 mt-1";
+                    badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-rose-950 text-rose-300 border border-rose-800";
+                    badgeEl.innerText = "HOLD / PASS";
+                }
+
+            } catch (err) {
+                alert("Execution Error: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Analyze";
+            }
+        }
+    </script>
+</body>
+</html>

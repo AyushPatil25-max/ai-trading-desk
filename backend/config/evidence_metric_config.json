@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "description": "Maps specialist raw_data metric keys to evidence categories, types, and metadata. Business logic stays in Python.",
+
+  "specialist_category_map": {
+    "TechnicalSpecialist": "TECHNICAL",
+    "MomentumSpecialist": "MOMENTUM",
+    "QuantSpecialist": "QUANT",
+    "FundamentalSpecialist": "FUNDAMENTAL",
+    "ValuationSpecialist": "VALUATION",
+    "SectorSpecialist": "SECTOR",
+    "MacroSpecialist": "MACRO",
+    "NewsSpecialist": "NEWS",
+    "InstitutionalSpecialist": "INSTITUTIONAL"
+  },
+
+  "specialist_evidence_list_key": {
+    "TechnicalSpecialist": "evidence",
+    "MomentumSpecialist": "evidence",
+    "QuantSpecialist": "metrics",
+    "FundamentalSpecialist": "metrics",
+    "ValuationSpecialist": "evidence",
+    "SectorSpecialist": "evidence",
+    "MacroSpecialist": "evidence",
+    "NewsSpecialist": "articles",
+    "InstitutionalSpecialist": "evidence"
+  },
+
+  "specialist_metric_name_key": {
+    "TechnicalSpecialist": "name",
+    "MomentumSpecialist": "name",
+    "QuantSpecialist": "metric_name",
+    "FundamentalSpecialist": "metric_name",
+    "ValuationSpecialist": "metric_name",
+    "SectorSpecialist": "metric_name",
+    "MacroSpecialist": "metric_name",
+    "NewsSpecialist": "headline",
+    "InstitutionalSpecialist": "metric_name"
+  },
+
+  "specialist_regime_keys": {
+    "TechnicalSpecialist": ["trend"],
+    "MomentumSpecialist": ["momentum_direction"],
+    "QuantSpecialist": ["statistical_regime"],
+    "FundamentalSpecialist": ["fundamental_quality"],
+    "ValuationSpecialist": ["valuation_status"],
+    "SectorSpecialist": ["sector_regime"],
+    "MacroSpecialist": ["macro_regime"],
+    "NewsSpecialist": ["news_regime", "overall_sentiment"],
+    "InstitutionalSpecialist": ["institutional_regime"]
+  },
+
+  "regime_direction_map": {
+    "BULLISH": "BULLISH",
+    "BEARISH": "BEARISH",
+    "NEUTRAL": "NEUTRAL",
+    "MIXED": "MIXED",
+    "UNKNOWN": "UNKNOWN",
+    "ACCUMULATION": "BULLISH",
+    "DISTRIBUTION": "BEARISH",
+    "UNDERVALUED": "BULLISH",
+    "FAIRLY_VALUED": "NEUTRAL",
+    "OVERVALUED": "BEARISH",
+    "INDETERMINATE": "UNKNOWN",
+    "STRONG": "BULLISH",
+    "MODERATE": "NEUTRAL",
+    "WEAK": "BEARISH",
+    "DISTRESSED": "BEARISH",
+    "HIGH_GROWTH": "BULLISH",
+    "MODERATE_GROWTH": "NEUTRAL",
+    "STAGNANT": "BEARISH",
+    "CONTRACTING": "BEARISH",
+    "STRONG_OUTPERFORMING": "BULLISH",
+    "MODERATE_OUTPERFORMING": "BULLISH",
+    "UNDERPERFORMING": "BEARISH",
+    "LAGGING": "BEARISH",
+    "EXPANSIONARY": "BULLISH",
+    "CONTRACTIONARY": "BEARISH",
+    "RESTRICTIVE": "BEARISH",
+    "TRANSITIONAL": "NEUTRAL",
+    "POSITIVE": "BULLISH",
+    "NEGATIVE": "BEARISH",
+    "UNCERTAIN": "UNKNOWN",
+    "HIGH_VOLATILITY": "BEARISH",
+    "NORMAL_VOLATILITY": "NEUTRAL",
+    "LOW_VOLATILITY": "BULLISH",
+    "TREND_CONSISTENT": "BULLISH",
+    "TRENDING_NOISY": "NEUTRAL",
+    "MEAN_REVERTING": "NEUTRAL",
+    "INSUFFICIENT_DATA": "UNKNOWN",
+    "IMPROVING": "BULLISH",
+    "STABLE": "NEUTRAL",
+    "DETERIORATING": "BEARISH"
+  },
+
+  "evidence_type_rules": {
+    "_comment": "Classification rules applied in Python. This section documents the taxonomy only.",
+    "DETERMINISTIC_FACT": "Direct extraction from data source, no calculation. E.g. current_price, revenue, eps, policy_rate.",
+    "DETERMINISTIC_CALCULATION": "Pure Python formula applied to deterministic inputs. E.g. net_margin, pe_ratio, sharpe_ratio.",
+    "LLM_INTERPRETATION": "Qualitative judgment produced by LLM. E.g. trend direction, regime classification, sentiment.",
+    "ASSUMPTION": "Analyst assumption stated in output. E.g. TTM period assumption, sector classification assumption.",
+    "UNAVAILABLE": "Data was requested but not available. Metric has available=False."
+  },
+
+  "metric_evidence_type_overrides": {
+    "_comment": "Per-metric evidence type when the generic rule cannot apply. Keys are metric_name values.",
+    "revenue": "DETERMINISTIC_FACT",
+    "net_income": "DETERMINISTIC_FACT",
+    "eps": "DETERMINISTIC_FACT",
+    "operating_cash_flow": "DETERMINISTIC_FACT",
+    "total_debt": "DETERMINISTIC_FACT",
+    "cash_and_equivalents": "DETERMINISTIC_FACT",
+    "total_equity": "DETERMINISTIC_FACT",
+    "policy_rate": "DETERMINISTIC_FACT",
+    "inflation_rate": "DETERMINISTIC_FACT",
+    "treasury_10y": "DETERMINISTIC_FACT",
+    "treasury_2y": "DETERMINISTIC_FACT",
+    "gdp_growth": "DETERMINISTIC_FACT",
+    "CurrentPrice": "DETERMINISTIC_FACT"
+  }
+}

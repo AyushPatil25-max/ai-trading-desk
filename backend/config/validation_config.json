@@ -1,0 +1,19 @@
+{
+  "walk_forward": {
+    "train_window_days": 756,
+    "val_window_days": 252,
+    "test_window_days": 252,
+    "step_days": 252,
+    "initial_capital": 100000.0,
+    "benchmark_symbol": "^NSEI",
+    "commission_rate": 0.0003,
+    "slippage_rate": 0.0005,
+    "top_k": 5,
+    "max_candidates_per_sector": 2,
+    "min_opportunity_score": 50.0,
+    "min_data_quality_score": 40.0,
+    "cost_sensitivity_bps": [0, 5, 10, 20, 30, 50],
+    "slippage_sensitivity_pct": [0.0, 0.0005, 0.0010, 0.0020, 0.0050],
+    "sizing_multipliers": [0.5, 1.0, 1.5, 2.0]
+  }
+}

@@ -1,0 +1,45 @@
+{
+    "gates": {
+        "evidence_sufficiency": {
+            "name": "Evidence Sufficiency Gate",
+            "value": 0.3,
+            "rationale": "Requires minimum extracted evidence density.",
+            "severity": "HIGH",
+            "enabled": true
+        },
+        "data_quality": {
+            "name": "Data Quality Gate",
+            "value": 0.8,
+            "rationale": "Overall data trust score minimum threshold.",
+            "severity": "HIGH",
+            "enabled": true
+        },
+        "bull_bear_spread": {
+            "name": "Bull/Bear Conviction Spread Gate",
+            "value": 0.2,
+            "rationale": "Requires a decisive margin between Bull and Bear strengths.",
+            "severity": "MEDIUM",
+            "enabled": true
+        },
+        "risk_tolerance": {
+            "name": "Maximum Risk Tolerance Gate",
+            "value": 0.7,
+            "rationale": "Blocks approval if risk score exceeds threshold.",
+            "severity": "HIGH",
+            "enabled": true
+        },
+        "confidence_min": {
+            "name": "Minimum Confidence Gate",
+            "value": 0.5,
+            "rationale": "Blocks approval if systemic confidence is too low.",
+            "severity": "MEDIUM",
+            "enabled": true
+        }
+    },
+    "position_sizing": {
+        "base_size_pct": 5.0,
+        "max_size_pct": 15.0,
+        "volatility_penalty_multiplier": 0.5,
+        "risk_penalty_multiplier": 0.5
+    }
+}

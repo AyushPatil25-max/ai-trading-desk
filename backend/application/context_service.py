@@ -1,0 +1,93 @@
+import asyncio
+import hashlib
+from typing import Dict, Any
+
+from backend.domain.schemas import MarketContext, DataQualityStatus, HistoricalWindow
+from backend.infrastructure.data_providers import MarketDataProvider
+from backend.infrastructure.cache import ContextCache
+
+class ContextService:
+    def __init__(self, provider: MarketDataProvider, cache: ContextCache):
+        self.provider = provider
+        self.cache = cache
+        self._inflight = {}
+        self._lock = asyncio.Lock()
+        
+    def _generate_cache_key(self, symbol: str, window: HistoricalWindow) -> str:
+        """
+        Deterministic cache key based on symbol, timeframe, and provider.
+        """
+        raw_key = f"{symbol}:{window.value}:{self.provider.name}"
+        return hashlib.sha256(raw_key.encode('utf-8')).hexdigest()
+        
+    async def get_market_context(self, symbol: str, window: HistoricalWindow = HistoricalWindow.RECENT) -> MarketContext:
+        key = self._generate_cache_key(symbol, window)
+        
+        # 1. Check cache for exact match
+        cached_context = await self.cache.get(key)
+        if cached_context is not None:
+            return cached_context
+
+        # Check cache for larger windows
+        windows_by_size = [
+            HistoricalWindow.LONG,
+            HistoricalWindow.MEDIUM,
+            HistoricalWindow.SHORT,
+            HistoricalWindow.RECENT
+        ]
+        target_days = HistoricalWindow.get_days(window)
+        for w in windows_by_size:
+            if HistoricalWindow.get_days(w) > target_days:
+                larger_key = self._generate_cache_key(symbol, w)
+                larger_context = await self.cache.get(larger_key)
+                if larger_context is not None:
+                    # Derive smaller context from larger one
+                    derived_ohlcv = larger_context.ohlcv_historical[-target_days:] if target_days > 0 else []
+                    derived_context = larger_context.model_copy(update={
+                        "is_cached": True,
+                        "historical_window": window,
+                        "ohlcv_historical": derived_ohlcv
+                    })
+                    # Cache the derived context for future exact hits
+                    await self.cache.set(key, derived_context)
+                    return derived_context
+            if w == window:
+                break
+            
+        # 2. Concurrency single-flight protection
+        is_leader = False
+        async with self._lock:
+            if key in self._inflight:
+                future = self._inflight[key]
+            else:
+                future = asyncio.Future()
+                self._inflight[key] = future
+                is_leader = True
+                
+        if not is_leader:
+            # We are a follower
+            result = await future
+            return result.model_copy(update={"is_cached": True})
+
+        # We are the leader, fetch data
+        try:
+            # Re-check cache just in case
+            cached_context = await self.cache.get(key)
+            if cached_context is not None:
+                result = cached_context
+            else:
+                context = await asyncio.to_thread(self.provider.get_market_context, symbol, window)
+                if context.quality_status != DataQualityStatus.CRITICAL_FAILURE:
+                    await self.cache.set(key, context)
+                result = context
+                
+            future.set_result(result)
+            return result
+        except Exception as e:
+            if not future.done():
+                future.set_exception(e)
+            raise
+        finally:
+            async with self._lock:
+                if key in self._inflight and self._inflight[key] is future:
+                    del self._inflight[key]

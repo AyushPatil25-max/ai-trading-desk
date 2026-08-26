@@ -1,0 +1,48 @@
+{
+  "candidates": [
+    {
+      "slot_name": "groq_primary",
+      "provider": "GROQ",
+      "model_id": "llama-3.3-70b-versatile",
+      "role": "Current Production Baseline",
+      "context_window": 128000,
+      "input_cost_per_m_usd": 0.59,
+      "output_cost_per_m_usd": 0.79,
+      "default_temperature": 0.1,
+      "env_key": "GROQ_API_KEY"
+    },
+    {
+      "slot_name": "gemini_flash",
+      "provider": "GEMINI",
+      "model_id": "gemini-3.7-flash",
+      "role": "High-Throughput Fast Reasoning",
+      "context_window": 1000000,
+      "input_cost_per_m_usd": 0.15,
+      "output_cost_per_m_usd": 0.60,
+      "default_temperature": 0.1,
+      "env_key": "GEMINI_API_KEY"
+    },
+    {
+      "slot_name": "openai_lightweight",
+      "provider": "OPENAI",
+      "model_id": "gpt-4o-mini",
+      "role": "Lightweight Proprietary Reasoning",
+      "context_window": 128000,
+      "input_cost_per_m_usd": 0.15,
+      "output_cost_per_m_usd": 0.60,
+      "default_temperature": 0.1,
+      "env_key": "OPENAI_API_KEY"
+    },
+    {
+      "slot_name": "openai_reasoning",
+      "provider": "OPENAI",
+      "model_id": "gpt-4o",
+      "role": "Strong Multi-Modal Reasoning",
+      "context_window": 128000,
+      "input_cost_per_m_usd": 2.50,
+      "output_cost_per_m_usd": 10.00,
+      "default_temperature": 0.1,
+      "env_key": "OPENAI_API_KEY"
+    }
+  ]
+}

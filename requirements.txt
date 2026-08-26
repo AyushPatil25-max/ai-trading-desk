@@ -1,0 +1,9 @@
+pandas
+numpy
+yfinance
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv
+groq

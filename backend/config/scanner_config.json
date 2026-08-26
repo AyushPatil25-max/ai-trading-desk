@@ -1,0 +1,24 @@
+{
+  "scanner": {
+    "top_k": 5,
+    "min_opportunity_score": 50.0,
+    "min_data_quality_score": 40.0,
+    "max_candidates_per_sector": 2,
+    "min_price": 10.0,
+    "max_price": 100000.0,
+    "min_historical_bars": 20,
+    "require_positive_price": true,
+    "weights": {
+      "technical": 0.20,
+      "momentum": 0.15,
+      "quant": 0.10,
+      "fundamental": 0.20,
+      "valuation": 0.15,
+      "sector": 0.05,
+      "macro": 0.05,
+      "news": 0.05,
+      "institutional": 0.05
+    },
+    "data_quality_penalty_weight": 0.30
+  }
+}

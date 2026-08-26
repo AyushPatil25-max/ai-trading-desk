@@ -1,0 +1,17 @@
+{
+    "simulation": {
+        "simulation_id": "sim-default",
+        "initial_cash": 100000.0,
+        "start_date": "2024-01-01T00:00:00",
+        "end_date": "2024-12-31T23:59:59",
+        "symbols": ["TCS.NS", "INFY.NS", "RELIANCE.NS"],
+        "timeframe": "1D",
+        "commission_rate": 0.0003,
+        "slippage_rate": 0.0005,
+        "transaction_fee_flat": 0.0,
+        "max_positions": 5,
+        "benchmark_symbol": "^NSEI",
+        "execution_mode": "PAPER_HISTORICAL",
+        "random_seed": 42
+    }
+}
