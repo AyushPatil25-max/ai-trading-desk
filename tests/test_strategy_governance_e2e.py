@@ -15,6 +15,23 @@ Comprehensive test suite verifying:
 
 import math
 import unittest
+import pytest
+
+@pytest.fixture(autouse=True)
+def reset_governance_state():
+    from backend.application.strategy_governance_engine import global_strategy_governance_engine
+    from backend.application.persistent_state_store import global_persistent_state_store
+    
+    global_persistent_state_store._current_state = {}
+    global_persistent_state_store._current_revision = 0
+    
+    global_strategy_governance_engine._strategies.clear()
+    global_strategy_governance_engine._champion_id = None
+    global_strategy_governance_engine._decisions.clear()
+    global_strategy_governance_engine._rollback_history.clear()
+    global_strategy_governance_engine._comparison_history.clear()
+    yield
+
 from datetime import datetime, timezone
 from typing import Any, Dict
 from fastapi.testclient import TestClient
@@ -554,3 +571,4 @@ class TestStrategyGovernanceAdversarialAndEdgeCases(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
