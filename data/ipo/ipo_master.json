@@ -332,7 +332,7 @@
     "total_subscription": null,
     "subscription_timestamp": null,
     "gmp": 25.0,
-    "gmp_timestamp": "2026-09-03T06:39:42.969499Z",
+    "gmp_timestamp": "2026-09-03T09:24:28.555045Z",
     "gmp_source": "Market",
     "gmp_is_official": false,
     "gmp_history": [
@@ -340,7 +340,7 @@
         "ipo_id": "IPO_GMP1",
         "gmp_value": 25.0,
         "source": "Market",
-        "observed_at": "2026-09-03T06:39:42.969499Z",
+        "observed_at": "2026-09-03T09:24:28.555045Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -416,7 +416,7 @@
     "total_subscription": null,
     "subscription_timestamp": null,
     "gmp": 10.0,
-    "gmp_timestamp": "2026-09-03T06:39:42.981949Z",
+    "gmp_timestamp": "2026-09-03T09:24:28.570296Z",
     "gmp_source": "Market X",
     "gmp_is_official": false,
     "gmp_history": [
@@ -424,7 +424,7 @@
         "ipo_id": "IPO_ZERO",
         "gmp_value": 10.0,
         "source": "Market X",
-        "observed_at": "2026-09-03T06:39:42.981949Z",
+        "observed_at": "2026-09-03T09:24:28.570296Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -500,7 +500,7 @@
     "total_subscription": null,
     "subscription_timestamp": null,
     "gmp": 15.0,
-    "gmp_timestamp": "2026-09-03T06:39:42.995834Z",
+    "gmp_timestamp": "2026-09-03T09:24:28.588214Z",
     "gmp_source": "A",
     "gmp_is_official": false,
     "gmp_history": [
@@ -508,7 +508,7 @@
         "ipo_id": "IPO_TREND",
         "gmp_value": 10.0,
         "source": "A",
-        "observed_at": "2026-09-03T06:39:42.993927Z",
+        "observed_at": "2026-09-03T09:24:28.586044Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       },
@@ -516,7 +516,7 @@
         "ipo_id": "IPO_TREND",
         "gmp_value": 15.0,
         "source": "A",
-        "observed_at": "2026-09-03T06:39:42.995834Z",
+        "observed_at": "2026-09-03T09:24:28.588214Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -665,9 +665,9 @@
     "retail_subscription": null,
     "employee_subscription": null,
     "total_subscription": 100.0,
-    "subscription_timestamp": "2026-09-03T06:39:43.022598Z",
+    "subscription_timestamp": "2026-09-03T09:24:28.619438Z",
     "gmp": 200.0,
-    "gmp_timestamp": "2026-09-03T06:39:43.020917Z",
+    "gmp_timestamp": "2026-09-03T09:24:28.617343Z",
     "gmp_source": "Market",
     "gmp_is_official": false,
     "gmp_history": [
@@ -675,7 +675,7 @@
         "ipo_id": "IPO_OFS",
         "gmp_value": 200.0,
         "source": "Market",
-        "observed_at": "2026-09-03T06:39:43.020917Z",
+        "observed_at": "2026-09-03T09:24:28.617343Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -686,7 +686,7 @@
         "observation_date": "2026-09-03",
         "total": 100.0,
         "source": "Ex",
-        "observed_at": "2026-09-03T06:39:43.022598Z"
+        "observed_at": "2026-09-03T09:24:28.619438Z"
       }
     ],
     "estimated_listing_price": 400.0,
@@ -757,9 +757,9 @@
     "retail_subscription": null,
     "employee_subscription": null,
     "total_subscription": 50.0,
-    "subscription_timestamp": "2026-09-03T06:39:43.038906Z",
+    "subscription_timestamp": "2026-09-03T09:24:28.636163Z",
     "gmp": 100.0,
-    "gmp_timestamp": "2026-09-03T06:39:43.036769Z",
+    "gmp_timestamp": "2026-09-03T09:24:28.634153Z",
     "gmp_source": "Market",
     "gmp_is_official": false,
     "gmp_history": [
@@ -767,7 +767,7 @@
         "ipo_id": "IPO_STRONG",
         "gmp_value": 100.0,
         "source": "Market",
-        "observed_at": "2026-09-03T06:39:43.036769Z",
+        "observed_at": "2026-09-03T09:24:28.634153Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -778,7 +778,7 @@
         "observation_date": "2026-09-03",
         "total": 50.0,
         "source": "Ex",
-        "observed_at": "2026-09-03T06:39:43.038906Z"
+        "observed_at": "2026-09-03T09:24:28.636163Z"
       }
     ],
     "estimated_listing_price": 200.0,
@@ -1299,9 +1299,9 @@
     "retail_subscription": 5.5,
     "employee_subscription": null,
     "total_subscription": 3.8,
-    "subscription_timestamp": "2026-09-03T12:09:43.269279",
+    "subscription_timestamp": "2026-09-03T14:54:28.892459",
     "gmp": 15.0,
-    "gmp_timestamp": "2026-09-03T12:09:43.269279",
+    "gmp_timestamp": "2026-09-03T14:54:28.892459",
     "gmp_source": "Market GMP",
     "gmp_is_official": false,
     "gmp_history": [],
@@ -1343,7 +1343,7 @@
       "SEBI",
       "NSE"
     ],
-    "last_updated": "2026-09-03T12:09:43.269279",
+    "last_updated": "2026-09-03T14:54:28.892459",
     "data_quality": "FRESH"
   },
   {
@@ -1377,9 +1377,9 @@
     "retail_subscription": 1.2,
     "employee_subscription": null,
     "total_subscription": 0.9,
-    "subscription_timestamp": "2026-09-03T12:09:43.269279",
+    "subscription_timestamp": "2026-09-03T14:54:28.892459",
     "gmp": -5.0,
-    "gmp_timestamp": "2026-09-03T12:09:43.269279",
+    "gmp_timestamp": "2026-09-03T14:54:28.892459",
     "gmp_source": "Market GMP",
     "gmp_is_official": false,
     "gmp_history": [],
@@ -1421,7 +1421,7 @@
       "SEBI",
       "BSE"
     ],
-    "last_updated": "2026-09-03T12:09:43.269279",
+    "last_updated": "2026-09-03T14:54:28.892459",
     "data_quality": "FRESH"
   },
   {
@@ -1457,7 +1457,7 @@
     "total_subscription": null,
     "subscription_timestamp": null,
     "gmp": 40.0,
-    "gmp_timestamp": "2026-09-03T12:09:43.269279",
+    "gmp_timestamp": "2026-09-03T14:54:28.892459",
     "gmp_source": "Market GMP",
     "gmp_is_official": false,
     "gmp_history": [],
@@ -1499,7 +1499,7 @@
       "SEBI",
       "NSE"
     ],
-    "last_updated": "2026-09-03T12:09:43.269279",
+    "last_updated": "2026-09-03T14:54:28.892459",
     "data_quality": "FRESH"
   },
   {
@@ -1576,7 +1576,7 @@
     "data_sources": [
       "SEBI"
     ],
-    "last_updated": "2026-09-03T12:09:43.269279",
+    "last_updated": "2026-09-03T14:54:28.892459",
     "data_quality": "FRESH"
   },
   {
@@ -1653,7 +1653,7 @@
     "data_sources": [
       "SEBI"
     ],
-    "last_updated": "2026-09-03T12:09:43.269279",
+    "last_updated": "2026-09-03T14:54:28.892459",
     "data_quality": "FRESH"
   },
   {
@@ -1687,9 +1687,9 @@
     "retail_subscription": 15.0,
     "employee_subscription": null,
     "total_subscription": 42.5,
-    "subscription_timestamp": "2026-09-03T12:09:43.269279",
+    "subscription_timestamp": "2026-09-03T14:54:28.892459",
     "gmp": 80.0,
-    "gmp_timestamp": "2026-09-03T12:09:43.269279",
+    "gmp_timestamp": "2026-09-03T14:54:28.892459",
     "gmp_source": "Market GMP",
     "gmp_is_official": false,
     "gmp_history": [],
@@ -1731,7 +1731,7 @@
       "SEBI",
       "NSE"
     ],
-    "last_updated": "2026-09-03T12:09:43.269279",
+    "last_updated": "2026-09-03T14:54:28.892459",
     "data_quality": "FRESH"
   },
   {
@@ -1809,7 +1809,7 @@
       "SEBI",
       "BSE"
     ],
-    "last_updated": "2026-09-03T12:09:43.269279",
+    "last_updated": "2026-09-03T14:54:28.892459",
     "data_quality": "FRESH"
   },
   {
