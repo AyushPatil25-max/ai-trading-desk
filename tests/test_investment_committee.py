@@ -1,5 +1,5 @@
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 from unittest.mock import MagicMock
 
@@ -11,7 +11,7 @@ from backend.investment_committee.committee_agent import InvestmentCommitteeAgen
 
 class TestInvestmentCommittee(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
-        self.ctx = MarketContext(context_id="test-ic-123", symbol="AAPL", data_timestamp=datetime.utcnow(), current_price=150.0, provider="mock")
+        self.ctx = MarketContext(context_id="test-ic-123", symbol="AAPL", data_timestamp=datetime.now(timezone.utc), current_price=150.0, provider="mock")
         
         # Base evidence
         self.evidence = UnifiedEvidencePackage(

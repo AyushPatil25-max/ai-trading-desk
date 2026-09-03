@@ -12,7 +12,7 @@ class TestEvidenceAggregator(unittest.TestCase):
     def setUp(self):
         from backend.domain.schemas import ProviderType
         self.aggregator = EvidenceAggregator()
-        self.now = datetime.utcnow()
+        self.now = datetime.now(timezone.utc)
         self.ctx = MarketContext(
             context_id="ctx-123",
             symbol="RELIANCE.NS",

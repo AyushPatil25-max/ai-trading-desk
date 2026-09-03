@@ -1,7 +1,8 @@
-# Execution Architecture — Phase 5.1
+# Execution Architecture — Complete Evolution (Phases 1–42)
 
-> **CRITICAL NOTICE: PAPER TRADING ONLY — NO LIVE BROKER CONNECTION**  
-> This phase establishes safety boundaries, deterministic risk validation, simulated order execution, and portfolio tracking. No real money or live broker APIs (Zerodha, Upstox, Angel One, Fyers, Dhan, etc.) are connected.
+> **PRODUCTION ACTIVATION STATE (PHASE 42 COMPLETE):**  
+> The Trading OS includes both hardened Paper Trading simulation and strictly gated, controlled Live Broker execution (Dhan v2 API).  
+> **Safety Invariants:** Live execution is disabled by default (`LIVE_EXECUTION_ENABLED=False`). All live orders require deterministic human operator authorization (`OperatorAuthorizationToken`), multi-stage gating (`LiveExecutionGate`), hard first-trade limits (Qty=1, MaxValue=₹5,000, CNC Equity only, Max 1/day), and complete audit logging. AI is strictly advisory with zero live execution authority.
 
 ---
 

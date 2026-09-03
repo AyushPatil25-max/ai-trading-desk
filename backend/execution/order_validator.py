@@ -5,7 +5,7 @@ Pure-Python deterministic validation engine for trade orders against risk limits
 portfolio state, data freshness, and Investment Committee decisions.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 import os
 from typing import List, Optional
@@ -151,8 +151,11 @@ class OrderValidator:
                 checks_passed.append("Market data quality")
 
             # Staleness check
-            reference_time = order.created_at or datetime.utcnow()
-            context_age = (reference_time - market_context.data_timestamp).total_seconds()
+            ref = order.created_at or datetime.now(timezone.utc)
+            norm_ref = ref.replace(tzinfo=timezone.utc) if not ref.tzinfo else ref
+            data_ts = market_context.data_timestamp
+            norm_data_ts = data_ts.replace(tzinfo=timezone.utc) if not data_ts.tzinfo else data_ts
+            context_age = (norm_ref - norm_data_ts).total_seconds()
             if context_age > self.risk_limits.maximum_context_age_seconds:
                 rejection_reasons.append(RejectionReason.STALE_DATA)
                 rejection_details.append(
@@ -264,5 +267,5 @@ class OrderValidator:
             rejection_details=rejection_details,
             checks_passed=checks_passed,
             checks_failed=checks_failed,
-            validated_at=datetime.utcnow(),
+            validated_at=datetime.now(timezone.utc),
         )

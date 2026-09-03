@@ -143,6 +143,7 @@ class FundamentalSpecialist(BaseAgent):
             fundamental_data=fundamental_data,
             current_price=ctx.current_price,
             data_timestamp=ctx.data_timestamp,
+            quarterly_fundamentals=getattr(ctx, "quarterly_fundamentals", None),
         )
         freshness_status, age_days = assess_data_freshness(
             data=fundamental_data,

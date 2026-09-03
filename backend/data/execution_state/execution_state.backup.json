@@ -1,0 +1,5228 @@
+{
+  "checksum": "aa9a05262ceb2f6c5946e907dc3ec27f0cf8c5a797168051d1e3b75189bc3403",
+  "data": {
+    "exec_exec-rec-01bb74629746": {
+      "audit_correlation_id": "corr-e437f585",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:22.217699Z",
+      "decision_fingerprint": "9168748b1d33143a2c5d8e12b83976b896e55bee4e3dc2e57987472f5291c3fc",
+      "decision_id": "dec-unreg",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-01bb74629746",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Strategy 'unregistered_strat' not found in registry.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "unregistered_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.217699Z"
+    },
+    "exec_exec-rec-02ef618e61f3": {
+      "audit_correlation_id": "corr-6355f481",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:01.973910Z",
+      "decision_fingerprint": "8ba4ac29044f6b8ab9e3def8e3531a9b54cfd9af739afb5722c2089066dcbb28",
+      "decision_id": "dec-dryrun-3771ae",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-02ef618e61f3",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:01.973910Z"
+    },
+    "exec_exec-rec-054725391bde": {
+      "audit_correlation_id": "corr-e2933912",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.698399Z",
+      "decision_fingerprint": "23253b7f12a02b54e1d442fd0d0320f008a96cfa33d2b4d3ee01400320d03284",
+      "decision_id": "dec-adv-ks",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-054725391bde",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.698399Z"
+    },
+    "exec_exec-rec-07783273b711": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T10:46:04.199646Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-07783273b711",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=6.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:46:04.199646Z"
+    },
+    "exec_exec-rec-0835906237f5": {
+      "audit_correlation_id": "corr-fd7ac716",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.842372Z",
+      "decision_fingerprint": "033b5c6d6c267c800711d5324f9375a4ed5bff13acbc8bfb128ccd2b0fbf463c",
+      "decision_id": "dec-live-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-0835906237f5",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.842372+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.842372+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.842372+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:00:31.842372+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "live_test_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.842372Z"
+    },
+    "exec_exec-rec-0a96877488a6": {
+      "audit_correlation_id": "corr-3567691d",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-c173c229",
+      "created_at": "2026-09-02T10:48:57.196908Z",
+      "decision_fingerprint": "d1b82efa884d5287a2cdc421f13699e545f27f3d6785bff94fd9cd3a5bbb4e34",
+      "decision_id": "dec-tel-p-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-0a96877488a6",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.196908+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.196908+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.196908+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.196908+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.196908+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.196908+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T10:48:57.196908Z"
+    },
+    "exec_exec-rec-0ac81807dfc5": {
+      "audit_correlation_id": "corr-1d3f5da2",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-46b40af1",
+      "created_at": "2026-09-02T20:00:32.878639Z",
+      "decision_fingerprint": "d1b82efa884d5287a2cdc421f13699e545f27f3d6785bff94fd9cd3a5bbb4e34",
+      "decision_id": "dec-tel-p-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-0ac81807dfc5",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.878639+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.878639+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.878639+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.878639+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.878639+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.878639+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:32.878639Z"
+    },
+    "exec_exec-rec-0aec1a21fecc": {
+      "audit_correlation_id": "corr-5a2dfe9e",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.864506Z",
+      "decision_fingerprint": "54aac750dfc6088bc11fda68504be1d47b565028e6dd107dac5d3470a371c996",
+      "decision_id": "dec-live-02",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-0aec1a21fecc",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.864506+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.864506+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.864506+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:00:31.864506+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "live_test_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.864506Z"
+    },
+    "exec_exec-rec-0db9651ef487": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-fc80d2bc",
+      "created_at": "2026-09-02T20:00:44.332273Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-0db9651ef487",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.332273+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.332273+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.332273+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.332273+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.332273+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.332273+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:00:44.332273Z"
+    },
+    "exec_exec-rec-0f4c0170b094": {
+      "audit_correlation_id": "corr-015de596",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:02.118544Z",
+      "decision_fingerprint": "155dfad71f39a982feef40fb18e129d15f59f5a41115936d47bf54f138eb686e",
+      "decision_id": "dec-dryrun-ae4b88",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-0f4c0170b094",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.118544Z"
+    },
+    "exec_exec-rec-0fc690a48e56": {
+      "audit_correlation_id": "corr-01874ac1",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-600dbe7c",
+      "created_at": "2026-09-02T20:01:21.966800Z",
+      "decision_fingerprint": "b4fdc00a4092a4d99272437293daa57c4a42facca9324bac9a070f110a407cd1",
+      "decision_id": "dec-idem-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-0fc690a48e56",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.966800+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.966800+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.966800+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.966800+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.966800+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.966800+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "idem_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.966800Z"
+    },
+    "exec_exec-rec-101e645de293": {
+      "audit_correlation_id": "corr-75fdd919",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.636907Z",
+      "decision_fingerprint": "48ded69b4fbd1185ba7c5de781711527a5ec028d30b71052995513bfc1731a3c",
+      "decision_id": "dec-adv-fake-live",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-101e645de293",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.636907+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.636907+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.636907+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:00:31.636907+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.636907Z"
+    },
+    "exec_exec-rec-11ca05a5beba": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-0f43fa09",
+      "created_at": "2026-09-02T10:40:32.725051Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-11ca05a5beba",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:32.725051+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:32.725051+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:32.725051+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:32.725051+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:32.725051+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:32.725051+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:40:32.725051Z"
+    },
+    "exec_exec-rec-17d589b3ea95": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-befe9881",
+      "created_at": "2026-09-02T10:59:57.971972Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-17d589b3ea95",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:57.971972+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:57.971972+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:57.971972+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:57.971972+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:57.971972+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:57.971972+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:59:57.971972Z"
+    },
+    "exec_exec-rec-242484545a3f": {
+      "audit_correlation_id": "corr-86e8e084",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:22.192458Z",
+      "decision_fingerprint": "6a898994a19c6d5cd76d54b3441a0696921c9f5bbdb77c0ffcdb21556cd71191",
+      "decision_id": "dec-rejected",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-242484545a3f",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.192458Z"
+    },
+    "exec_exec-rec-279667e5bd8c": {
+      "audit_correlation_id": "exec-corr-da1ecd59",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-26a06b96",
+      "created_at": "2026-09-02T11:02:12.995193Z",
+      "decision_fingerprint": "e8ed5381e88cb9c2279be8ed6782f3b092863266c41228d5911ec884d9c63bdf",
+      "decision_id": "exec-dec-2d549aa0fc54",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-279667e5bd8c",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:12.995193+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:12.995193+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:12.995193+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:12.995193+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:12.995193+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:12.995193+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T11:02:12.995193Z"
+    },
+    "exec_exec-rec-2a4146b8db3e": {
+      "audit_correlation_id": "corr-b9810db7",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:31.495045Z",
+      "decision_fingerprint": "9747e3f735c0addc1fef4d4afd77162f52a9b99122e814e112285071433b1dfa",
+      "decision_id": "dec-dryrun-9e41a9",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-2a4146b8db3e",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T20:01:31.495045Z"
+    },
+    "exec_exec-rec-2c32c657f3d2": {
+      "audit_correlation_id": "corr-f29b2529",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.914470Z",
+      "decision_fingerprint": "1db22b8d6e6270242e155c149e69ad610bdec0c73b3783ade597350230129dcb",
+      "decision_id": "dec-ctrl-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-2c32c657f3d2",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ctrl_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.914470Z"
+    },
+    "exec_exec-rec-2efde4f8ab8e": {
+      "audit_correlation_id": "corr-8c1e25f4",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-6fea26c3",
+      "created_at": "2026-09-02T20:01:21.763231Z",
+      "decision_fingerprint": "64ebfbac7a620b4a307a7d760d91d53d834b70977c66f1e07ff0b2c4d95d7b62",
+      "decision_id": "dec-adv-secret",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-2efde4f8ab8e",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.763231+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.763231+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.763231+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.763231+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.763231+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.763231+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.763231Z"
+    },
+    "exec_exec-rec-35f08d38ab7a": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-5487f4bb",
+      "created_at": "2026-09-02T10:46:04.187343Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-35f08d38ab7a",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:46:04.187343+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:46:04.187343+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:46:04.187343+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:46:04.187343+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:46:04.187343+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:46:04.187343+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:46:04.187343Z"
+    },
+    "exec_exec-rec-3fd0bf99da0d": {
+      "audit_correlation_id": "corr-b0020f4f",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:02.071961Z",
+      "decision_fingerprint": "4136bbaa25e1794969745affdc271c3b8a0154db41c22070adf74c6dbd2efa8c",
+      "decision_id": "dec-dryrun-bdeeed",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-3fd0bf99da0d",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.071961Z"
+    },
+    "exec_exec-rec-4465b87af1f8": {
+      "audit_correlation_id": "corr-961f4ae0",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:02.141868Z",
+      "decision_fingerprint": "b9acac9cc7eaa733dfcd0cb6aa535a20ae9f3cfa805f72f25854c8eeec1cf649",
+      "decision_id": "dec-dryrun-b8a64f",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-4465b87af1f8",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.141868+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.141868+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.141868+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+          "timestamp": "2026-09-02T11:28:02.141868+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.141868Z"
+    },
+    "exec_exec-rec-47737b51b17c": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-41de63a7",
+      "created_at": "2026-09-02T10:40:56.634628Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-47737b51b17c",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:56.634628+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:56.634628+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:56.634628+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:56.634628+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:56.634628+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:40:56.634628+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:40:56.634628Z"
+    },
+    "exec_exec-rec-4f0d29748c18": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:44.356356Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-4f0d29748c18",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=6.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:00:44.356356Z"
+    },
+    "exec_exec-rec-519817ef3705": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T10:59:57.985093Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-519817ef3705",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=6.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:59:57.985093Z"
+    },
+    "exec_exec-rec-528f05b5357d": {
+      "audit_correlation_id": "corr-06f30fef",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.993807Z",
+      "decision_fingerprint": "033b5c6d6c267c800711d5324f9375a4ed5bff13acbc8bfb128ccd2b0fbf463c",
+      "decision_id": "dec-live-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-528f05b5357d",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.993807+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.993807+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.993807+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:01:21.993807+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "live_test_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.993807Z"
+    },
+    "exec_exec-rec-537e79dabba9": {
+      "audit_correlation_id": "corr-e84f5d5b",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:31.549686Z",
+      "decision_fingerprint": "e7b5e64154f3eba32ba38c9d6e01a5576e18f416c33794ef01daeb384d5ff7c6",
+      "decision_id": "dec-dryrun-ef3f99",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-537e79dabba9",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T20:01:31.549686Z"
+    },
+    "exec_exec-rec-56f7642e9e8b": {
+      "audit_correlation_id": "corr-6375e220",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.940563Z",
+      "decision_fingerprint": "1db22b8d6e6270242e155c149e69ad610bdec0c73b3783ade597350230129dcb",
+      "decision_id": "dec-ctrl-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-56f7642e9e8b",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution PAUSED: Maintenance",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ctrl_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.940563Z"
+    },
+    "exec_exec-rec-578fd1ccbc5a": {
+      "audit_correlation_id": "corr-f39ca3c1",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:02.047869Z",
+      "decision_fingerprint": "70650f0ccf4455aba0b6c7f36885a6b6c3e2647e5ca36efb125c5518a6032cd0",
+      "decision_id": "dec-dryrun-d39bfc",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-578fd1ccbc5a",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.047869+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.047869+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.047869+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+          "timestamp": "2026-09-02T11:28:02.047869+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.047869Z"
+    },
+    "exec_exec-rec-5829fb77ec96": {
+      "audit_correlation_id": "corr-d0b0555d",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:02:20.370823Z",
+      "decision_fingerprint": "5e95b8d9275ae4b7d7190700a1e5ac972c174dead2000dcf3298bd7e2903ea4d",
+      "decision_id": "dec-tel-l-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-5829fb77ec96",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.370823+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.370823+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.370823+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+          "timestamp": "2026-09-02T11:02:20.370823+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T11:02:20.370823Z"
+    },
+    "exec_exec-rec-5e58bbcbd8e5": {
+      "audit_correlation_id": "corr-e3dcba24",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-cc915b58",
+      "created_at": "2026-09-02T20:00:31.885783Z",
+      "decision_fingerprint": "092c881f3e13395cd54faaa92b5659aa9d97052208c2a77441c6b15d3e8821b8",
+      "decision_id": "dec-paper-01",
+      "direction": "BUY",
+      "estimated_value": 45000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-5e58bbcbd8e5",
+      "execution_mode": "PAPER",
+      "filled_quantity": 30.0,
+      "quantity": 30.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.885783+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.885783+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.885783+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.885783+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.885783+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.885783+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "paper_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:00:31.885783Z"
+    },
+    "exec_exec-rec-657060bbe701": {
+      "audit_correlation_id": "corr-eec892cd",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:02.023945Z",
+      "decision_fingerprint": "936ce74586850508f1470d7766f718fb98d9cc0bccccf0ce511e72578e64d51a",
+      "decision_id": "dec-dryrun-b4b7ad",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-657060bbe701",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.023945Z"
+    },
+    "exec_exec-rec-66c57c258b84": {
+      "audit_correlation_id": "corr-19289c5b",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:43.692506Z",
+      "decision_fingerprint": "149db222f3f356857bce723577ececbafc77d422a8b5993bbf30f294f0fa7c03",
+      "decision_id": "dec-dryrun-300d9c",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-66c57c258b84",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T20:00:43.692506Z"
+    },
+    "exec_exec-rec-66c700407559": {
+      "audit_correlation_id": "exec-corr-1bb80365",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-4f526de1",
+      "created_at": "2026-09-02T20:00:44.140382Z",
+      "decision_fingerprint": "68e9b0ff56b12ee3918a655d8a3487abe744f0c6a909624a78047b0ebab4f9a7",
+      "decision_id": "exec-dec-955cf20914c9",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-66c700407559",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.140382+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.140382+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.140382+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.140382+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.140382+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:44.140382+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:00:44.140382Z"
+    },
+    "exec_exec-rec-6b792ccb1e4b": {
+      "audit_correlation_id": "corr-65088966",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.776681Z",
+      "decision_fingerprint": "1db22b8d6e6270242e155c149e69ad610bdec0c73b3783ade597350230129dcb",
+      "decision_id": "dec-ctrl-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-6b792ccb1e4b",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ctrl_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.776681Z"
+    },
+    "exec_exec-rec-71a0926a0ab7": {
+      "audit_correlation_id": "corr-79daf14d",
+      "average_fill_price": 2500.0,
+      "broker_order_id": "pord-4ff6e35a",
+      "created_at": "2026-09-02T11:28:02.000745Z",
+      "decision_fingerprint": "72c082a6c0e7c9154b4808677a77fc18e857a74ee6272c805570c277bb970957",
+      "decision_id": "dec-dryrun-9093a6",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-71a0926a0ab7",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.000745+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.000745+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.000745+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.000745+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.000745+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.000745+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.000745Z"
+    },
+    "exec_exec-rec-76053f2f3e11": {
+      "audit_correlation_id": "corr-18f097a4",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.788272Z",
+      "decision_fingerprint": "48ded69b4fbd1185ba7c5de781711527a5ec028d30b71052995513bfc1731a3c",
+      "decision_id": "dec-adv-fake-live",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-76053f2f3e11",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.788272+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.788272+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:21.788272+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:01:21.788272+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.788272Z"
+    },
+    "exec_exec-rec-7924496674e5": {
+      "audit_correlation_id": "exec-corr-2395ec40",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-9c23f0eb",
+      "created_at": "2026-09-02T20:01:32.007352Z",
+      "decision_fingerprint": "1a854455f4254ab2e1e2acec850f8fcd8282134c59b3e168cb9d7d0a0a3cbe5e",
+      "decision_id": "exec-dec-7dfead6678be",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-7924496674e5",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.007352+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.007352+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.007352+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.007352+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.007352+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.007352+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:01:32.007352Z"
+    },
+    "exec_exec-rec-799bcb52accc": {
+      "audit_correlation_id": "corr-205301a3",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.933376Z",
+      "decision_fingerprint": "fp-recon-01",
+      "decision_id": "dec-recon-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-799bcb52accc",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": "RECONCILED",
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "INITIAL_SUBMISSION",
+      "state": "SUBMITTED",
+      "state_history": [
+        {
+          "from_state": "RECONCILIATION_REQUIRED",
+          "reason": "Reconciliation complete.",
+          "timestamp": "2026-09-02T20:00:31.933386+00:00",
+          "to_state": "SUBMITTED"
+        }
+      ],
+      "strategy_id": "recov_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.933386Z"
+    },
+    "exec_exec-rec-79d83fffeffc": {
+      "audit_correlation_id": "corr-3a883eca",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:02.166663Z",
+      "decision_fingerprint": "2dfc06b440d7abc47e763ea1d395f67e8d6f6867975caad8813f6fbcdade6f8a",
+      "decision_id": "dec-dryrun-fe317b",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-79d83fffeffc",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.166663Z"
+    },
+    "exec_exec-rec-7cc4bc502c5b": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-a117d219",
+      "created_at": "2026-09-02T11:02:13.128253Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-7cc4bc502c5b",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:13.128253+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:13.128253+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:13.128253+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:13.128253+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:13.128253+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:13.128253+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T11:02:13.128253Z"
+    },
+    "exec_exec-rec-7d13b953d43c": {
+      "audit_correlation_id": "corr-af708343",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-4c6879be",
+      "created_at": "2026-09-02T20:01:22.244414Z",
+      "decision_fingerprint": "63ffa0514f5bd4234d2ab6d4cea9671463471088e8e435929800fc8b9f53e137",
+      "decision_id": "dec-test-TCSNS",
+      "direction": "BUY",
+      "estimated_value": 70000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-7d13b953d43c",
+      "execution_mode": "PAPER",
+      "filled_quantity": 20.0,
+      "quantity": 20.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.244414+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.244414+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.244414+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.244414+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.244414+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.244414+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.244414Z"
+    },
+    "exec_exec-rec-84d0271a8c5c": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-28200fff",
+      "created_at": "2026-09-02T11:01:31.236290Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-84d0271a8c5c",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.236290+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.236290+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.236290+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.236290+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.236290+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.236290+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T11:01:31.236290Z"
+    },
+    "exec_exec-rec-862212d0bf99": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:32.256624Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-862212d0bf99",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=6.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:01:32.256624Z"
+    },
+    "exec_exec-rec-86f20dca1135": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-91d2fe27",
+      "created_at": "2026-09-02T20:01:32.227780Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-86f20dca1135",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.227780+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.227780+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.227780+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.227780+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.227780+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:32.227780+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:01:32.227780Z"
+    },
+    "exec_exec-rec-86f808e13758": {
+      "audit_correlation_id": "corr-f08f0ec1",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.984284Z",
+      "decision_fingerprint": "63ffa0514f5bd4234d2ab6d4cea9671463471088e8e435929800fc8b9f53e137",
+      "decision_id": "dec-test-TCSNS",
+      "direction": "BUY",
+      "estimated_value": 70000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-86f808e13758",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 20.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=600.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.984284Z"
+    },
+    "exec_exec-rec-870a3564f10d": {
+      "audit_correlation_id": "corr-c385a7c1",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.726420Z",
+      "decision_fingerprint": "893b8f4d1aa7ddfb18995e7b8065f35f585fcac24e330c4fcf72a15f8aff5550",
+      "decision_id": "dec-ai-unauth",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-870a3564f10d",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ai_boundary_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.726420Z"
+    },
+    "exec_exec-rec-8f65b33ead37": {
+      "audit_correlation_id": "corr-067a10e2",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-2a1d6a24",
+      "created_at": "2026-09-02T11:02:20.439941Z",
+      "decision_fingerprint": "d1b82efa884d5287a2cdc421f13699e545f27f3d6785bff94fd9cd3a5bbb4e34",
+      "decision_id": "dec-tel-p-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-8f65b33ead37",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.439941+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.439941+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.439941+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.439941+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.439941+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.439941+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T11:02:20.439941Z"
+    },
+    "exec_exec-rec-901b210a6e1e": {
+      "audit_correlation_id": "corr-097281dc",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.756647Z",
+      "decision_fingerprint": "1db22b8d6e6270242e155c149e69ad610bdec0c73b3783ade597350230129dcb",
+      "decision_id": "dec-ctrl-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-901b210a6e1e",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ctrl_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.756647Z"
+    },
+    "exec_exec-rec-91c1da98b316": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T10:40:56.648367Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-91c1da98b316",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=301.0s > 300s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:40:56.648367Z"
+    },
+    "exec_exec-rec-9308f9ad2f64": {
+      "audit_correlation_id": "corr-6ead61d2",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:02:20.316487Z",
+      "decision_fingerprint": "6a898994a19c6d5cd76d54b3441a0696921c9f5bbdb77c0ffcdb21556cd71191",
+      "decision_id": "dec-rejected",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-9308f9ad2f64",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T11:02:20.316487Z"
+    },
+    "exec_exec-rec-94bdc23931e1": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T10:41:25.201943Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-94bdc23931e1",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=301.0s > 300s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:41:25.201943Z"
+    },
+    "exec_exec-rec-950ab59122f7": {
+      "audit_correlation_id": "corr-61f5b412",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:02:20.334197Z",
+      "decision_fingerprint": "9168748b1d33143a2c5d8e12b83976b896e55bee4e3dc2e57987472f5291c3fc",
+      "decision_id": "dec-unreg",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-950ab59122f7",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Strategy 'unregistered_strat' not found in registry.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "unregistered_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T11:02:20.334197Z"
+    },
+    "exec_exec-rec-955f8f104b2a": {
+      "audit_correlation_id": "corr-19829536",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.890206Z",
+      "decision_fingerprint": "1db22b8d6e6270242e155c149e69ad610bdec0c73b3783ade597350230129dcb",
+      "decision_id": "dec-ctrl-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-955f8f104b2a",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ctrl_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.890206Z"
+    },
+    "exec_exec-rec-9869e37f03f6": {
+      "audit_correlation_id": "corr-4e6db1b0",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.864600Z",
+      "decision_fingerprint": "893b8f4d1aa7ddfb18995e7b8065f35f585fcac24e330c4fcf72a15f8aff5550",
+      "decision_id": "dec-ai-unauth",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-9869e37f03f6",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ai_boundary_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.864600Z"
+    },
+    "exec_exec-rec-989613fcdfac": {
+      "audit_correlation_id": "corr-4705111d",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T10:48:57.135628Z",
+      "decision_fingerprint": "5e95b8d9275ae4b7d7190700a1e5ac972c174dead2000dcf3298bd7e2903ea4d",
+      "decision_id": "dec-tel-l-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-989613fcdfac",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.135628+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.135628+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:48:57.135628+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+          "timestamp": "2026-09-02T10:48:57.135628+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T10:48:57.135628Z"
+    },
+    "exec_exec-rec-99861ee2d1e6": {
+      "audit_correlation_id": "corr-b214ed66",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-055411a4",
+      "created_at": "2026-09-02T20:01:22.045773Z",
+      "decision_fingerprint": "092c881f3e13395cd54faaa92b5659aa9d97052208c2a77441c6b15d3e8821b8",
+      "decision_id": "dec-paper-01",
+      "direction": "BUY",
+      "estimated_value": 45000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-99861ee2d1e6",
+      "execution_mode": "PAPER",
+      "filled_quantity": 30.0,
+      "quantity": 30.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.045773+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.045773+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.045773+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.045773+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.045773+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.045773+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "paper_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T20:01:22.045773Z"
+    },
+    "exec_exec-rec-9b3be77651a6": {
+      "audit_correlation_id": "corr-45af4642",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:32.008142Z",
+      "decision_fingerprint": "6a898994a19c6d5cd76d54b3441a0696921c9f5bbdb77c0ffcdb21556cd71191",
+      "decision_id": "dec-rejected",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-9b3be77651a6",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:32.008142Z"
+    },
+    "exec_exec-rec-9f2c25ce25ef": {
+      "audit_correlation_id": "corr-ae2a3488",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:02:20.300358Z",
+      "decision_fingerprint": "63ffa0514f5bd4234d2ab6d4cea9671463471088e8e435929800fc8b9f53e137",
+      "decision_id": "dec-test-TCSNS",
+      "direction": "BUY",
+      "estimated_value": 70000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-9f2c25ce25ef",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 20.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=600.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T11:02:20.300358Z"
+    },
+    "exec_exec-rec-9ff716b5e2a4": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T10:40:32.735421Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-9ff716b5e2a4",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=301.0s > 300s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:40:32.735421Z"
+    },
+    "exec_exec-rec-a33a0d75037a": {
+      "audit_correlation_id": "corr-271be623",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.668971Z",
+      "decision_fingerprint": "d2063775372f8102724bc0d41dd4d0b720a62de029609962ffbc9c4806e333c9",
+      "decision_id": "dec-adv-ver",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-a33a0d75037a",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Strategy version mismatch: registered '1.0.0' != decision '2.0.0'.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "2.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.668971Z"
+    },
+    "exec_exec-rec-a4e313d65cf2": {
+      "audit_correlation_id": "corr-baaf38b6",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-709d664a",
+      "created_at": "2026-09-02T11:02:20.352793Z",
+      "decision_fingerprint": "63ffa0514f5bd4234d2ab6d4cea9671463471088e8e435929800fc8b9f53e137",
+      "decision_id": "dec-test-TCSNS",
+      "direction": "BUY",
+      "estimated_value": 70000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-a4e313d65cf2",
+      "execution_mode": "PAPER",
+      "filled_quantity": 20.0,
+      "quantity": 20.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.352793+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.352793+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.352793+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.352793+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.352793+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:02:20.352793+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T11:02:20.352793Z"
+    },
+    "exec_exec-rec-a57cf3ab326b": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T10:59:08.257017Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-a57cf3ab326b",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=6.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:59:08.257017Z"
+    },
+    "exec_exec-rec-b31540a9438c": {
+      "audit_correlation_id": "corr-ba8294ec",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.797734Z",
+      "decision_fingerprint": "1db22b8d6e6270242e155c149e69ad610bdec0c73b3783ade597350230129dcb",
+      "decision_id": "dec-ctrl-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-b31540a9438c",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution PAUSED: Maintenance",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "ctrl_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.797734Z"
+    },
+    "exec_exec-rec-b3fd559b8123": {
+      "audit_correlation_id": "exec-corr-6a28610f",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-eadd933d",
+      "created_at": "2026-09-02T11:01:31.101524Z",
+      "decision_fingerprint": "b27e8751929cce59d48e6da91812e54a21e1aef0fa35c277d5f3520b7044240a",
+      "decision_id": "exec-dec-c3fe29843e74",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-b3fd559b8123",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.101524+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.101524+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.101524+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.101524+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.101524+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:01:31.101524+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T11:01:31.101524Z"
+    },
+    "exec_exec-rec-b7c2d36819e1": {
+      "audit_correlation_id": "corr-1b6b2e6c",
+      "average_fill_price": 2500.0,
+      "broker_order_id": "pord-91192e7f",
+      "created_at": "2026-09-02T11:28:01.900647Z",
+      "decision_fingerprint": "fe5c50c045e60f3e4eeda9a44ade85022f998aa43bccbe21badc6680570e13bb",
+      "decision_id": "dec-dryrun-220416",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-b7c2d36819e1",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.900647+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.900647+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.900647+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.900647+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.900647+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.900647+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:01.900647Z"
+    },
+    "exec_exec-rec-bc7399c30b3a": {
+      "audit_correlation_id": "corr-1c49d504",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:31.910621Z",
+      "decision_fingerprint": "fp-cancel-01",
+      "decision_id": "dec-cancel-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-bc7399c30b3a",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "INITIAL_SUBMISSION",
+      "state": "CANCELLED",
+      "state_history": [
+        {
+          "from_state": "QUEUED",
+          "reason": "Operator cancelled",
+          "timestamp": "2026-09-02T20:00:31.910632+00:00",
+          "to_state": "CANCEL_PENDING"
+        },
+        {
+          "from_state": "CANCEL_PENDING",
+          "reason": "Operator cancelled",
+          "timestamp": "2026-09-02T20:00:31.910632+00:00",
+          "to_state": "CANCELLED"
+        }
+      ],
+      "strategy_id": "recov_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.910632Z"
+    },
+    "exec_exec-rec-bd90b84a55dc": {
+      "audit_correlation_id": "corr-2e101ca6",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:31.522354Z",
+      "decision_fingerprint": "3178c115741c25a4b3ed84d88ae9026a690395c630146531d873bbc27b1c1ee0",
+      "decision_id": "dec-dryrun-c37a49",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-bd90b84a55dc",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:31.522354+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:31.522354+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:31.522354+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:01:31.522354+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T20:01:31.522354Z"
+    },
+    "exec_exec-rec-be668d02921b": {
+      "audit_correlation_id": "corr-33401994",
+      "average_fill_price": 2500.0,
+      "broker_order_id": "pord-c1d9e653",
+      "created_at": "2026-09-02T11:28:02.095009Z",
+      "decision_fingerprint": "f88948a6f2fc4c46a871ba39e871ad8f7761ca692d3fbd9a88b0e943975da8fa",
+      "decision_id": "dec-dryrun-2b56f6",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-be668d02921b",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.095009+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.095009+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.095009+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.095009+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.095009+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:02.095009+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:02.095009Z"
+    },
+    "exec_exec-rec-be6dbfe13c4c": {
+      "audit_correlation_id": "corr-bf720864",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:43.740413Z",
+      "decision_fingerprint": "2214d4a1c6cccee1a77418c5a7810ccb6bc5483a99c3a273ea379e7a0143908e",
+      "decision_id": "dec-dryrun-c2023e",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-be6dbfe13c4c",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Decision is not authorized (status=REJECTED).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T20:00:43.740413Z"
+    },
+    "exec_exec-rec-c5facf4cba5a": {
+      "audit_correlation_id": "corr-34a28815",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:32.031962Z",
+      "decision_fingerprint": "9168748b1d33143a2c5d8e12b83976b896e55bee4e3dc2e57987472f5291c3fc",
+      "decision_id": "dec-unreg",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-c5facf4cba5a",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Strategy 'unregistered_strat' not found in registry.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "unregistered_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:32.031962Z"
+    },
+    "exec_exec-rec-c8538cad6268": {
+      "audit_correlation_id": "corr-89942fd5",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:22.071015Z",
+      "decision_fingerprint": "fp-cancel-01",
+      "decision_id": "dec-cancel-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-c8538cad6268",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "INITIAL_SUBMISSION",
+      "state": "CANCELLED",
+      "state_history": [
+        {
+          "from_state": "QUEUED",
+          "reason": "Operator cancelled",
+          "timestamp": "2026-09-02T20:01:22.071025+00:00",
+          "to_state": "CANCEL_PENDING"
+        },
+        {
+          "from_state": "CANCEL_PENDING",
+          "reason": "Operator cancelled",
+          "timestamp": "2026-09-02T20:01:22.071025+00:00",
+          "to_state": "CANCELLED"
+        }
+      ],
+      "strategy_id": "recov_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.071025Z"
+    },
+    "exec_exec-rec-ccc1c700a6b4": {
+      "audit_correlation_id": "corr-4b5c1821",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.838376Z",
+      "decision_fingerprint": "23253b7f12a02b54e1d442fd0d0320f008a96cfa33d2b4d3ee01400320d03284",
+      "decision_id": "dec-adv-ks",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-ccc1c700a6b4",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.838376Z"
+    },
+    "exec_exec-rec-cd8fac5e18ab": {
+      "audit_correlation_id": "corr-630e1ce1",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:22.098568Z",
+      "decision_fingerprint": "fp-recon-01",
+      "decision_id": "dec-recon-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-cd8fac5e18ab",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": "RECONCILED",
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "INITIAL_SUBMISSION",
+      "state": "SUBMITTED",
+      "state_history": [
+        {
+          "from_state": "RECONCILIATION_REQUIRED",
+          "reason": "Reconciliation complete.",
+          "timestamp": "2026-09-02T20:01:22.098579+00:00",
+          "to_state": "SUBMITTED"
+        }
+      ],
+      "strategy_id": "recov_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.098579Z"
+    },
+    "exec_exec-rec-d3fcae796c50": {
+      "audit_correlation_id": "corr-b90d0757",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:22.019417Z",
+      "decision_fingerprint": "54aac750dfc6088bc11fda68504be1d47b565028e6dd107dac5d3470a371c996",
+      "decision_id": "dec-live-02",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-d3fcae796c50",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.019417+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.019417+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.019417+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:01:22.019417+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "live_test_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.019417Z"
+    },
+    "exec_exec-rec-d4e18312e4fa": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-676db948",
+      "created_at": "2026-09-02T10:41:25.191760Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-d4e18312e4fa",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:41:25.191760+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:41:25.191760+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:41:25.191760+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:41:25.191760+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:41:25.191760+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:41:25.191760+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:41:25.191760Z"
+    },
+    "exec_exec-rec-de0d16760900": {
+      "audit_correlation_id": "corr-1d894fa6",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:22.765113Z",
+      "decision_fingerprint": "5e95b8d9275ae4b7d7190700a1e5ac972c174dead2000dcf3298bd7e2903ea4d",
+      "decision_id": "dec-tel-l-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-de0d16760900",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.765113+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.765113+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.765113+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:01:22.765113+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.765113Z"
+    },
+    "exec_exec-rec-df5df3daf6c3": {
+      "audit_correlation_id": "corr-bb3946d7",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:43.715668Z",
+      "decision_fingerprint": "c653f73f397ac41066bd501ebdab3478589041f665af9f9deacb1dbdd4e91646",
+      "decision_id": "dec-dryrun-350f6b",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-df5df3daf6c3",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:43.715668+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:43.715668+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:43.715668+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:00:43.715668+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T20:00:43.715668Z"
+    },
+    "exec_exec-rec-e1ab734b8967": {
+      "audit_correlation_id": "corr-46dd28e0",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:00:32.800902Z",
+      "decision_fingerprint": "5e95b8d9275ae4b7d7190700a1e5ac972c174dead2000dcf3298bd7e2903ea4d",
+      "decision_id": "dec-tel-l-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-e1ab734b8967",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.800902+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.800902+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.800902+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: Automated AI live execution is permanently blocked in Phase 42. Use ControlledLiveTradeOrchestrator with human operator token.",
+          "timestamp": "2026-09-02T20:00:32.800902+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:32.800902Z"
+    },
+    "exec_exec-rec-e1b309c1a865": {
+      "audit_correlation_id": "corr-623a6fdd",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-dc4bd983",
+      "created_at": "2026-09-02T20:01:22.845664Z",
+      "decision_fingerprint": "d1b82efa884d5287a2cdc421f13699e545f27f3d6785bff94fd9cd3a5bbb4e34",
+      "decision_id": "dec-tel-p-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-e1b309c1a865",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.845664+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.845664+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.845664+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.845664+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.845664+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:01:22.845664+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "tel_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.845664Z"
+    },
+    "exec_exec-rec-e7890c7e1061": {
+      "audit_correlation_id": "corr-8ab4779e",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-d0787fb6",
+      "created_at": "2026-09-02T20:00:31.607450Z",
+      "decision_fingerprint": "64ebfbac7a620b4a307a7d760d91d53d834b70977c66f1e07ff0b2c4d95d7b62",
+      "decision_id": "dec-adv-secret",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-e7890c7e1061",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.607450+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.607450+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.607450+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.607450+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.607450+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.607450+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.607450Z"
+    },
+    "exec_exec-rec-ea5482602c70": {
+      "audit_correlation_id": "corr-299f90db",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:01.923897Z",
+      "decision_fingerprint": "646fa38a5f52ea9973341438d138c59e3e1d108724307fd0a7501e64d6241af4",
+      "decision_id": "dec-dryrun-020c19",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-ea5482602c70",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution HALTED: Emergency Kill Switch is ACTIVE or control plane is HALTED.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:01.923897Z"
+    },
+    "exec_exec-rec-ef1022b52f4d": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:02:13.146649Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-ef1022b52f4d",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=6.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T11:02:13.146649Z"
+    },
+    "exec_exec-rec-f1605a34b987": {
+      "audit_correlation_id": "corr-5fe43d39",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-a66a0a3d",
+      "created_at": "2026-09-02T20:00:32.055301Z",
+      "decision_fingerprint": "63ffa0514f5bd4234d2ab6d4cea9671463471088e8e435929800fc8b9f53e137",
+      "decision_id": "dec-test-TCSNS",
+      "direction": "BUY",
+      "estimated_value": 70000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-f1605a34b987",
+      "execution_mode": "PAPER",
+      "filled_quantity": 20.0,
+      "quantity": 20.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.055301+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.055301+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.055301+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.055301+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.055301+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:32.055301+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:32.055301Z"
+    },
+    "exec_exec-rec-f337aa2ab4d0": {
+      "audit_correlation_id": "corr-cf997767",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:22.165642Z",
+      "decision_fingerprint": "63ffa0514f5bd4234d2ab6d4cea9671463471088e8e435929800fc8b9f53e137",
+      "decision_id": "dec-test-TCSNS",
+      "direction": "BUY",
+      "estimated_value": 70000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-f337aa2ab4d0",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 20.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=600.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "orch_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:22.165642Z"
+    },
+    "exec_exec-rec-fac9432bd39f": {
+      "audit_correlation_id": "corr-152d492c",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:28:01.949213Z",
+      "decision_fingerprint": "df4d4d9d36f5fc46a6b04ef0a7df88024077801f7bd23f873f45e34fd41f9e8a",
+      "decision_id": "dec-dryrun-19ae48",
+      "direction": "BUY",
+      "estimated_value": 25000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-fac9432bd39f",
+      "execution_mode": "LIVE",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+      "retry_count": 0,
+      "stage": "BROKER_DISPATCH",
+      "state": "REJECTED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.949213+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.949213+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T11:28:01.949213+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": "Live execution rejected: LIVE_EXECUTION_ENABLED is False (fail-closed default).",
+          "timestamp": "2026-09-02T11:28:01.949213+00:00",
+          "to_state": "REJECTED"
+        }
+      ],
+      "strategy_id": "cert_strategy",
+      "strategy_version": "1.0.0",
+      "symbol": "RELIANCE.NS",
+      "updated_at": "2026-09-02T11:28:01.949213Z"
+    },
+    "exec_exec-rec-fd8e6c4a8320": {
+      "audit_correlation_id": "corr-stale",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T11:01:31.254548Z",
+      "decision_fingerprint": "fp-stale-001",
+      "decision_id": "dec-stale-001",
+      "direction": "SELL",
+      "estimated_value": 75000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-fd8e6c4a8320",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 50.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Execution decision is STALE (age=6.0s > 5s).",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T11:01:31.254548Z"
+    },
+    "exec_exec-rec-fe4d4a1ff49c": {
+      "audit_correlation_id": "corr-1413341f",
+      "average_fill_price": 3500.0,
+      "broker_order_id": "pord-d433774a",
+      "created_at": "2026-09-02T20:00:31.819151Z",
+      "decision_fingerprint": "b4fdc00a4092a4d99272437293daa57c4a42facca9324bac9a070f110a407cd1",
+      "decision_id": "dec-idem-01",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-fe4d4a1ff49c",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.819151+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.819151+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.819151+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.819151+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.819151+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T20:00:31.819151+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "idem_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:00:31.819151Z"
+    },
+    "exec_exec-rec-ff186783245e": {
+      "audit_correlation_id": "corr-ac085730",
+      "average_fill_price": null,
+      "broker_order_id": null,
+      "created_at": "2026-09-02T20:01:21.814245Z",
+      "decision_fingerprint": "d2063775372f8102724bc0d41dd4d0b720a62de029609962ffbc9c4806e333c9",
+      "decision_id": "dec-adv-ver",
+      "direction": "BUY",
+      "estimated_value": 35000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-ff186783245e",
+      "execution_mode": "PAPER",
+      "filled_quantity": 0.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": "Strategy version mismatch: registered '1.0.0' != decision '2.0.0'.",
+      "retry_count": 0,
+      "stage": "DECISION_VERIFICATION",
+      "state": "REJECTED",
+      "state_history": [],
+      "strategy_id": "adv_orch_strat",
+      "strategy_version": "2.0.0",
+      "symbol": "TCS.NS",
+      "updated_at": "2026-09-02T20:01:21.814245Z"
+    },
+    "exec_exec-rec-ff8162638371": {
+      "audit_correlation_id": "corr-ai",
+      "average_fill_price": 1500.0,
+      "broker_order_id": "pord-fa7a2ea4",
+      "created_at": "2026-09-02T10:59:08.245731Z",
+      "decision_fingerprint": "fp-ai-001",
+      "decision_id": "dec-ai-001",
+      "direction": "BUY",
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_id": "exec-rec-ff8162638371",
+      "execution_mode": "PAPER",
+      "filled_quantity": 10.0,
+      "quantity": 10.0,
+      "reconciliation_status": null,
+      "rejection_reason": null,
+      "retry_count": 0,
+      "stage": "COMPLETED",
+      "state": "COMPLETED",
+      "state_history": [
+        {
+          "from_state": "RECEIVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:08.245731+00:00",
+          "to_state": "VALIDATING"
+        },
+        {
+          "from_state": "VALIDATING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:08.245731+00:00",
+          "to_state": "APPROVED"
+        },
+        {
+          "from_state": "APPROVED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:08.245731+00:00",
+          "to_state": "PREPARING"
+        },
+        {
+          "from_state": "PREPARING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:08.245731+00:00",
+          "to_state": "PAPER_EXECUTING"
+        },
+        {
+          "from_state": "PAPER_EXECUTING",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:08.245731+00:00",
+          "to_state": "FILLED"
+        },
+        {
+          "from_state": "FILLED",
+          "reason": null,
+          "timestamp": "2026-09-02T10:59:08.245731+00:00",
+          "to_state": "COMPLETED"
+        }
+      ],
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "updated_at": "2026-09-02T10:59:08.245731Z"
+    },
+    "last_decision_INFY.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-3f73d2f6",
+      "blocking_gate": "STRATEGY_GOVERNANCE",
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "signal_received_to_governance_ms": 0.2699,
+          "total_execution_decision_latency_ms": 0.6207
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "1baba474acd6d010098625d3240093e750e00a514cadf560bbd948edccbcc744",
+      "decision_id": "exec-dec-048d3c593035",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 0.3454
+          },
+          "evaluated_at": "2026-09-02T20:01:32.300153Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-e0c5efe47307",
+            "duration_ms": 0.2699
+          },
+          "evaluated_at": "2026-09-02T20:01:32.300153Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": false,
+          "reason": "Strategy 'strat-phase35' is not ACTIVE (current status=DRAFT).",
+          "status": "REJECTED"
+        }
+      ],
+      "governance_status": "REJECTED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "REJECTED",
+      "preflight_decision": null,
+      "quantity": 10.0,
+      "readiness_decision": null,
+      "rejection_details": [
+        "Strategy 'strat-phase35' is not ACTIVE (current status=DRAFT)."
+      ],
+      "rejection_reason": "Strategy 'strat-phase35' is not ACTIVE (current status=DRAFT).",
+      "risk_decision": null,
+      "safety_decision": null,
+      "signal_fingerprint": "45a5cae1ba526363c6bdca9c943c85e50595ce58f2f52bafa843c64d477652a0",
+      "strategy_id": "strat-phase35",
+      "strategy_version": "1.0.0",
+      "symbol": "INFY.NS",
+      "timestamp": "2026-09-02T20:01:32.300153Z"
+    },
+    "last_decision_SYM0.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-bbbb5979",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0421,
+          "risk_to_preflight_ms": 0.2791,
+          "signal_received_to_governance_ms": 0.3645,
+          "total_execution_decision_latency_ms": 1.0334
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "aa5b20529fc382f9885f403e09c4876b352000fdefeb11f4b95bf4b685c931ce",
+      "decision_id": "exec-dec-eac3d23be6c8",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 1500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 0.3282
+          },
+          "evaluated_at": "2026-09-02T20:01:31.766026Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-4e96e85178d5",
+            "duration_ms": 0.3645
+          },
+          "evaluated_at": "2026-09-02T20:01:31.766026Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0421,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.766026Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.2791,
+            "exchange": "NSE",
+            "symbol": "SYM0.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.766026Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 1.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "a22bd3296480ef60d8ab73656614b8322890d2df6bc20cf556c8f419af65579e",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM0.NS",
+      "timestamp": "2026-09-02T20:01:31.766026Z"
+    },
+    "last_decision_SYM1.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-7a1724b6",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0491,
+          "risk_to_preflight_ms": 0.0163,
+          "signal_received_to_governance_ms": 0.2485,
+          "total_execution_decision_latency_ms": 13.7274
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "4f5f1e8744c3d0cae701067328a8a25b3bb6476a4c6c2a2cc5aee7d4f824cf8c",
+      "decision_id": "exec-dec-211623bf095e",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 3000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 13.4048
+          },
+          "evaluated_at": "2026-09-02T20:01:31.780178Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-45d4825ee809",
+            "duration_ms": 0.2485
+          },
+          "evaluated_at": "2026-09-02T20:01:31.780178Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0491,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.780178Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0163,
+            "exchange": "NSE",
+            "symbol": "SYM1.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.780178Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 2.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "62d91aa53c50705db446a5b99cfed046615f1b08b6b2a64afc6b21cbb40a248a",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM1.NS",
+      "timestamp": "2026-09-02T20:01:31.780178Z"
+    },
+    "last_decision_SYM10.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-8ec87ac6",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0811,
+          "risk_to_preflight_ms": 0.0212,
+          "signal_received_to_governance_ms": 0.4236,
+          "total_execution_decision_latency_ms": 131.9984
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "608eaa76958e9fc147e0ab374b2f9dd1121cf2567cca46ed90fd32fbb31f6e5d",
+      "decision_id": "exec-dec-62e6066a5aff",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 16500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 131.4592
+          },
+          "evaluated_at": "2026-09-02T20:01:31.906995Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-2215f8cd6e86",
+            "duration_ms": 0.4236
+          },
+          "evaluated_at": "2026-09-02T20:01:31.906995Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0811,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.906995Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0212,
+            "exchange": "NSE",
+            "symbol": "SYM10.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.906995Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 11.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "43cce9e210b10c4d1a6ef5625d549df2b15a25ce137a816b90faa5062295fa54",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM10.NS",
+      "timestamp": "2026-09-02T20:01:31.906995Z"
+    },
+    "last_decision_SYM11.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-f9dd7b49",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0424,
+          "risk_to_preflight_ms": 0.0164,
+          "signal_received_to_governance_ms": 0.2648,
+          "total_execution_decision_latency_ms": 147.6324
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "c473e4d631df800f468fcfdb4c1228a30213e7fee9c4449da9ff23b6773f9496",
+      "decision_id": "exec-dec-f4a7a31a3063",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 18000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 147.3002
+          },
+          "evaluated_at": "2026-09-02T20:01:31.923344Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-40075bb60621",
+            "duration_ms": 0.2648
+          },
+          "evaluated_at": "2026-09-02T20:01:31.923344Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0424,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.923344Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0164,
+            "exchange": "NSE",
+            "symbol": "SYM11.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.923344Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 12.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "b368540e1aa3ac98f24b2d37bf9008b7534d9d77119326a218f774351ca78cc2",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM11.NS",
+      "timestamp": "2026-09-02T20:01:31.923344Z"
+    },
+    "last_decision_SYM12.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-739f02fd",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0742,
+          "risk_to_preflight_ms": 0.0252,
+          "signal_received_to_governance_ms": 0.3809,
+          "total_execution_decision_latency_ms": 160.7572
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "9d276171cdfa0d8da1e1e21e524a8014192bfb4ca1ef48655ada4bf544a2561e",
+      "decision_id": "exec-dec-38c202feb760",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 19500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 160.2615
+          },
+          "evaluated_at": "2026-09-02T20:01:31.936402Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-3640b893cb38",
+            "duration_ms": 0.3809
+          },
+          "evaluated_at": "2026-09-02T20:01:31.936402Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0742,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.936402Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0252,
+            "exchange": "NSE",
+            "symbol": "SYM12.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.936402Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 13.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "ef1d16908188f66683f0b46c6881a8c2e30b49ab0f4b442f6d4464790a1886a9",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM12.NS",
+      "timestamp": "2026-09-02T20:01:31.936402Z"
+    },
+    "last_decision_SYM13.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-887bb6f8",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0408,
+          "risk_to_preflight_ms": 0.0158,
+          "signal_received_to_governance_ms": 0.2467,
+          "total_execution_decision_latency_ms": 174.8337
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "72de848de741ad67802a62a16bd3b065d17ed364eb7b5b8e11fe11540abd8e5c",
+      "decision_id": "exec-dec-d77a248fd69e",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 21000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 174.5221
+          },
+          "evaluated_at": "2026-09-02T20:01:31.950799Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-64663d13208a",
+            "duration_ms": 0.2467
+          },
+          "evaluated_at": "2026-09-02T20:01:31.950799Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0408,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.950799Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0158,
+            "exchange": "NSE",
+            "symbol": "SYM13.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.950799Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 14.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "55214a8aed7cb03f5452dd531c36f0d4b64c0ae1cd967b51f33dbfd802b0d556",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM13.NS",
+      "timestamp": "2026-09-02T20:01:31.950799Z"
+    },
+    "last_decision_SYM14.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-a8503e39",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0415,
+          "risk_to_preflight_ms": 0.016,
+          "signal_received_to_governance_ms": 0.2414,
+          "total_execution_decision_latency_ms": 188.1489
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "a347560a31b1e5924bb8bf5921d8f1e8db66a4062a04856c4d69b3e8305880c9",
+      "decision_id": "exec-dec-84bdbc0d78e5",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 22500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 187.8412
+          },
+          "evaluated_at": "2026-09-02T20:01:31.964255Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-e40019ba5194",
+            "duration_ms": 0.2414
+          },
+          "evaluated_at": "2026-09-02T20:01:31.964255Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0415,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.964255Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.016,
+            "exchange": "NSE",
+            "symbol": "SYM14.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.964255Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 15.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "1931d3f1a7d8be783dc2be93976c57b57e43cafd1c4e7cf7cbc441d8fb407bcb",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM14.NS",
+      "timestamp": "2026-09-02T20:01:31.964255Z"
+    },
+    "last_decision_SYM2.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-35bea493",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0411,
+          "risk_to_preflight_ms": 0.0158,
+          "signal_received_to_governance_ms": 0.2978,
+          "total_execution_decision_latency_ms": 28.6556
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "03b100203a001a858ea81b3d0b4319518deccadcedea9007e6e29565f538f508",
+      "decision_id": "exec-dec-bc81eab80199",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 4500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 28.2926
+          },
+          "evaluated_at": "2026-09-02T20:01:31.795251Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-7e3383185880",
+            "duration_ms": 0.2978
+          },
+          "evaluated_at": "2026-09-02T20:01:31.795251Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0411,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.795251Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0158,
+            "exchange": "NSE",
+            "symbol": "SYM2.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.795251Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 3.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "31b7419e61b898ff07fda29568916217fe7c6e7bfd5a7c36905f3a47e5fa53d8",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM2.NS",
+      "timestamp": "2026-09-02T20:01:31.795251Z"
+    },
+    "last_decision_SYM3.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-5aa8dd3f",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0468,
+          "risk_to_preflight_ms": 0.0176,
+          "signal_received_to_governance_ms": 0.2818,
+          "total_execution_decision_latency_ms": 34.5612
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "fffdc7f2cfc711c835ec8300c69d93cc8235c61059786acb8e745557f814e114",
+      "decision_id": "exec-dec-3e1de49f58c9",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 6000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 34.2041
+          },
+          "evaluated_at": "2026-09-02T20:01:31.808804Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-30f53dc5ea78",
+            "duration_ms": 0.2818
+          },
+          "evaluated_at": "2026-09-02T20:01:31.808804Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0468,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.808804Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0176,
+            "exchange": "NSE",
+            "symbol": "SYM3.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.808804Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 4.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "52d6b6e77631c822ab6287f1dd6f8c9be6f6e038198e482691e257c8ae6b2b69",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM3.NS",
+      "timestamp": "2026-09-02T20:01:31.808804Z"
+    },
+    "last_decision_SYM4.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-f6fbd35e",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0677,
+          "risk_to_preflight_ms": 0.0251,
+          "signal_received_to_governance_ms": 0.4021,
+          "total_execution_decision_latency_ms": 50.313
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "951ee89fdd7ab29e841862534ef4cc020a7a4a58942a86697725eb97526b80bd",
+      "decision_id": "exec-dec-38e5cc6088e1",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 7500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 49.8033
+          },
+          "evaluated_at": "2026-09-02T20:01:31.824564Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-5a0062e7551b",
+            "duration_ms": 0.4021
+          },
+          "evaluated_at": "2026-09-02T20:01:31.824564Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0677,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.824564Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0251,
+            "exchange": "NSE",
+            "symbol": "SYM4.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.824564Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 5.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "5ef5d36999a92483e0868263f69608959bdc91cf53f023a785f42caf101be2e7",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM4.NS",
+      "timestamp": "2026-09-02T20:01:31.824564Z"
+    },
+    "last_decision_SYM5.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-72cae7ab",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0393,
+          "risk_to_preflight_ms": 0.0154,
+          "signal_received_to_governance_ms": 0.2415,
+          "total_execution_decision_latency_ms": 64.2236
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "3e7a688252e1271e33b673e33636d08772b2c00c7e2880ed9e49c1020cecbd5c",
+      "decision_id": "exec-dec-20078fd602fa",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 9000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 63.9186
+          },
+          "evaluated_at": "2026-09-02T20:01:31.838845Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-5b1a4bf09801",
+            "duration_ms": 0.2415
+          },
+          "evaluated_at": "2026-09-02T20:01:31.838845Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0393,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.838845Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0154,
+            "exchange": "NSE",
+            "symbol": "SYM5.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.838845Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 6.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "3aeb4b366b8cfb85d6fb1f416379c5d260cdb4a362d9e9c89e0ba81d37c9b8d3",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM5.NS",
+      "timestamp": "2026-09-02T20:01:31.838845Z"
+    },
+    "last_decision_SYM6.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-b83f38dc",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0383,
+          "risk_to_preflight_ms": 0.0147,
+          "signal_received_to_governance_ms": 0.2292,
+          "total_execution_decision_latency_ms": 76.9638
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "31c9965aa775ce3c2860a5b03c332f17f9addd29714ef53609b3fceec2aff7f5",
+      "decision_id": "exec-dec-f412fc632e68",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 10500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 76.6729
+          },
+          "evaluated_at": "2026-09-02T20:01:31.851907Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-e5ee60852363",
+            "duration_ms": 0.2292
+          },
+          "evaluated_at": "2026-09-02T20:01:31.851907Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0383,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.851907Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0147,
+            "exchange": "NSE",
+            "symbol": "SYM6.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.851907Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 7.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "4c5c3f07f600edb85d734ee555071bc82d6650b8603ffbc80f96d6d990dc666b",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM6.NS",
+      "timestamp": "2026-09-02T20:01:31.851907Z"
+    },
+    "last_decision_SYM7.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-35d26a89",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0389,
+          "risk_to_preflight_ms": 0.0152,
+          "signal_received_to_governance_ms": 0.2367,
+          "total_execution_decision_latency_ms": 90.4376
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "db5bcf6dd9a50b9596df1a1276798ee7efdc253279b96acc27d4884246927e86",
+      "decision_id": "exec-dec-286ba9493b26",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 12000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 90.1384
+          },
+          "evaluated_at": "2026-09-02T20:01:31.865620Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-ad686e947b92",
+            "duration_ms": 0.2367
+          },
+          "evaluated_at": "2026-09-02T20:01:31.865620Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0389,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.865620Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0152,
+            "exchange": "NSE",
+            "symbol": "SYM7.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.865620Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 8.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "409144dd372a5a4f2b40d5b38d772a74e322d30beabb81ab19f46483f2ab7930",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM7.NS",
+      "timestamp": "2026-09-02T20:01:31.865620Z"
+    },
+    "last_decision_SYM8.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-ffcaa41b",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0396,
+          "risk_to_preflight_ms": 0.0157,
+          "signal_received_to_governance_ms": 0.2469,
+          "total_execution_decision_latency_ms": 103.2817
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "2cd399f5fce4a80ec08a374433c767d9a6b9a34e13bf164d5c4570f5cbbc4d35",
+      "decision_id": "exec-dec-c0a8e0d827d2",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 13500.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 102.9712
+          },
+          "evaluated_at": "2026-09-02T20:01:31.878602Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-f85abb4ee212",
+            "duration_ms": 0.2469
+          },
+          "evaluated_at": "2026-09-02T20:01:31.878602Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0396,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.878602Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0157,
+            "exchange": "NSE",
+            "symbol": "SYM8.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.878602Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 9.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "8dc2a0edffbf55b07c386a52f78d7995e01aec9b643407068f26b7396ba04d48",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM8.NS",
+      "timestamp": "2026-09-02T20:01:31.878602Z"
+    },
+    "last_decision_SYM9.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-b083a702",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0672,
+          "risk_to_preflight_ms": 0.0237,
+          "signal_received_to_governance_ms": 0.3663,
+          "total_execution_decision_latency_ms": 117.2473
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "4a14f7e0f5ff9abd0629a79715fe218a33d27379d9b50ead0fc380a0808b975a",
+      "decision_id": "exec-dec-0362023e643e",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 15000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 116.7762
+          },
+          "evaluated_at": "2026-09-02T20:01:31.892551Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-f0efed40b007",
+            "duration_ms": 0.3663
+          },
+          "evaluated_at": "2026-09-02T20:01:31.892551Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0672,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:31.892551Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0237,
+            "exchange": "NSE",
+            "symbol": "SYM9.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:31.892551Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 10.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "653894cd45f47cc7e92f411ec812ad8a62efa38278c334c73af4a9d78d396ae0",
+      "strategy_id": "strat-perf-test",
+      "strategy_version": "1.0.0",
+      "symbol": "SYM9.NS",
+      "timestamp": "2026-09-02T20:01:31.892551Z"
+    },
+    "last_decision_TCS.NS": {
+      "arming_status": null,
+      "audit_correlation_id": "exec-corr-e3d63d4d",
+      "blocking_gate": null,
+      "broker_payload": {
+        "mode": "PAPER",
+        "timing_metadata": {
+          "ai_advisory_latency_ms": null,
+          "governance_to_risk_ms": 0.0433,
+          "risk_to_preflight_ms": 0.3038,
+          "signal_received_to_governance_ms": 0.2805,
+          "total_execution_decision_latency_ms": 1.1405
+        }
+      },
+      "confirmation_status": null,
+      "decision_fingerprint": "d04ef33f88cf79ee08280d28052dbe027c0f93b9f05fd7b62a15239ff4a0070e",
+      "decision_id": "exec-dec-c9078bc060b3",
+      "direction": "BUY",
+      "duplicate_status": null,
+      "estimated_value": 70000.0,
+      "exchange": "NSE",
+      "execution_mode": "PAPER",
+      "gate_results": [
+        {
+          "details": {
+            "duration_ms": 0.4799
+          },
+          "evaluated_at": "2026-09-02T20:01:21.736644Z",
+          "gate_name": "SIGNAL_VALIDATION",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "decision_id": "dec-ea3e538f6bf1",
+            "duration_ms": 0.2805
+          },
+          "evaluated_at": "2026-09-02T20:01:21.736644Z",
+          "gate_name": "STRATEGY_GOVERNANCE",
+          "passed": true,
+          "reason": null,
+          "status": "APPROVED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.0433,
+            "max_order_value": 500000.0,
+            "max_position_size": 100.0
+          },
+          "evaluated_at": "2026-09-02T20:01:21.736644Z",
+          "gate_name": "RISK_ENGINE",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        },
+        {
+          "details": {
+            "duration_ms": 0.3038,
+            "exchange": "NSE",
+            "symbol": "TCS.NS"
+          },
+          "evaluated_at": "2026-09-02T20:01:21.736644Z",
+          "gate_name": "EXECUTION_PREFLIGHT",
+          "passed": true,
+          "reason": null,
+          "status": "PASSED"
+        }
+      ],
+      "governance_status": "APPROVED",
+      "is_authorized": "***REDACTED***",
+      "pipeline_status": "APPROVED",
+      "preflight_decision": "APPROVED",
+      "quantity": 20.0,
+      "readiness_decision": null,
+      "rejection_details": [],
+      "rejection_reason": null,
+      "risk_decision": "APPROVED",
+      "safety_decision": null,
+      "signal_fingerprint": "5e298187565fd479755edff5ca16770a073f79d20289858910446d7dd1462927",
+      "strategy_id": "pipeline_strat",
+      "strategy_version": "1.0.0",
+      "symbol": "TCS.NS",
+      "timestamp": "2026-09-02T20:01:21.736644Z"
+    },
+    "last_decision_UNAUTHORIZED_CO.NS": "***REDACTED***",
+    "registered_strategies": {
+      "ai_advisory_model": {
+        "allowed_exchanges": [
+          "NSE"
+        ],
+        "allowed_instruments": [
+          "TCS.NS",
+          "INFY.NS"
+        ],
+        "created_at": "2026-09-03T06:37:56.603956Z",
+        "enabled": false,
+        "max_order_value": 200000.0,
+        "max_position_size": 50.0,
+        "name": "AI Advisory Specialist",
+        "quarantine_reason": "Model hallucinations on earnings day",
+        "quarantined_at": "2026-09-03T06:37:56.617376Z",
+        "risk_constraints": {},
+        "status": "QUARANTINED",
+        "strategy_id": "ai_advisory_model",
+        "updated_at": "2026-09-03T06:37:56.617376Z",
+        "version": "1.0.0"
+      }
+    }
+  },
+  "node_id": "node-execution",
+  "revision": 971,
+  "schema_version": "28.0.0",
+  "timestamp": "2026-09-03T06:37:56.619574+00:00"
+}

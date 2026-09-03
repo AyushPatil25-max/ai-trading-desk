@@ -75,3 +75,58 @@ def validate_quantity(val: Optional[float]) -> Optional[float]:
     if v is None or v < 0:
         return None
     return v
+
+def calc_promoter_pledge_risk(pledge_pct: Optional[float]) -> str:
+    """
+    Classify promoter pledge risk based on SEBI / Indian equity norms.
+    < 10%: LOW, 10-30%: MODERATE, >= 30%: HIGH.
+    """
+    p = _clean_number(pledge_pct)
+    if p is None:
+        return "UNKNOWN"
+    if p == 0.0:
+        return "NONE"
+    if p < 10.0:
+        return "LOW"
+    if p < 30.0:
+        return "MODERATE"
+    return "HIGH"
+
+def calc_ownership_distribution(ownership_list: list) -> dict:
+    """
+    Extract latest percentage holdings by holder type.
+    """
+    res = {
+        "promoter": None,
+        "fii": None,
+        "dii": None,
+        "mutual_fund": None,
+        "public": None,
+        "other_institution": None,
+    }
+    if not ownership_list:
+        return res
+
+    for obs in ownership_list:
+        h_type = getattr(obs, "holder_type", None) or (obs.get("holder_type") if isinstance(obs, dict) else None)
+        pct = getattr(obs, "ownership_percentage", None) or (obs.get("ownership_percentage") if isinstance(obs, dict) else None)
+        pct_clean = _clean_number(pct)
+        if pct_clean is None:
+            continue
+
+        h_str = str(h_type).upper()
+        if "PROMOTER" in h_str:
+            res["promoter"] = pct_clean
+        elif "FII" in h_str or "FPI" in h_str:
+            res["fii"] = pct_clean
+        elif "DII" in h_str:
+            res["dii"] = pct_clean
+        elif "MUTUAL_FUND" in h_str:
+            res["mutual_fund"] = pct_clean
+        elif "PUBLIC" in h_str:
+            res["public"] = pct_clean
+        elif "OTHER_INSTITUTION" in h_str:
+            res["other_institution"] = pct_clean
+
+    return res
+

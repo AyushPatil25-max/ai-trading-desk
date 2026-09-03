@@ -18,14 +18,14 @@ class TestConcurrency(unittest.IsolatedAsyncioTestCase):
         # Simulate synchronous, blocking network/CPU latency in market data fetching
         def slow_market_data(symbol: str, window=None):
             from backend.domain.schemas import MarketContext
-            from datetime import datetime
+            from datetime import datetime, timezone
             time.sleep(0.15)
             return MarketContext(
                 context_id="test-123",
                 symbol=symbol,
                 current_price=3280.80,
                 provider="test",
-                data_timestamp=datetime.utcnow(),
+                data_timestamp=datetime.now(timezone.utc),
                 technical_indicators={
                     "20_day_high": 3271.60,
                     "ema20": 3188.45,

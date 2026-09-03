@@ -2,7 +2,7 @@
 Unit tests for PaperBroker — Phase 5.1
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 import unittest
 
 from backend.domain.execution_schemas import (
@@ -30,7 +30,7 @@ class TestPaperBroker(unittest.TestCase):
         self.market_context = MarketContext(
             context_id="ctx-paper-1",
             symbol="TCS.NS",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             current_price=3500.0,
             provider="NSE",
         )
@@ -121,7 +121,7 @@ class TestPaperBroker(unittest.TestCase):
         ctx = MarketContext(
             context_id="ctx-paper-1",
             symbol="INFY.NS",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             current_price=1000.0,
             provider="NSE",
         )

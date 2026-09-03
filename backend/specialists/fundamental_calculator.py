@@ -739,12 +739,220 @@ def assess_data_freshness(
         return "FRESH", None
 
 
+# ── 7. Multi-Quarter Historical Calculations ─────────────────────────────────
+
+def calc_quarterly_metrics(
+    quarterly_fundamentals: Optional[List[Any]],
+    data_timestamp: Optional[datetime] = None,
+) -> List[FundamentalMetric]:
+    """
+    Computes deterministic QoQ and YoY growth, margin trajectory, and debt trends from 4-8 quarters.
+    Handles division-by-zero, non-positive denominators, and loss-profit sign changes safely.
+    """
+    ts_str = _format_timestamp(data_timestamp)
+    metrics: List[FundamentalMetric] = []
+
+    if not quarterly_fundamentals or len(quarterly_fundamentals) < 2:
+        return [
+            FundamentalMetric(
+                metric_name="qoq_revenue_growth",
+                value=None,
+                unit="%",
+                period="Quarterly",
+                report_date=None,
+                available=False,
+                unavailable_reason="Insufficient quarterly data (minimum 2 quarters required)",
+                source="quarterly_income_stmt",
+                calculation_method="(Revenue_t - Revenue_t-1) / Revenue_t-1 * 100",
+                data_timestamp=ts_str,
+            ),
+            FundamentalMetric(
+                metric_name="yoy_revenue_growth",
+                value=None,
+                unit="%",
+                period="Quarterly",
+                report_date=None,
+                available=False,
+                unavailable_reason="Insufficient quarterly data (minimum 5 quarters required for YoY)",
+                source="quarterly_income_stmt",
+                calculation_method="(Revenue_t - Revenue_t-4) / Revenue_t-4 * 100",
+                data_timestamp=ts_str,
+            ),
+        ]
+
+    # Normalize list of items (models or dicts) and sort chronologically by period_end_date
+    def get_attr(obj, name):
+        if hasattr(obj, name):
+            return getattr(obj, name)
+        elif isinstance(obj, dict):
+            return obj.get(name)
+        return None
+
+    sorted_q = sorted(
+        quarterly_fundamentals,
+        key=lambda x: str(get_attr(x, "period_end_date") or ""),
+    )
+
+    latest = sorted_q[-1]
+    prev_q = sorted_q[-2]
+    latest_period = f"{get_attr(latest, 'fiscal_period') or 'Q'}-{get_attr(latest, 'fiscal_year') or ''}"
+    latest_report_date = _format_timestamp(get_attr(latest, "filing_date") or get_attr(latest, "period_end_date"))
+
+    # 1. QoQ Revenue Growth
+    rev_t = _clean_number(get_attr(latest, "revenue"))
+    rev_prev = _clean_number(get_attr(prev_q, "revenue"))
+
+    if rev_t is not None and rev_prev is not None and rev_prev > 0:
+        qoq_rev = round(((rev_t - rev_prev) / rev_prev) * 100.0, 2)
+        metrics.append(FundamentalMetric(
+            metric_name="qoq_revenue_growth",
+            value=qoq_rev,
+            unit="%",
+            period=latest_period,
+            report_date=latest_report_date,
+            available=True,
+            unavailable_reason="",
+            source="quarterly_income_stmt",
+            calculation_method="(Revenue_t - Revenue_t-1) / Revenue_t-1 * 100",
+            data_timestamp=ts_str,
+        ))
+    else:
+        metrics.append(FundamentalMetric(
+            metric_name="qoq_revenue_growth",
+            value=None,
+            unit="%",
+            period=latest_period,
+            report_date=latest_report_date,
+            available=False,
+            unavailable_reason="Non-positive or missing revenue in preceding quarter",
+            source="quarterly_income_stmt",
+            calculation_method="(Revenue_t - Revenue_t-1) / Revenue_t-1 * 100",
+            data_timestamp=ts_str,
+        ))
+
+    # 2. QoQ Net Profit Growth (with sign-change protection)
+    ni_t = _clean_number(get_attr(latest, "net_income"))
+    ni_prev = _clean_number(get_attr(prev_q, "net_income"))
+
+    if ni_t is not None and ni_prev is not None:
+        if ni_prev > 0 and ni_t > 0:
+            qoq_ni = round(((ni_t - ni_prev) / ni_prev) * 100.0, 2)
+            metrics.append(FundamentalMetric(
+                metric_name="qoq_profit_growth",
+                value=qoq_ni,
+                unit="%",
+                period=latest_period,
+                report_date=latest_report_date,
+                available=True,
+                unavailable_reason="",
+                source="quarterly_income_stmt",
+                calculation_method="(NetIncome_t - NetIncome_t-1) / NetIncome_t-1 * 100",
+                data_timestamp=ts_str,
+            ))
+        elif ni_prev <= 0 and ni_t > 0:
+            metrics.append(FundamentalMetric(
+                metric_name="qoq_profit_growth",
+                value=None,
+                unit="%",
+                period=latest_period,
+                report_date=latest_report_date,
+                available=False,
+                unavailable_reason="TURNAROUND_PROFITABLE: Swing from previous quarter loss to profit",
+                source="quarterly_income_stmt",
+                calculation_method="Sign change (Loss -> Profit)",
+                data_timestamp=ts_str,
+            ))
+        elif ni_prev > 0 and ni_t <= 0:
+            metrics.append(FundamentalMetric(
+                metric_name="qoq_profit_growth",
+                value=None,
+                unit="%",
+                period=latest_period,
+                report_date=latest_report_date,
+                available=False,
+                unavailable_reason="SWING_TO_LOSS: Swing from previous quarter profit to net loss",
+                source="quarterly_income_stmt",
+                calculation_method="Sign change (Profit -> Loss)",
+                data_timestamp=ts_str,
+            ))
+        else:
+            metrics.append(FundamentalMetric(
+                metric_name="qoq_profit_growth",
+                value=None,
+                unit="%",
+                period=latest_period,
+                report_date=latest_report_date,
+                available=False,
+                unavailable_reason="CONTINUED_LOSS: Net loss sustained in consecutive quarters",
+                source="quarterly_income_stmt",
+                calculation_method="Sign change (Loss -> Loss)",
+                data_timestamp=ts_str,
+            ))
+
+    # 3. YoY Growth Metrics (requires at least 5 quarters: Q_t vs Q_t-4)
+    if len(sorted_q) >= 5:
+        q_yoy_base = sorted_q[-5]
+        rev_yoy_base = _clean_number(get_attr(q_yoy_base, "revenue"))
+        if rev_t is not None and rev_yoy_base is not None and rev_yoy_base > 0:
+            yoy_rev = round(((rev_t - rev_yoy_base) / rev_yoy_base) * 100.0, 2)
+            metrics.append(FundamentalMetric(
+                metric_name="yoy_revenue_growth",
+                value=yoy_rev,
+                unit="%",
+                period=latest_period,
+                report_date=latest_report_date,
+                available=True,
+                unavailable_reason="",
+                source="quarterly_income_stmt",
+                calculation_method="(Revenue_t - Revenue_t-4) / Revenue_t-4 * 100",
+                data_timestamp=ts_str,
+            ))
+
+        ni_yoy_base = _clean_number(get_attr(q_yoy_base, "net_income"))
+        if ni_t is not None and ni_yoy_base is not None:
+            if ni_yoy_base > 0 and ni_t > 0:
+                yoy_ni = round(((ni_t - ni_yoy_base) / ni_yoy_base) * 100.0, 2)
+                metrics.append(FundamentalMetric(
+                    metric_name="yoy_profit_growth",
+                    value=yoy_ni,
+                    unit="%",
+                    period=latest_period,
+                    report_date=latest_report_date,
+                    available=True,
+                    unavailable_reason="",
+                    source="quarterly_income_stmt",
+                    calculation_method="(NetIncome_t - NetIncome_t-4) / NetIncome_t-4 * 100",
+                    data_timestamp=ts_str,
+                ))
+
+        # Operating margin expansion (bps YoY)
+        op_m_t = _clean_number(get_attr(latest, "operating_margin"))
+        op_m_base = _clean_number(get_attr(q_yoy_base, "operating_margin"))
+        if op_m_t is not None and op_m_base is not None:
+            bps_expansion = round((op_m_t - op_m_base) * 100.0, 1)
+            metrics.append(FundamentalMetric(
+                metric_name="margin_expansion_yoy_bps",
+                value=bps_expansion,
+                unit="bps",
+                period=latest_period,
+                report_date=latest_report_date,
+                available=True,
+                unavailable_reason="",
+                source="quarterly_income_stmt",
+                calculation_method="(OpMargin_t - OpMargin_t-4) * 100",
+                data_timestamp=ts_str,
+            ))
+
+    return metrics
+
+
 # ── 8. Master Runner ──────────────────────────────────────────────────────────
 
 def compute_all_fundamental_metrics(
     fundamental_data: Optional[Dict[str, Any]],
     current_price: float,
     data_timestamp: Optional[datetime] = None,
+    quarterly_fundamentals: Optional[List[Any]] = None,
 ) -> List[FundamentalMetric]:
     """
     Master entrypoint to compute and extract all fundamental metrics.
@@ -775,6 +983,11 @@ def compute_all_fundamental_metrics(
     # Valuation with current price
     metrics.append(calc_pe_ratio(current_price, data, data_timestamp))
 
+    # Multi-quarter metrics (if provided)
+    if quarterly_fundamentals:
+        q_metrics = calc_quarterly_metrics(quarterly_fundamentals, data_timestamp)
+        metrics.extend(q_metrics)
+
     # Passthrough core financials
     metrics.append(extract_passthrough_metric("revenue", "revenue", "currency", "income_statement", data, data_timestamp))
     metrics.append(extract_passthrough_metric("net_income", "net_income", "currency", "income_statement", data, data_timestamp))
@@ -785,3 +998,4 @@ def compute_all_fundamental_metrics(
     metrics.append(extract_passthrough_metric("total_equity", "total_equity", "currency", "balance_sheet", data, data_timestamp))
 
     return metrics
+

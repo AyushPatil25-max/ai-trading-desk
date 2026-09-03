@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Any
-from datetime import datetime
+from typing import Dict, Any, Optional
+from datetime import datetime, timezone
+import math
 import pandas as pd
 import numpy as np
 
@@ -60,7 +61,7 @@ class YFinanceProvider(MarketDataProvider):
         period_str = fetch_period_map[window]
         df = self.get_historical_data(symbol, period=period_str)
         
-        generated_at = datetime.utcnow()
+        generated_at = datetime.now(timezone.utc)
         warnings = []
         
         if df is None or df.empty:
@@ -76,11 +77,31 @@ class YFinanceProvider(MarketDataProvider):
                 quality_status=DataQualityStatus.CRITICAL_FAILURE,
                 warnings=["Empty dataset returned from provider."]
             )
-            
-        # Data Quality Check: missing/NaN values
-        if df['Close'].isnull().any():
-            warnings.append("NaN values detected in Close prices. Forward filling applied.")
-            df['Close'] = df['Close'].ffill()
+
+        # Drop trailing rows where price columns are all NaN (e.g. unclosed intraday placeholders)
+        price_cols = [c for c in ['Open', 'High', 'Low', 'Close'] if c in df.columns]
+        if price_cols:
+            df = df.dropna(how='all', subset=price_cols)
+
+        if df.empty:
+            import uuid
+            return MarketContext(
+                context_id=str(uuid.uuid4()),
+                symbol=symbol,
+                generated_at=generated_at,
+                data_timestamp=generated_at,
+                provider=self.name,
+                historical_window=window,
+                current_price=0.0,
+                quality_status=DataQualityStatus.CRITICAL_FAILURE,
+                warnings=["Empty dataset after removing non-finite rows."]
+            )
+
+        # Data Quality Check: missing/NaN values across OHLCV
+        for col in price_cols:
+            if df[col].isnull().any():
+                warnings.append(f"NaN values detected in {col} prices. Forward filling applied.")
+                df[col] = df[col].ffill().bfill()
             
         # Ensure sufficient rows for EMA50
         if len(df) < 50:
@@ -95,21 +116,34 @@ class YFinanceProvider(MarketDataProvider):
             
         data_timestamp = df.index[-1].to_pydatetime()
         
-        # Calculate Technicals (Standardized to use indicators.py logic eventually)
+        # Calculate Technicals (Standardized to use indicators.py logic)
         df = self._calculate_technicals(df)
         
+        def _safe_float(val: Any) -> Optional[float]:
+            if val is None:
+                return None
+            try:
+                if pd.isna(val):
+                    return None
+                f = float(val)
+                if math.isnan(f) or math.isinf(f):
+                    return None
+                return round(f, 2)
+            except (ValueError, TypeError):
+                return None
+
         latest = df.iloc[-1]
-        current_price = float(latest['Close'])
+        current_price = _safe_float(latest.get('Close')) or 0.0
         
-        if np.isnan(current_price) or current_price <= 0:
+        if current_price <= 0:
             quality_status = DataQualityStatus.CRITICAL_FAILURE
             warnings.append("Invalid current price.")
             
         technical_indicators = {
-            "ema20": round(float(latest.get('EMA20', 0.0)), 2),
-            "ema50": round(float(latest.get('EMA50', 0.0)), 2),
-            "rsi": round(float(latest.get('RSI', 0.0)), 2),
-            "20_day_high": round(float(latest.get('20_day_high', 0.0)), 2)
+            "ema20": _safe_float(latest.get('EMA20')),
+            "ema50": _safe_float(latest.get('EMA50')),
+            "rsi": _safe_float(latest.get('RSI')),
+            "20_day_high": _safe_float(latest.get('20_day_high'))
         }
         
         # Format OHLCV for context based on requested window
@@ -118,11 +152,11 @@ class YFinanceProvider(MarketDataProvider):
         for index, row in df.tail(target_rows).iterrows():
             ohlcv.append({
                 "date": index.isoformat(),
-                "open": row["Open"],
-                "high": row["High"],
-                "low": row["Low"],
-                "close": row["Close"],
-                "volume": row["Volume"]
+                "open": _safe_float(row.get("Open")) or 0.0,
+                "high": _safe_float(row.get("High")) or 0.0,
+                "low": _safe_float(row.get("Low")) or 0.0,
+                "close": _safe_float(row.get("Close")) or 0.0,
+                "volume": _safe_float(row.get("Volume")) or 0.0
             })
 
         import uuid
@@ -147,11 +181,14 @@ class YFinanceProvider(MarketDataProvider):
         """
         Internal normalization using the consolidated logic.
         """
-        # We will import the common indicators.py logic here.
-        # For now, implementing the exact exact logic from indicators.py
+        if df.empty:
+            return df
         from backend.indicators import calculate_indicators
         df = calculate_indicators(df)
         
-        # 20-Day High (required by technical_agent, currently in market_data.py)
-        df['20_day_high'] = df['High'].rolling(window=20).max()
+        # 20-Day High (required by technical_agent)
+        if 'High' in df.columns and len(df) >= 20:
+            df['20_day_high'] = df['High'].rolling(window=20, min_periods=20).max()
+        else:
+            df['20_day_high'] = None
         return df

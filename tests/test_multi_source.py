@@ -31,7 +31,7 @@ class TestMultiSourceOrchestrator(unittest.TestCase):
         from backend.domain.schemas import MarketContext
         
         mock_yf = YFinanceProvider()
-        mock_ctx = MarketContext(context_id="test-yf", symbol="RELIANCE.NS", data_timestamp=datetime.utcnow(), current_price=100.0, provider="yfinance", quality_summary={"yfinance": "ok"})
+        mock_ctx = MarketContext(context_id="test-yf", symbol="RELIANCE.NS", data_timestamp=datetime.now(timezone.utc), current_price=100.0, provider="yfinance", quality_summary={"yfinance": "ok"})
         mock_yf.get_market_context = MagicMock(return_value=mock_ctx)
         
         self.orchestrator = MultiSourceOrchestrator([NSEProvider(), RBIProvider(), mock_yf])

@@ -1,3 +1,4 @@
+from backend.config.app_config import get_app_config
 """
 Provider-Neutral LLM Adapter & Model Registry — Phase 5.6F
 
@@ -5,7 +6,7 @@ Provides real API driver implementations for Groq, Google Gemini, OpenAI,
 Mock, and Replay LLM backends while preserving specialist client boundaries.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 import hashlib
 import json
@@ -51,7 +52,7 @@ class LLMExecutionStats(BaseModel):
     output_tokens: int = 0
     estimated_cost_usd: float = 0.0
     latency_ms: float = 0.0
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class ProviderNeutralLLMClient(LLMClient):
@@ -171,7 +172,7 @@ class ProviderNeutralLLMClient(LLMClient):
         augmented_user = f"{user_prompt}\n\nYou MUST return ONLY valid JSON matching this exact schema:\n{schema_json}"
 
         if self._provider == LLMProviderType.GROQ:
-            resolved_key = self._api_key or os.getenv("GROQ_API_KEY")
+            resolved_key = self._api_key or get_app_config().groq_api_key
             if not resolved_key:
                 raise LLMClientError(f"Provider GROQ is NOT_CONFIGURED: missing GROQ_API_KEY for model {self._model}")
 
@@ -195,7 +196,7 @@ class ProviderNeutralLLMClient(LLMClient):
                 raise LLMClientError(f"Groq API call failed for model {self._model}: {exc}") from exc
 
         elif self._provider == LLMProviderType.OPENAI:
-            resolved_key = self._api_key or os.getenv("OPENAI_API_KEY")
+            resolved_key = self._api_key or get_app_config().openai_api_key
             if not resolved_key:
                 raise LLMClientError(f"Provider OPENAI is NOT_CONFIGURED: missing OPENAI_API_KEY for model {self._model}")
 
@@ -219,7 +220,7 @@ class ProviderNeutralLLMClient(LLMClient):
                 raise LLMClientError(f"OpenAI API call failed for model {self._model}: {exc}") from exc
 
         elif self._provider == LLMProviderType.GEMINI:
-            resolved_key = self._api_key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+            resolved_key = self._api_key or get_app_config().gemini_api_key or get_app_config().google_api_key
             if not resolved_key:
                 raise LLMClientError(f"Provider GEMINI is NOT_CONFIGURED: missing GEMINI_API_KEY for model {self._model}")
 
@@ -299,7 +300,7 @@ class LLMAdapterFactory:
             input_cost_per_m_usd=0.59,
             output_cost_per_m_usd=0.79,
             env_key="GROQ_API_KEY",
-            is_configured=bool(os.getenv("GROQ_API_KEY")),
+            is_configured=bool(get_app_config().groq_api_key),
         ),
         "gemini_flash": ModelCandidateDescriptor(
             slot_name="gemini_flash",
@@ -310,7 +311,7 @@ class LLMAdapterFactory:
             input_cost_per_m_usd=0.15,
             output_cost_per_m_usd=0.60,
             env_key="GEMINI_API_KEY",
-            is_configured=bool(os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")),
+            is_configured=bool(get_app_config().gemini_api_key or get_app_config().google_api_key),
         ),
         "openai_lightweight": ModelCandidateDescriptor(
             slot_name="openai_lightweight",
@@ -321,7 +322,7 @@ class LLMAdapterFactory:
             input_cost_per_m_usd=0.15,
             output_cost_per_m_usd=0.60,
             env_key="OPENAI_API_KEY",
-            is_configured=bool(os.getenv("OPENAI_API_KEY")),
+            is_configured=bool(get_app_config().openai_api_key),
         ),
         "openai_reasoning": ModelCandidateDescriptor(
             slot_name="openai_reasoning",
@@ -332,7 +333,7 @@ class LLMAdapterFactory:
             input_cost_per_m_usd=2.50,
             output_cost_per_m_usd=10.00,
             env_key="OPENAI_API_KEY",
-            is_configured=bool(os.getenv("OPENAI_API_KEY")),
+            is_configured=bool(get_app_config().openai_api_key),
         ),
     }
 
@@ -384,3 +385,4 @@ class LLMAdapterFactory:
             replay_cache=replay_cache,
             fixed_mock_response=force_mock,
         )
+

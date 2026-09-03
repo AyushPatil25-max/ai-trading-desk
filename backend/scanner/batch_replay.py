@@ -5,7 +5,7 @@ Executes historical replay across large stock universes using a two-stage archit
 Stage A (Deterministic scanning & top-k ranking) -> Stage B (Specialists, Debate, Committee, Paper Execution).
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Set
 import uuid
 from pydantic import BaseModel, Field
@@ -44,7 +44,7 @@ class BatchReplayResult(BaseModel):
     simulation_report: SimulationReport
     batch_efficiency: BatchReplayEfficiency
     scan_results: List[ScannerResult] = Field(default_factory=list)
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class BatchReplayEngine:

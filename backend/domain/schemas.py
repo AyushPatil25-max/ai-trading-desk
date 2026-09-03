@@ -1,8 +1,16 @@
+import uuid
 from pydantic import BaseModel, Field
 from typing import Any, Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 
+
+
+class SnapshotFreshness(str, Enum):
+    FRESH = "FRESH"
+    STALE = "STALE"
+    INVALID = "INVALID"
+    MISSING = "MISSING"
 
 class HistoricalWindow(str, Enum):
     RECENT = "5D"
@@ -145,7 +153,7 @@ class MetricProvenance(BaseModel):
     metric_value: Any
     provider: str
     provider_timestamp: datetime
-    ingestion_timestamp: datetime = Field(default_factory=datetime.utcnow)
+    ingestion_timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     quality_tier: DataQualityTier
     trust_score: float = Field(ge=0.0, le=1.0)
     source_attribution: Optional[SourceAttribution] = None
@@ -185,7 +193,7 @@ class FinancialObservation(BaseModel):
     report_date: Optional[datetime] = None
     publication_time: Optional[datetime] = None
     effective_time: Optional[datetime] = None
-    retrieved_at: datetime = Field(default_factory=datetime.utcnow)
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     source: str
     source_tier: SourceTier
     verification_status: VerificationStatus = VerificationStatus.UNVERIFIED
@@ -195,6 +203,44 @@ class FinancialObservation(BaseModel):
     document_reference: Optional[str] = None
     calculation_method: str = "DIRECT"
 
+class QuarterlyStatement(BaseModel):
+    """
+    Structured multi-quarter financial statement record.
+    Supports 4-8 quarters of historical disclosures with explicit nullability and PIT timestamps.
+    """
+    symbol: str
+    period_end_date: datetime
+    fiscal_period: str = "Q1"  # Q1, Q2, Q3, Q4
+    fiscal_year: int = 2024
+    filing_date: Optional[datetime] = None
+    publication_time: Optional[datetime] = None
+
+    # Income Statement
+    revenue: Optional[float] = None
+    operating_profit: Optional[float] = None
+    operating_margin: Optional[float] = None
+    ebitda: Optional[float] = None
+    net_income: Optional[float] = None
+    eps: Optional[float] = None
+
+    # Balance Sheet
+    total_assets: Optional[float] = None
+    total_liabilities: Optional[float] = None
+    total_equity: Optional[float] = None
+    cash: Optional[float] = None
+    total_debt: Optional[float] = None
+
+    # Cash Flow
+    operating_cash_flow: Optional[float] = None
+    investing_cash_flow: Optional[float] = None
+    financing_cash_flow: Optional[float] = None
+    free_cash_flow: Optional[float] = None
+
+    # Provenance
+    source: str = "yfinance"
+    source_tier: SourceTier = SourceTier.TIER_4_SECONDARY
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 class CorporateDocument(BaseModel):
     document_id: str
     symbol: str
@@ -203,21 +249,63 @@ class CorporateDocument(BaseModel):
     title: str
     source: str
     source_tier: SourceTier
-    publication_time: datetime
+    publication_time: Optional[datetime] = None
     period: str
     period_end: Optional[datetime] = None
-    retrieved_at: datetime = Field(default_factory=datetime.utcnow)
-    reference: str
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    reference: Optional[str] = None
     verification_status: VerificationStatus = VerificationStatus.UNVERIFIED
+    quality: DataQuality = DataQuality.LOW
+    context_id: Optional[str] = None
+    file_path: Optional[str] = None
+    file_hash: Optional[str] = None
 
 class DataConflictRecord(BaseModel):
     field_name: str
     conflict_severity: ConflictSeverity
     conflicting_values: List[Any]
-    detected_at: datetime = Field(default_factory=datetime.utcnow)
+    detected_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     resolution_strategy: str
     resolved_value: Any
 
+
+class CorporateActionType(str, Enum):
+    DIVIDEND = "DIVIDEND"
+    SPLIT = "SPLIT"
+    BONUS = "BONUS"
+    RIGHTS_ISSUE = "RIGHTS_ISSUE"
+    BUYBACK = "BUYBACK"
+    MERGER = "MERGER"
+    DEMERGER = "DEMERGER"
+    DELISTING = "DELISTING"
+    OTHER = "OTHER"
+
+class CorporateAction(BaseModel):
+    """
+    Canonical corporate action model for dividends, splits, bonus issues, buybacks, rights, etc.
+    Supports precise PIT dates, ratio/amount, provenance, and source tiering.
+    """
+    symbol: str
+    isin: Optional[str] = None
+    event_type: CorporateActionType
+    announcement_date: Optional[datetime] = None
+    ex_date: Optional[datetime] = None
+    record_date: Optional[datetime] = None
+    effective_date: Optional[datetime] = None
+    payment_date: Optional[datetime] = None
+    ratio_or_amount: Optional[float] = None
+    ratio_text: Optional[str] = None
+    currency: str = "INR"
+    description: Optional[str] = None
+    source: str = "yfinance"
+    source_tier: SourceTier = SourceTier.TIER_4_SECONDARY
+    publication_time: Optional[datetime] = None
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    verification_status: VerificationStatus = VerificationStatus.UNVERIFIED
+    quality: DataQuality = DataQuality.MEDIUM
+    context_id: Optional[str] = None
+    document_reference: Optional[str] = None
+    raw_data: Dict[str, Any] = Field(default_factory=dict)
 
 class InvestorType(str, Enum):
     FII = "FII"
@@ -259,7 +347,7 @@ class InstitutionalFlowObservation(BaseModel):
     observed_at: datetime
     publication_time: Optional[datetime] = None
     effective_time: Optional[datetime] = None
-    retrieved_at: datetime = Field(default_factory=datetime.utcnow)
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     source: str
     source_tier: SourceTier
     verification_status: VerificationStatus = VerificationStatus.UNVERIFIED
@@ -277,7 +365,7 @@ class OwnershipObservation(BaseModel):
     report_date: Optional[datetime] = None
     publication_time: Optional[datetime] = None
     effective_time: Optional[datetime] = None
-    retrieved_at: datetime = Field(default_factory=datetime.utcnow)
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     source: str
     source_tier: SourceTier
     verification_status: VerificationStatus = VerificationStatus.UNVERIFIED
@@ -312,7 +400,7 @@ class DeliveryObservation(BaseModel):
     source: str
     source_tier: SourceTier
     observed_at: datetime
-    retrieved_at: datetime = Field(default_factory=datetime.utcnow)
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     verification_status: VerificationStatus = VerificationStatus.UNVERIFIED
     quality: DataQuality = DataQuality.LOW
     context_id: str
@@ -323,10 +411,17 @@ class MarketContext(BaseModel):
 
     context_id: str
     symbol: str
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     data_timestamp: datetime
     provider: str
     is_cached: bool = False
+
+    # Phase 20 - Snapshot Integrity
+    snapshot_id: str = Field(default="")
+    freshness_status: SnapshotFreshness = Field(default=SnapshotFreshness.MISSING)
+    completeness_status: str = Field(default="UNKNOWN")
+    cache_hit: bool = Field(default=False)
+    
     historical_window: HistoricalWindow = HistoricalWindow.RECENT
 
     # Data Provenance fields
@@ -338,12 +433,15 @@ class MarketContext(BaseModel):
     confidence_score: float = Field(default=0.5, ge=0.0, le=1.0)
     conflicts: List[Any] = Field(default_factory=list) # Relaxed to Any to support both old and new DataConflict
     provenance_records: Dict[str, Any] = Field(default_factory=dict) # Relaxed to Any to support both MetricProvenance and ProvenanceRecord
+    provenance: List[Any] = Field(default_factory=list)
     quality_summary: Dict[str, Any] = Field(default_factory=dict)
 
     current_price: float
     ohlcv_historical: List[Dict[str, Any]] = Field(default_factory=list)
     technical_indicators: Dict[str, Any] = Field(default_factory=dict)
     fundamental_data: Dict[str, Any] = Field(default_factory=dict)
+    quarterly_fundamentals: List[QuarterlyStatement] = Field(default_factory=list)
+    corporate_actions: List[CorporateAction] = Field(default_factory=list)
     corporate_documents: List[Any] = Field(default_factory=list) # List of CorporateDocument
     sector_data: Dict[str, Any] = Field(default_factory=dict)
     macro_data: Dict[str, Any] = Field(default_factory=dict)
@@ -1248,6 +1346,53 @@ class NewsArticleEvidence(BaseModel):
     context_id: str = Field(description="MarketContext ID for provenance tracking")
 
 
+class NewsEvent(BaseModel):
+    """
+    Canonical news event model with explicit timestamps, source tiers, materiality,
+    and deduplication metadata.
+    """
+    symbol: str
+    isin: Optional[str] = None
+    headline: str
+    summary: str = ""
+    publisher: str = "UNKNOWN"
+    url: Optional[str] = None
+    reference_id: Optional[str] = None
+    publication_time: Optional[datetime] = None
+    ingestion_timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    event_category: NewsEventType = NewsEventType.OTHER
+    materiality: NewsImportance = NewsImportance.MEDIUM
+    materiality_score: float = 0.5
+    source_tier: SourceTier = SourceTier.TIER_4_SECONDARY
+    source: str = "yfinance"
+    is_duplicate: bool = False
+    duplicate_group_id: Optional[str] = None
+    verification_status: VerificationStatus = VerificationStatus.UNVERIFIED
+    quality: DataQuality = DataQuality.MEDIUM
+    raw_data: Dict[str, Any] = Field(default_factory=dict)
+
+
+class RegulatoryFiling(BaseModel):
+    """
+    Canonical regulatory disclosure/filing model (NSE/BSE/Corporate IR).
+    """
+    symbol: str
+    isin: Optional[str] = None
+    filing_type: DocumentType = DocumentType.REGULATORY_FILING
+    title: str
+    publication_time: datetime
+    filing_id: Optional[str] = None
+    source: str = "NSE_Official"
+    source_tier: SourceTier = SourceTier.TIER_1_PRIMARY_OFFICIAL
+    url: Optional[str] = None
+    materiality: NewsImportance = NewsImportance.HIGH
+    materiality_score: float = 0.8
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    verification_status: VerificationStatus = VerificationStatus.VERIFIED
+    quality: DataQuality = DataQuality.HIGH
+    raw_data: Dict[str, Any] = Field(default_factory=dict)
+
+
 class NewsPayload(BaseModel):
     """
     Specialist output for NewsSpecialist embedded in AgentOutput.raw_data.
@@ -1381,7 +1526,7 @@ class InstitutionalPayload(BaseModel):
 class AgentEvidence(BaseModel):
     source: str
     content: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class AgentError(BaseModel):
@@ -1395,7 +1540,7 @@ class AgentOutput(BaseModel):
     version: str
     model: str
     status: AgentState
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     data_timestamp: datetime
     confidence: float = Field(ge=0.0, le=1.0)
     conclusion: str
@@ -1454,7 +1599,7 @@ class DebateOutput(BaseModel):
     consensus: bool
     summary: str
     winning_argument: Optional[str]
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class TradeProposal(BaseModel):
@@ -1471,7 +1616,7 @@ class DecisionResult(BaseModel):
     approved: bool
     proposal: TradeProposal
     reasoning: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 # --- Phase 4.1: Evidence Aggregation Schemas ---
@@ -1610,7 +1755,7 @@ class UnifiedEvidencePackage(BaseModel):
     run_id: str
     context_id: str
     symbol: str
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     data_timestamp: datetime
 
     specialists_total: int = 0
@@ -1647,3 +1792,90 @@ class UnifiedEvidencePackage(BaseModel):
     duplicates_detected: int = 0
     pit_inconsistent_count: int = 0
     total_evidence_extracted: int = 0
+
+
+# ── Phase 6.1: Evidence Layer Foundation Schemas ───────────────────────────
+
+class EvidenceRecord(BaseModel):
+    """
+    Phase 6.1: Strongly typed evidence record produced by EvidenceAggregator.
+    Standardized boundary between Specialist Agents and the future Debate Engine.
+    """
+    evidence_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    symbol: str
+    context_id: str
+    specialist_name: str
+    specialist_version: str = "1.0"
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    data_timestamp: datetime
+    evidence_type: EvidenceType = EvidenceType.DETERMINISTIC_CALCULATION
+    claim: str
+    value: Optional[Any] = None
+    unit: Optional[str] = None
+    source: Optional[str] = None
+    provenance: Optional[List[ProvenanceRecord]] = Field(default_factory=list)
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    status: AgentState = AgentState.SUCCESS
+    risks: List[str] = Field(default_factory=list)
+    assumptions: List[str] = Field(default_factory=list)
+
+    # Optional metadata
+    category: Optional[EvidenceCategory] = None
+    direction: Optional[SignalDirection] = None
+    metric_name: Optional[str] = None
+    invalidation_conditions: List[str] = Field(default_factory=list)
+    is_deterministic: bool = False
+
+
+class ContradictionRecord(BaseModel):
+    """
+    Phase 6.1: Material contradiction between two specialists.
+    Explicitly recorded without resolution for downstream adversarial debate.
+    """
+    contradiction_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    subject: str
+    specialist_a: str
+    claim_a: str
+    value_a: Optional[Any] = None
+    direction_a: Optional[SignalDirection] = None
+    specialist_b: str
+    claim_b: str
+    value_b: Optional[Any] = None
+    direction_b: Optional[SignalDirection] = None
+    severity: ConflictSeverity = ConflictSeverity.MODERATE
+    explanation: str
+    detected_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class RejectedEvidenceRecord(BaseModel):
+    """
+    Phase 6.1: Record of an evidence item that was rejected due to
+    malformed structure, missing fields, or forbidden content (e.g. CoT).
+    """
+    record_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    specialist_name: str
+    reason: str
+    raw_item: Optional[Any] = None
+    rejected_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class EvidenceSummary(BaseModel):
+    """
+    Phase 6.1: Normalized evidence package containing all validated evidence records,
+    detected contradictions, degraded/failed specialist logs, and audit counts.
+    Serves as the clean input boundary to the future Debate Engine.
+    """
+    run_id: str
+    context_id: str
+    symbol: str
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    total_evidence: int = 0
+    valid_evidence: int = 0
+    rejected_evidence: int = 0
+    contradictions: List[ContradictionRecord] = Field(default_factory=list)
+    degraded_specialists: List[str] = Field(default_factory=list)
+    failed_specialists: List[str] = Field(default_factory=list)
+    evidence_records: List[EvidenceRecord] = Field(default_factory=list)
+    rejected_records: List[RejectedEvidenceRecord] = Field(default_factory=list)
+    missing_data_records: List[MissingDataRecord] = Field(default_factory=list)
+

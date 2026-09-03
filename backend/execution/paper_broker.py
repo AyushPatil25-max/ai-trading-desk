@@ -5,7 +5,7 @@ Offline deterministic simulated broker for testing order execution, portfolio tr
 and safety constraints without live broker connections or real money.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 import uuid
 
@@ -93,7 +93,7 @@ class PaperBroker(BrokerInterface):
                 quantity_filled=0.0,
                 fill_price=0.0,
                 status=status,
-                executed_at=datetime.utcnow(),
+                executed_at=datetime.now(timezone.utc),
                 total_cost=0.0,
                 commission=0.0,
                 context_id=order.context_id,
@@ -128,7 +128,7 @@ class PaperBroker(BrokerInterface):
             quantity_filled=order.quantity,
             fill_price=fill_price,
             status=OrderStatus.FILLED,
-            executed_at=datetime.utcnow(),
+            executed_at=datetime.now(timezone.utc),
             total_cost=total_cost,
             commission=commission,
             context_id=order.context_id,

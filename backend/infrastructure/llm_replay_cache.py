@@ -5,7 +5,7 @@ Provides deterministic caching, recording, and bitwise replay of structured LLM 
 for historical backtesting and auditing.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -25,7 +25,7 @@ class CachedLLMResponse(BaseModel):
     input_tokens: int = 0
     output_tokens: int = 0
     estimated_cost_usd: float = 0.0
-    recorded_at: datetime = Field(default_factory=datetime.utcnow)
+    recorded_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class LLMReplayCache:

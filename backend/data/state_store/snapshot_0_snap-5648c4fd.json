@@ -1,0 +1,19 @@
+{
+  "snapshot_id": "snap-5648c4fd",
+  "revision": 0,
+  "timestamp": "2026-09-02T07:16:54.303421Z",
+  "node_id": "node-local",
+  "state_data": {
+    "initial_capital": 100000.0,
+    "cash": 100000.0,
+    "positions": {},
+    "active_symbols": [
+      "TCS.NS",
+      "RELIANCE.NS",
+      "INFY.NS"
+    ],
+    "orders": {},
+    "decisions": {}
+  },
+  "checksum": "5289a5197ce2d39280871a6ff8ce0761bfc6e299a54978f997ef75f68d17d449"
+}

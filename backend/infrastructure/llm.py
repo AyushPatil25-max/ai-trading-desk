@@ -1,3 +1,4 @@
+from backend.config.app_config import get_app_config
 """
 LLM Client abstraction — Phase 3.2
 
@@ -98,7 +99,7 @@ class GroqLLMClient(LLMClient):
         model: Optional[str] = None,
     ) -> None:
         import groq
-        resolved_key = api_key or os.getenv("GROQ_API_KEY")
+        resolved_key = api_key or get_app_config().groq_api_key
         if not resolved_key:
             raise LLMClientError(
                 "GROQ_API_KEY is not set. Provide it via environment variable or constructor."
@@ -164,9 +165,11 @@ class MockLLMClient(LLMClient):
         self,
         fixed_response: Optional[BaseModel] = None,
         raise_error: Optional[Exception] = None,
+        responses_queue: Optional[List[BaseModel]] = None,
     ) -> None:
         self._response = fixed_response
         self._error = raise_error
+        self._queue = list(responses_queue) if responses_queue else []
         self._call_count = 0
 
     @property
@@ -186,6 +189,9 @@ class MockLLMClient(LLMClient):
         self._call_count += 1
         if self._error is not None:
             raise self._error
+        if self._queue:
+            return self._queue.pop(0)
         if self._response is not None:
             return self._response
         raise NotImplementedError("MockLLMClient has no fixed_response configured.")
+

@@ -5,7 +5,7 @@ Tests kill switch behavior, adversarial LLM override prevention, deterministic d
 conversion, audit verification, and full pipeline integration from Specialists to Portfolio.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 import unittest
 
 from backend.domain.execution_schemas import (
@@ -57,7 +57,7 @@ class TestExecutionSafety(unittest.TestCase):
         self.market_context = MarketContext(
             context_id="ctx-safety-1",
             symbol="TCS.NS",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             current_price=3500.0,
             provider="NSE",
         )

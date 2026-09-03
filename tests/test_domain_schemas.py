@@ -1,5 +1,5 @@
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 from backend.domain.schemas import (
     MarketContext, AgentInput, AgentOutput, AgentState, AgentEvidence
 )
@@ -12,7 +12,7 @@ class TestDomainSchemas(unittest.TestCase):
             symbol="TCS.NS",
             current_price=150.0,
             provider="test",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             technical_indicators={"SMA": 140.0}
         )
         self.assertEqual(ctx.symbol, "TCS.NS")
@@ -24,7 +24,7 @@ class TestDomainSchemas(unittest.TestCase):
             version="1.0",
             model="llama-3",
             status=AgentState.SUCCESS,
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             confidence=0.8,
             conclusion="Buy"
         )
@@ -37,7 +37,7 @@ class TestDomainSchemas(unittest.TestCase):
                 version="1.0",
                 model="llama-3",
                 status=AgentState.SUCCESS,
-                data_timestamp=datetime.utcnow(),
+                data_timestamp=datetime.now(timezone.utc),
                 confidence=1.5,
                 conclusion="Buy"
             )

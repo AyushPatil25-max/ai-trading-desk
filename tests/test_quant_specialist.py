@@ -6,7 +6,7 @@ All LLM calls are mocked. No Groq calls. No Yahoo Finance calls.
 
 import math
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from backend.application.agent_registry import AgentRegistry
@@ -79,7 +79,7 @@ def _make_context(
         context_id=context_id,
         symbol=symbol,
         provider="test",
-        data_timestamp=datetime.utcnow(),
+        data_timestamp=datetime.now(timezone.utc),
         current_price=price,
         ohlcv_historical=ohlcv,
         technical_indicators=indicators,

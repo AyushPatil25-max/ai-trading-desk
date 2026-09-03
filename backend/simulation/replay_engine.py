@@ -42,7 +42,7 @@ from backend.execution.portfolio import PaperPortfolio
 from backend.execution.safety_engine import ExecutionSafetyEngine
 from backend.investment_committee.committee_agent import InvestmentCommitteeAgent
 from backend.simulation.performance import PerformanceEngine
-from backend.simulation.pit_filter import PointInTimeFilter, _parse_timestamp
+from backend.simulation.pit_filter import PointInTimeFilter, _parse_timestamp, _normalize_dt
 from backend.simulation.report import SimulationReportBuilder
 from backend.simulation.simulation_config import SimulationConfig
 from backend.simulation.simulation_state import (
@@ -92,6 +92,8 @@ class HistoricalReplayEngine:
     ) -> List[datetime]:
         """Extract sorted list of unique simulation timestamps from historical data."""
         timestamps: Set[datetime] = set()
+        start_date = _normalize_dt(self.config.start_date)
+        end_date = _normalize_dt(self.config.end_date)
         for symbol, data in historical_datasets.items():
             ohlcv = []
             if isinstance(data, MarketContext):
@@ -102,7 +104,7 @@ class HistoricalReplayEngine:
             for bar in ohlcv:
                 ts = _parse_timestamp(bar.get("timestamp") or bar.get("date"))
                 if ts:
-                    if self.config.start_date <= ts <= self.config.end_date:
+                    if (start_date is None or start_date <= ts) and (end_date is None or ts <= end_date):
                         timestamps.add(ts)
 
         return sorted(list(timestamps))

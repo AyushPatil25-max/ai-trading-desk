@@ -24,7 +24,7 @@ NOT responsible for
 import asyncio
 import logging
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional
 
 from backend.domain.agents import BaseAgent
@@ -94,7 +94,7 @@ class SpecialistOrchestrator:
         SpecialistRunResult — structured aggregate, always returned even if all agents fail.
         """
         run_id = str(uuid.uuid4())
-        started_at = datetime.utcnow()
+        started_at = datetime.now(timezone.utc)
 
         logger.info(
             "[Orchestrator] run_id=%s context_id=%s symbol=%s agents=%d concurrency=%d timeout=%.1fs",
@@ -118,7 +118,7 @@ class SpecialistOrchestrator:
         ]
 
         records: List[AgentExecutionRecord] = await asyncio.gather(*tasks)
-        completed_at = datetime.utcnow()
+        completed_at = datetime.now(timezone.utc)
 
         # Aggregate counters
         successful = sum(1 for r in records if r.status == AgentState.SUCCESS)
@@ -175,7 +175,7 @@ class SpecialistOrchestrator:
         market_context: MarketContext,
         additional_data: dict,
     ) -> AgentExecutionRecord:
-        started_at = datetime.utcnow()
+        started_at = datetime.now(timezone.utc)
         logger.info(
             "[Orchestrator] START agent=%s version=%s context_id=%s",
             agent.name, agent.version, market_context.context_id,
@@ -195,7 +195,7 @@ class SpecialistOrchestrator:
                 ),
                 timeout=self.agent_timeout_seconds,
             )
-            completed_at = datetime.utcnow()
+            completed_at = datetime.now(timezone.utc)
             duration = (completed_at - started_at).total_seconds()
 
             logger.info(
@@ -216,7 +216,7 @@ class SpecialistOrchestrator:
             )
 
         except asyncio.TimeoutError:
-            completed_at = datetime.utcnow()
+            completed_at = datetime.now(timezone.utc)
             duration = (completed_at - started_at).total_seconds()
             logger.warning(
                 "[Orchestrator] TIMEOUT agent=%s after %.1fs",
@@ -247,7 +247,7 @@ class SpecialistOrchestrator:
             )
 
         except NonRecoverableAgentError as exc:
-            completed_at = datetime.utcnow()
+            completed_at = datetime.now(timezone.utc)
             duration = (completed_at - started_at).total_seconds()
             logger.error(
                 "[Orchestrator] NON-RECOVERABLE agent=%s error=%s",
@@ -276,7 +276,7 @@ class SpecialistOrchestrator:
             )
 
         except Exception as exc:
-            completed_at = datetime.utcnow()
+            completed_at = datetime.now(timezone.utc)
             duration = (completed_at - started_at).total_seconds()
             logger.error(
                 "[Orchestrator] FAILED agent=%s error=%s: %s",

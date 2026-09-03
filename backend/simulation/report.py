@@ -4,7 +4,7 @@ Simulation Report Generator — Phase 5.2
 Formats deterministic simulation results into structured reports, summaries, and Markdown logs.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional
 
 from backend.simulation.simulation_config import SimulationConfig
@@ -48,7 +48,7 @@ class SimulationReportBuilder:
             equity_curve=equity_curve,
             trade_journal=trade_journal,
             decision_journal=decision_journal,
-            generated_at=datetime.utcnow(),
+            generated_at=datetime.now(timezone.utc),
         )
 
     @staticmethod

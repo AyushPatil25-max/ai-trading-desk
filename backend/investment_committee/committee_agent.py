@@ -1,7 +1,7 @@
 import json
 import uuid
 from typing import Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 
 from backend.domain.agents import BaseAgent
@@ -54,8 +54,38 @@ class InvestmentCommitteeAgent(BaseAgent):
         ts = input_data.market_context.data_timestamp
 
         # 1. & 2. & 3. Validate Inputs
+        evidence_summary_data = input_data.additional_data.get("evidence_summary")
         unified_evidence_dict = input_data.additional_data.get("unified_evidence")
         debate_result_dict = input_data.additional_data.get("debate_result")
+
+        if not unified_evidence_dict and evidence_summary_data:
+            from backend.domain.schemas import EvidenceSummary, NormalizedEvidence, EvidenceCategory
+            if isinstance(evidence_summary_data, dict):
+                ev_summary = EvidenceSummary.model_validate(evidence_summary_data)
+            else:
+                ev_summary = evidence_summary_data
+            
+            norm_items = [
+                NormalizedEvidence(
+                    evidence_id=r.evidence_id,
+                    specialist_name=r.specialist_name,
+                    metric_name=r.metric_name or "EVIDENCE",
+                    category=r.category if r.category else EvidenceCategory.UNKNOWN,
+                    direction=r.direction,
+                    context_id=r.context_id,
+                    data_timestamp=r.data_timestamp,
+                    confidence=r.confidence or 0.5,
+                )
+                for r in ev_summary.evidence_records
+            ]
+            unified_evidence_dict = UnifiedEvidencePackage(
+                run_id=ev_summary.run_id,
+                context_id=ev_summary.context_id,
+                symbol=ev_summary.symbol,
+                data_timestamp=ts,
+                total_evidence_extracted=ev_summary.total_evidence,
+                evidence_items=norm_items,
+            ).model_dump()
 
         if not unified_evidence_dict or not debate_result_dict:
             return self._failure_output(ctx_id, symbol, "INVALID_INPUT", "Missing evidence or debate result.", ts)
@@ -105,7 +135,7 @@ class InvestmentCommitteeAgent(BaseAgent):
                 context_id=ctx_id,
                 symbol=symbol,
                 run_id=evidence.run_id,
-                generated_at=datetime.utcnow(),
+                generated_at=datetime.now(timezone.utc),
                 state=deterministic_state,
                 thesis=thesis,
                 execution_plan=execution_plan,

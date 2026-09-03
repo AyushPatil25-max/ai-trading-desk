@@ -1,3 +1,4 @@
+from backend.config.app_config import get_app_config
 import os
 import json
 import asyncio
@@ -18,7 +19,7 @@ async def run_risk_agent(symbol: str, recent_data: dict, technical_score: float)
     """
     Evaluates volatility and technical score to output strict risk parameters asynchronously.
     """
-    api_key = os.getenv("GROQ_API_KEY")
+    api_key = get_app_config().groq_api_key
     if not api_key:
         raise ValueError("GROQ_API_KEY is not set in .env")
         

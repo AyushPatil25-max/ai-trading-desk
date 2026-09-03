@@ -5,7 +5,7 @@ Data models for trade journals, decision tracking, equity curves,
 data-quality statistics, risk metrics, and simulation reports.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
@@ -143,4 +143,4 @@ class SimulationReport(BaseModel):
     equity_curve: List[EquityCurvePoint] = Field(default_factory=list)
     trade_journal: List[TradeJournalEntry] = Field(default_factory=list)
     decision_journal: List[DecisionJournalEntry] = Field(default_factory=list)
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

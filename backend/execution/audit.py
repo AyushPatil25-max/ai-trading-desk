@@ -5,7 +5,7 @@ Maintains an immutable, structured record of every order evaluation, validation 
 and execution outcome.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 import uuid
 
@@ -52,7 +52,7 @@ class ExecutionAuditManager:
             decision=validation.decision,
             validation_result=validation,
             execution_result=execution,
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
             kill_switch_active=kill_switch_active,
             metadata=metadata or {},
         )

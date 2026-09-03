@@ -1,33 +1,49 @@
-from typing import Dict, Any
+import math
+from typing import Dict, Any, Optional
 import asyncio
+import pandas as pd
 from backend.infrastructure.data_providers import YFinanceProvider
 from backend.infrastructure.cache import InMemoryContextCache
 from backend.application.context_service import ContextService
 from backend.domain.schemas import AgentInput, MarketContext, DataQualityStatus
 from backend.adapters.legacy_agents import TechnicalAgentAdapter, RiskAgentAdapter
+from backend.utils.json_safety import sanitize_for_json
 
 _global_cache = InMemoryContextCache(ttl_seconds=60)
 _global_provider = YFinanceProvider()
 _context_service = ContextService(_global_provider, _global_cache)
 
+def _safe_float(val: Any) -> Optional[float]:
+    if val is None:
+        return None
+    try:
+        if pd.isna(val):
+            return None
+        f = float(val)
+        if math.isnan(f) or math.isinf(f):
+            return None
+        return round(f, 2)
+    except (ValueError, TypeError):
+        return None
+
 async def analyze_symbol_application(symbol: str) -> Dict[str, Any]:
     ctx = await _context_service.get_market_context(symbol)
     
     if ctx.quality_status == DataQualityStatus.CRITICAL_FAILURE:
-        return {
+        return sanitize_for_json({
             "symbol": symbol,
             "market_data": {},
             "technical": {},
             "risk": {},
             "final_verdict": f"REJECTED (Critical Data Failure: {ctx.warnings})"
-        }
+        })
         
     market_data_legacy = {
-        "latest_close": ctx.current_price,
-        "20_day_high": ctx.technical_indicators.get("20_day_high", 0.0),
-        "ema20": ctx.technical_indicators.get("ema20", 0.0),
-        "ema50": ctx.technical_indicators.get("ema50", 0.0),
-        "rsi": ctx.technical_indicators.get("rsi", 0.0)
+        "latest_close": _safe_float(ctx.current_price),
+        "20_day_high": _safe_float(ctx.technical_indicators.get("20_day_high")),
+        "ema20": _safe_float(ctx.technical_indicators.get("ema20")),
+        "ema50": _safe_float(ctx.technical_indicators.get("ema50")),
+        "rsi": _safe_float(ctx.technical_indicators.get("rsi"))
     }
     
     tech_agent = TechnicalAgentAdapter()
@@ -52,10 +68,10 @@ async def analyze_symbol_application(symbol: str) -> Dict[str, Any]:
     else:
         final_verdict = "REJECTED (High Risk or Unconfirmed Setup)"
         
-    return {
+    return sanitize_for_json({
         "symbol": symbol,
         "market_data": market_data_legacy,
         "technical": tech_raw,
         "risk": risk_raw,
         "final_verdict": final_verdict
-    }
+    })

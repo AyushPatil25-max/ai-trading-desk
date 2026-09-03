@@ -20,13 +20,13 @@ class TestAPI(unittest.TestCase):
     @patch("backend.infrastructure.data_providers.YFinanceProvider.get_market_context")
     def test_analyze_stock_approved(self, mock_market_data, mock_tech_agent, mock_risk_agent):
         from backend.domain.schemas import MarketContext
-        from datetime import datetime
+        from datetime import datetime, timezone
         mock_market_data.return_value = MarketContext(
             context_id="test-123",
             symbol="TCS.NS",
             current_price=3280.80,
             provider="test",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             technical_indicators={
                 "20_day_high": 3271.60,
                 "ema20": 3188.45,
@@ -53,13 +53,13 @@ class TestAPI(unittest.TestCase):
     @patch("backend.market_data.get_live_market_data")
     def test_analyze_stock_rejected_high_risk(self, mock_market_data, mock_tech_agent, mock_risk_agent):
         from backend.domain.schemas import MarketContext
-        from datetime import datetime
+        from datetime import datetime, timezone
         mock_market_data.return_value = MarketContext(
             context_id="test-123",
             symbol="TCS.NS",
             current_price=3280.80,
             provider="test",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             technical_indicators={
                 "20_day_high": 3271.60,
                 "ema20": 3188.45,
@@ -78,12 +78,12 @@ class TestAPI(unittest.TestCase):
     @patch("backend.infrastructure.data_providers.YFinanceProvider.get_market_context")
     def test_analyze_stock_market_data_failure(self, mock_market_data):
         from backend.domain.schemas import MarketContext, DataQualityStatus
-        from datetime import datetime
+        from datetime import datetime, timezone
         mock_market_data.return_value = MarketContext(
             context_id="test-123",
             symbol="INVALID",
             provider="test",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             current_price=0.0,
             quality_status=DataQualityStatus.CRITICAL_FAILURE,
             warnings=["Empty dataset returned from provider."]

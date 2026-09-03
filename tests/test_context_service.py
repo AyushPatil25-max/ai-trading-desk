@@ -1,7 +1,7 @@
 import unittest
 import asyncio
 from unittest.mock import AsyncMock, patch, MagicMock
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import uuid
 
 from backend.domain.schemas import MarketContext, DataQualityStatus, HistoricalWindow
@@ -26,8 +26,8 @@ class MockProvider(MarketDataProvider):
             symbol=symbol,
             provider="mock",
             historical_window=window,
-            generated_at=datetime.utcnow(),
-            data_timestamp=datetime.utcnow(),
+            generated_at=datetime.now(timezone.utc),
+            data_timestamp=datetime.now(timezone.utc),
             current_price=100.0,
             ohlcv_historical=ohlcv,
             quality_status=DataQualityStatus.OK
@@ -94,7 +94,7 @@ class TestContextService(unittest.IsolatedAsyncioTestCase):
     async def test_7_same_context_returned_to_multiple_consumers(self):
         ctx1 = await self.service.get_market_context("TEST")
         ctx2 = await self.service.get_market_context("TEST")
-        self.assertEqual(ctx1.model_dump(exclude={'is_cached'}), ctx2.model_dump(exclude={'is_cached'}))
+        self.assertEqual(ctx1.model_dump(exclude={'is_cached', 'snapshot_id', 'freshness_status', 'completeness_status', 'cache_hit'}), ctx2.model_dump(exclude={'is_cached', 'snapshot_id', 'freshness_status', 'completeness_status', 'cache_hit'}))
 
     async def test_8_context_immutability(self):
         ctx = await self.service.get_market_context("TEST")
@@ -114,8 +114,8 @@ class TestContextService(unittest.IsolatedAsyncioTestCase):
                 symbol=symbol,
                 provider="mock",
                 historical_window=window,
-                generated_at=datetime.utcnow(),
-                data_timestamp=datetime.utcnow(),
+                generated_at=datetime.now(timezone.utc),
+                data_timestamp=datetime.now(timezone.utc),
                 current_price=100.0,
                 quality_status=DataQualityStatus.OK
             )

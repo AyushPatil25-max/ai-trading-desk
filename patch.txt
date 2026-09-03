@@ -1,0 +1,7 @@
+﻿                global_order_tracker.record_success(
+                    fingerprint=auth.authorization_id,
+                    order_id=res.order_id,
+                    status=res.status.value,
+                    details={"symbol": req.symbol, "requested_quantity": req.quantity}
+                )
+                return res

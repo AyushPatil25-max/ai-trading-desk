@@ -5,7 +5,7 @@ Performs deep data provider availability auditing, Point-In-Time data trust veri
 survivorship bias detection, specialist data sufficiency accounting, and deterministic strategy classification.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 from pydantic import BaseModel, Field
@@ -61,7 +61,7 @@ class EmpiricalScorecard(BaseModel):
     is_pit_clean: bool
     survivorship_bias_risk: bool
     reproducibility_hash: str
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class DataTrustAuditor:

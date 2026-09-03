@@ -1,3 +1,4 @@
+from backend.config.app_config import get_app_config
 """
 Real LLM Historical Replay & AI Reasoning Validator — Phase 5.6
 
@@ -83,7 +84,7 @@ class RealLLMRunner:
             return self._llm_client
 
         if self.execution_mode == LLMExecutionMode.REAL_LLM:
-            api_key = os.getenv("GROQ_API_KEY")
+            api_key = get_app_config().groq_api_key
             if not api_key:
                 raise RuntimeError("REAL_LLM_CREDENTIALS_UNAVAILABLE: GROQ_API_KEY is not set in environment.")
             self._llm_client = GroqLLMClient(api_key=api_key, model=self.model_name)
@@ -183,7 +184,7 @@ class RealLLMRunner:
         if boundary_violations > 0:
             classification = RealLLMValidationClassification.REAL_LLM_BOUNDARY_FAILURE
             summary = f"Validation FAILED: {boundary_violations} specialist numerical boundary violations."
-        elif self.execution_mode == LLMExecutionMode.REAL_LLM and not os.getenv("GROQ_API_KEY"):
+        elif self.execution_mode == LLMExecutionMode.REAL_LLM and not get_app_config().groq_api_key:
             classification = RealLLMValidationClassification.REAL_LLM_CREDENTIALS_UNAVAILABLE
             summary = "Real LLM execution paused: GROQ_API_KEY credentials not present in environment."
         else:
@@ -206,3 +207,4 @@ class RealLLMRunner:
             classification=classification,
             summary=summary,
         )
+

@@ -1,16 +1,19 @@
-from backend.application.broker_interface import LiveBrokerDisabledError
+from backend.application.broker_interface import LiveBrokerDisabledError, BrokerAdapter
 from backend.application.confirmation_store import global_confirmation_store
 import os
 import logging
 import copy
-from typing import Dict, Optional, Any, List
+from typing import Dict, Optional, Any, List, Tuple
 from datetime import datetime, timezone
 
 from backend.domain.broker_schemas import (
-    BrokerConnectionState,
+    BrokerConnectionState, BrokerCapabilities,
     BrokerOrderRequest, BrokerOrderResponse, OrderResult, BrokerAccountState, NormalizedOrderStatus, BrokerPosition, BrokerMode, OrderSide, OrderType,
-    ExchangeSegment, ProductType, OrderRequest
+    ExchangeSegment, ProductType, OrderRequest, SafetyGateResult, OrderPreview, ConfirmationRecord
 )
+from backend.domain.paper_broker_schemas import PaperExecutionResult, PaperOrder, PaperOrderStatus
+from backend.domain.preflight_schemas import ExecutionAuthorizationSnapshot
+from backend.domain.schemas import MarketContext
 from backend.config.app_config import get_app_config
 from backend.execution.safety_engine import global_manual_order_safety_gate
 import urllib.request
@@ -39,18 +42,13 @@ class DhanHTTPClient:
             
         req = urllib.request.Request(url, data=data, headers=headers, method=method)
         try:
-            with urllib.request.urlopen(req) as response:
-                res_body = response.read().decode("utf-8")
-                if res_body:
-                    return json.loads(res_body)
-                return {}
+            with urllib.request.urlopen(req, timeout=10.0) as response:
+                res_body = response.read().decode('utf-8')
+                return json.loads(res_body) if res_body else {}
         except urllib.error.HTTPError as e:
             if e.code == 401:
                 raise ValueError("DHAN_AUTH_FAILED")
-            elif e.code == 429:
-                raise RuntimeError("DHAN_RATE_LIMITED")
-            else:
-                raise RuntimeError("DHAN_UNAVAILABLE")
+            raise RuntimeError(f"HTTP {e.code}: {e.reason}")
         except urllib.error.URLError:
             raise RuntimeError("DHAN_UNAVAILABLE")
 
@@ -66,35 +64,34 @@ def normalize_dhan_order_status(raw_status: str) -> NormalizedOrderStatus:
     return NormalizedOrderStatus.UNKNOWN
 
 def build_dhan_order_payload(order: OrderRequest, client_id: str) -> Dict[str, Any]:
-    segment_map = {
-        ExchangeSegment.NSE: "NSE_EQ",
-        ExchangeSegment.BSE: "BSE_EQ",
-        ExchangeSegment.NSE_FNO: "NSE_FNO",
-        ExchangeSegment.BSE_FNO: "BSE_FNO",
-    }
-    exchange_segment_str = segment_map.get(order.exchange_segment, order.exchange_segment.value if hasattr(order.exchange_segment, "value") else str(order.exchange_segment))
+    from backend.infrastructure.security_master import get_security_master
+    sm = get_security_master()
+    sec = sm.resolve_symbol(order.symbol)
+    
+    if not sec or not sec.dhan_security_id:
+        raise ValueError(f"CRITICAL SAFETY REJECTION: Unable to resolve Dhan securityId for symbol {order.symbol}. Order rejected.")
 
     return {
         "dhanClientId": client_id,
         "correlationId": order.request_id,
-        "transactionType": "BUY" if order.side.value == "BUY" else "SELL",
-        "exchangeSegment": exchange_segment_str,
-        "productType": order.product_type.value,
-        "orderType": order.order_type.value,
+        "transactionType": "BUY" if order.side == OrderSide.BUY else "SELL",
+        "exchangeSegment": "NSE_EQ",
+        "productType": "CNC" if order.product_type == ProductType.CNC else "INTRADAY",
+        "orderType": "MARKET" if order.order_type == OrderType.MARKET else "LIMIT",
         "validity": "DAY",
         "tradingSymbol": order.symbol,
-        "securityId": "",
+        "securityId": sec.dhan_security_id, 
         "quantity": int(order.quantity),
         "disclosedQuantity": 0,
-        "price": order.price or 0.0,
-        "triggerPrice": order.trigger_price or 0.0,
+        "price": float(order.price) if order.price else 0.0,
+        "triggerPrice": 0.0,
         "afterMarketOrder": False,
         "amoTime": "OPEN",
         "boProfitValue": 0.0,
         "boStopLossValue": 0.0
     }
 
-class DhanBrokerAdapter:
+class DhanBrokerAdapter(BrokerAdapter):
     """
     Phase 26 Hardened Dhan API Adapter.
     Requires explict opt-in and live_execution_enabled flag.
@@ -123,6 +120,7 @@ class DhanBrokerAdapter:
             self.client = None
 
         self._connection_state = BrokerConnectionState.DISCONNECTED
+        self.static_ip_status = "STATIC_IP_UNKNOWN"
         self._check_connection()
 
     def _check_connection(self):
@@ -147,10 +145,21 @@ class DhanBrokerAdapter:
             else:
                 self._connection_state = BrokerConnectionState.ERROR
 
+        # Check Static IP Readiness safely
+        if self._connection_state == BrokerConnectionState.DHAN_CONNECTED:
+            try:
+                ip_resp = self.client.request("/v2/ip/getIP")
+                if ip_resp and "primaryIp" in ip_resp:
+                    self.static_ip_status = "STATIC_IP_CONFIGURED"
+                else:
+                    self.static_ip_status = "STATIC_IP_MISSING"
+            except Exception:
+                self.static_ip_status = "STATIC_IP_UNKNOWN"
+
     def get_capabilities(self) -> BrokerCapabilities:
         return BrokerCapabilities(
             broker_name=self.broker_name,
-            mode=BrokerMode.LIVE if self.live_execution_enabled else BrokerMode.SANDBOX,
+            mode=BrokerMode.DHAN,
             is_live=self.live_execution_enabled,
             supports_paper=True,
             supports_market_orders=True,
@@ -168,7 +177,7 @@ class DhanBrokerAdapter:
             return BrokerAccountState(
                 account_id=self.client_id or "unknown",
                 broker_name=self.broker_name,
-                mode=BrokerMode.LIVE if self.live_execution_enabled else BrokerMode.SANDBOX,
+                mode=BrokerMode.DHAN,
                 is_live=self.live_execution_enabled,
                 cash=0.0,
                 buying_power=0.0,
@@ -185,7 +194,7 @@ class DhanBrokerAdapter:
             return BrokerAccountState(
                 account_id=self.client_id,
                 broker_name=self.broker_name,
-                mode=BrokerMode.LIVE if self.live_execution_enabled else BrokerMode.SANDBOX,
+                mode=BrokerMode.DHAN,
                 is_live=self.live_execution_enabled,
                 cash=cash,
                 buying_power=cash,

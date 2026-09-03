@@ -26,6 +26,20 @@ def _get_risk_runner():
         return mod
     return curr or mod
 
+from backend.utils.json_safety import sanitize_for_json
+
+def _safe_float(val, default=0.0):
+    if val is None:
+        return default
+    try:
+        f = float(val)
+        import math
+        if math.isnan(f) or math.isinf(f):
+            return default
+        return round(f, 2)
+    except (ValueError, TypeError):
+        return default
+
 class TechnicalAgentAdapter(BaseAgent):
     @property
     def name(self) -> str:
@@ -37,13 +51,14 @@ class TechnicalAgentAdapter(BaseAgent):
         
     async def execute(self, input_data: AgentInput) -> AgentOutput:
         try:
-            legacy_market_data = {
-                "latest_close": input_data.market_context.current_price,
-                "20_day_high": input_data.market_context.technical_indicators.get("20_day_high", 0.0),
-                "ema20": input_data.market_context.technical_indicators.get("ema20", 0.0),
-                "ema50": input_data.market_context.technical_indicators.get("ema50", 0.0),
-                "rsi": input_data.market_context.technical_indicators.get("rsi", 0.0)
-            }
+            techs = input_data.market_context.technical_indicators or {}
+            legacy_market_data = sanitize_for_json({
+                "latest_close": _safe_float(input_data.market_context.current_price, 0.0),
+                "20_day_high": _safe_float(techs.get("20_day_high"), 0.0),
+                "ema20": _safe_float(techs.get("ema20"), 0.0),
+                "ema50": _safe_float(techs.get("ema50"), 0.0),
+                "rsi": _safe_float(techs.get("rsi"), 0.0)
+            })
             runner = _get_technical_runner()
             legacy_output = await runner(input_data.symbol, legacy_market_data)
             
@@ -80,13 +95,14 @@ class RiskAgentAdapter(BaseAgent):
         
     async def execute(self, input_data: AgentInput) -> AgentOutput:
         try:
-            legacy_market_data = {
-                "latest_close": input_data.market_context.current_price,
-                "20_day_high": input_data.market_context.technical_indicators.get("20_day_high", 0.0),
-                "ema20": input_data.market_context.technical_indicators.get("ema20", 0.0),
-                "ema50": input_data.market_context.technical_indicators.get("ema50", 0.0),
-                "rsi": input_data.market_context.technical_indicators.get("rsi", 0.0)
-            }
+            techs = input_data.market_context.technical_indicators or {}
+            legacy_market_data = sanitize_for_json({
+                "latest_close": _safe_float(input_data.market_context.current_price, 0.0),
+                "20_day_high": _safe_float(techs.get("20_day_high"), 0.0),
+                "ema20": _safe_float(techs.get("ema20"), 0.0),
+                "ema50": _safe_float(techs.get("ema50"), 0.0),
+                "rsi": _safe_float(techs.get("rsi"), 0.0)
+            })
             tech_score = input_data.additional_data.get("technical_score", 5.0)
             runner = _get_risk_runner()
             legacy_output = await runner(input_data.symbol, legacy_market_data, tech_score)

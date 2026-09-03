@@ -8,7 +8,7 @@ Tests are fully offline and deterministic.
 import asyncio
 import time
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict
 from unittest.mock import AsyncMock, MagicMock, patch
 
@@ -41,7 +41,7 @@ def _make_context(symbol: str = "TEST", context_id: str = "ctx-001") -> MarketCo
         context_id=context_id,
         symbol=symbol,
         provider="test",
-        data_timestamp=datetime.utcnow(),
+        data_timestamp=datetime.now(timezone.utc),
         current_price=100.0,
         quality_status=DataQualityStatus.OK,
     )
@@ -53,7 +53,7 @@ def _make_output(agent_name: str, status: AgentState = AgentState.SUCCESS) -> Ag
         version="1.0",
         model="test-model",
         status=status,
-        data_timestamp=datetime.utcnow(),
+        data_timestamp=datetime.now(timezone.utc),
         confidence=0.9,
         conclusion=f"{agent_name} conclusion",
     )
@@ -605,7 +605,7 @@ class TestLegacyAdapterCompat(unittest.IsolatedAsyncioTestCase):
             context_id="legacy-001",
             symbol="TCS.NS",
             provider="test",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             current_price=3280.80,
             technical_indicators={
                 "20_day_high": 3310.0,

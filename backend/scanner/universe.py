@@ -1,11 +1,11 @@
 """
-Universe Abstraction — Phase 5.3
+Universe Abstraction — Phase 5.3 & Phase 3A Broad Universe
 
-Point-in-Time aware stock universe management for Indian equity markets (Nifty 50, Nifty 500, Custom).
+Point-in-Time aware stock universe management for Indian equity markets (Nifty 50, Nifty 500, All NSE, Custom).
 Guarantees temporal integrity so that future constituent changes do not leak into historical replay.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Set
 from pydantic import BaseModel, Field
@@ -16,6 +16,7 @@ from backend.domain.schemas import DataQuality, SourceTier, VerificationStatus
 class UniverseType(str, Enum):
     NIFTY_50 = "NIFTY_50"
     NIFTY_500 = "NIFTY_500"
+    ALL_NSE = "ALL_NSE"
     CUSTOM = "CUSTOM"
 
 
@@ -41,7 +42,7 @@ class UniverseSnapshot(BaseModel):
     symbols: List[str] = Field(default_factory=list)
     is_available: bool = True
     degraded_reason: Optional[str] = None
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     def get_symbols(self) -> List[str]:
         return [c.symbol for c in self.constituents if c.is_active]
@@ -89,19 +90,42 @@ class StockUniverse:
 
     def _build_default_constituents(self, universe_type: UniverseType) -> List[UniverseConstituent]:
         base_date = datetime(2020, 1, 1)
-        res = []
-        if universe_type == UniverseType.NIFTY_50 or universe_type == UniverseType.NIFTY_500:
-            for sym, name, sec, ind in self._DEFAULT_NIFTY_50:
-                res.append(
-                    UniverseConstituent(
-                        symbol=sym,
-                        company_name=name,
-                        sector=sec,
-                        industry=ind,
-                        is_active=True,
-                        effective_from=base_date,
-                    )
+        res: List[UniverseConstituent] = []
+
+        if universe_type in (UniverseType.NIFTY_500, UniverseType.ALL_NSE):
+            try:
+                from backend.infrastructure.security_master import get_security_master
+                sm = get_security_master()
+                all_secs = sm.list_securities(active_only=True)
+                if all_secs and len(all_secs) > 22:
+                    limit = 520 if universe_type == UniverseType.NIFTY_500 else len(all_secs)
+                    for sec in all_secs[:limit]:
+                        res.append(
+                            UniverseConstituent(
+                                symbol=sec.nse_symbol or f"{sec.canonical_symbol}.NS",
+                                company_name=sec.company_name,
+                                sector=sec.sector or "Unassigned",
+                                industry=sec.industry,
+                                is_active=sec.is_active,
+                                effective_from=base_date,
+                            )
+                        )
+                    return res
+            except Exception:
+                pass
+
+        # Fallback / Default NIFTY_50
+        for sym, name, sec, ind in self._DEFAULT_NIFTY_50:
+            res.append(
+                UniverseConstituent(
+                    symbol=sym,
+                    company_name=name,
+                    sector=sec,
+                    industry=ind,
+                    is_active=True,
+                    effective_from=base_date,
                 )
+            )
         return res
 
     def get_snapshot(self, as_of: datetime) -> UniverseSnapshot:
@@ -109,14 +133,20 @@ class StockUniverse:
         Produce a strictly Point-in-Time UniverseSnapshot for timestamp as_of.
         Guarantees that constituents added in the future or removed in the past are handled correctly.
         """
+        # Ensure timestamp comparisons are timezone-consistent
+        as_of_naive = as_of.replace(tzinfo=None) if getattr(as_of, "tzinfo", None) is not None else as_of
+
         valid_constituents: List[UniverseConstituent] = []
         seen_symbols: Set[str] = set()
 
         for c in self._constituents:
+            c_eff_from = c.effective_from.replace(tzinfo=None) if getattr(c.effective_from, "tzinfo", None) is not None else c.effective_from
+            c_eff_to = c.effective_to.replace(tzinfo=None) if (c.effective_to and getattr(c.effective_to, "tzinfo", None) is not None) else c.effective_to
+
             # Must be effective on or before as_of
-            if c.effective_from <= as_of:
+            if c_eff_from <= as_of_naive:
                 # Must not have been removed before as_of
-                if c.effective_to is None or c.effective_to >= as_of:
+                if c_eff_to is None or c_eff_to >= as_of_naive:
                     if c.symbol not in seen_symbols:
                         valid_constituents.append(c)
                         seen_symbols.add(c.symbol)

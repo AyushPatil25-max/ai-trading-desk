@@ -1,5 +1,5 @@
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest.mock import patch, AsyncMock
 from backend.adapters.legacy_agents import TechnicalAgentAdapter, RiskAgentAdapter
 from backend.domain.schemas import AgentInput, MarketContext
@@ -23,7 +23,7 @@ class TestLegacyAdapters(unittest.IsolatedAsyncioTestCase):
             symbol="TCS.NS", 
             current_price=100.0, 
             provider="test",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             technical_indicators={}
         )
         input_data = AgentInput(symbol="TCS.NS", market_context=ctx)
@@ -52,7 +52,7 @@ class TestLegacyAdapters(unittest.IsolatedAsyncioTestCase):
             symbol="TCS.NS", 
             current_price=100.0, 
             provider="test",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             technical_indicators={}
         )
         input_data = AgentInput(symbol="TCS.NS", market_context=ctx, additional_data={"technical_score": 8.0})

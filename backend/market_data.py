@@ -13,6 +13,31 @@ def get_live_market_data(symbol: str) -> dict:
     if df.empty:
         raise ValueError(f"Could not fetch data for {symbol}. Check the ticker symbol.")
 
+    import math
+
+    def _safe_float(val):
+        if val is None:
+            return None
+        try:
+            if pd.isna(val):
+                return None
+            f = float(val)
+            if math.isnan(f) or math.isinf(f):
+                return None
+            return round(f, 2)
+        except (ValueError, TypeError):
+            return None
+
+    price_cols = [c for c in ['Open', 'High', 'Low', 'Close'] if c in df.columns]
+    if price_cols:
+        df = df.dropna(how='all', subset=price_cols)
+        for col in price_cols:
+            if df[col].isnull().any():
+                df[col] = df[col].ffill().bfill()
+
+    if df.empty:
+        raise ValueError(f"No valid price data for {symbol}.")
+
     # 2. Calculate Indicators manually with Pandas (Bypassing the numba error)
     
     # EMA (Exponential Moving Average)
@@ -29,18 +54,21 @@ def get_live_market_data(symbol: str) -> dict:
     df['RSI_14'] = 100 - (100 / (1 + rs))
     
     # 20-Day High
-    df['20_day_high'] = df['High'].rolling(window=20).max()
+    if 'High' in df.columns and len(df) >= 20:
+        df['20_day_high'] = df['High'].rolling(window=20, min_periods=20).max()
+    else:
+        df['20_day_high'] = None
 
     # 3. Extract the most recent day's row
     latest = df.iloc[-1]
     
     # 4. Format as a clean dictionary for our AI Agent
     market_data = {
-        "latest_close": round(float(latest['Close']), 2),
-        "20_day_high": round(float(latest['20_day_high']), 2),
-        "ema20": round(float(latest['EMA_20']), 2),
-        "ema50": round(float(latest['EMA_50']), 2),
-        "rsi": round(float(latest['RSI_14']), 2)
+        "latest_close": _safe_float(latest.get('Close')),
+        "20_day_high": _safe_float(latest.get('20_day_high')),
+        "ema20": _safe_float(latest.get('EMA_20')),
+        "ema50": _safe_float(latest.get('EMA_50')),
+        "rsi": _safe_float(latest.get('RSI_14'))
     }
     
     return market_data

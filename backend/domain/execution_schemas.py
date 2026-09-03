@@ -5,7 +5,7 @@ Strongly typed domain models for execution safety, order validation, paper broke
 and portfolio state tracking.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
@@ -78,7 +78,7 @@ class OrderRequest(BaseModel):
     context_id: str
     run_id: Optional[str] = None
     decision_id: Optional[str] = None
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     provenance: Dict[str, Any] = Field(default_factory=dict)
 
 
@@ -89,7 +89,7 @@ class OrderValidationResult(BaseModel):
     rejection_details: List[str] = Field(default_factory=list)
     checks_passed: List[str] = Field(default_factory=list)
     checks_failed: List[str] = Field(default_factory=list)
-    validated_at: datetime = Field(default_factory=datetime.utcnow)
+    validated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class ExecutionResult(BaseModel):
@@ -101,7 +101,7 @@ class ExecutionResult(BaseModel):
     quantity_filled: float
     fill_price: float
     status: OrderStatus
-    executed_at: datetime = Field(default_factory=datetime.utcnow)
+    executed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     total_cost: float
     commission: float = 0.0
     context_id: str
@@ -117,7 +117,7 @@ class Position(BaseModel):
     market_value: float = 0.0
     unrealized_pnl: float = 0.0
     realized_pnl: float = 0.0
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class PortfolioState(BaseModel):
@@ -132,7 +132,7 @@ class PortfolioState(BaseModel):
     unrealized_pnl: float = 0.0
     total_exposure: float = 0.0
     daily_realized_pnl: float = 0.0
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class ExecutionAuditRecord(BaseModel):
@@ -147,6 +147,6 @@ class ExecutionAuditRecord(BaseModel):
     decision: ExecutionDecision
     validation_result: OrderValidationResult
     execution_result: Optional[ExecutionResult] = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     kill_switch_active: bool = False
     metadata: Dict[str, Any] = Field(default_factory=dict)

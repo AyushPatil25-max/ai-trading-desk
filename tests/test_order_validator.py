@@ -2,7 +2,7 @@
 Unit tests for OrderValidator — Phase 5.1
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import unittest
 
 from backend.domain.execution_schemas import (
@@ -58,7 +58,7 @@ class TestOrderValidator(unittest.TestCase):
         self.market_context = MarketContext(
             context_id="ctx-123",
             symbol="TCS.NS",
-            data_timestamp=datetime.utcnow(),
+            data_timestamp=datetime.now(timezone.utc),
             current_price=3500.0,
             provider="NSE",
         )
@@ -179,7 +179,7 @@ class TestOrderValidator(unittest.TestCase):
         stale_context = MarketContext(
             context_id="ctx-123",
             symbol="TCS.NS",
-            data_timestamp=datetime.utcnow() - timedelta(seconds=400),  # > 300s limit
+            data_timestamp=datetime.now(timezone.utc) - timedelta(seconds=400),  # > 300s limit
             current_price=3500.0,
             provider="NSE",
         )

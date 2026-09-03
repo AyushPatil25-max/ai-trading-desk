@@ -51,23 +51,26 @@ class BaseProvider(ABC):
     async def get_fundamentals(self, symbol: str) -> ProviderResult:
         raise NotImplementedError()
 
+    async def get_quarterly_fundamentals(self, symbol: str) -> ProviderResult:
+        return ProviderResult(status="ERROR", error="Quarterly fundamentals not supported by provider")
+
     async def get_corporate_actions(self, symbol: str) -> ProviderResult:
-        raise NotImplementedError()
+        return ProviderResult(status="ERROR", error="Corporate actions not supported by provider")
 
     async def get_news(self, symbol: str) -> ProviderResult:
-        raise NotImplementedError()
+        return ProviderResult(status="ERROR", error="News not supported by provider")
 
     async def get_filings(self, symbol: str) -> ProviderResult:
-        raise NotImplementedError()
+        return ProviderResult(status="ERROR", error="Filings not supported by provider")
         
     async def get_macro(self, indicator: str) -> ProviderResult:
-        raise NotImplementedError()
+        return ProviderResult(status="ERROR", error="Macro not supported by provider")
 
     async def get_institutional_flows(self, symbol: str) -> ProviderResult:
-        raise NotImplementedError()
+        return ProviderResult(status="ERROR", error="Institutional flows not supported by provider")
 
     async def get_ownership(self, symbol: str) -> ProviderResult:
-        raise NotImplementedError()
+        return ProviderResult(status="ERROR", error="Ownership data not supported by provider")
 
     async def get_bulk_deals(self, symbol: str) -> ProviderResult:
         raise NotImplementedError()

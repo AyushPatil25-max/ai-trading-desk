@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List
 import uuid
 
@@ -31,7 +31,7 @@ class DebateOrchestrator:
             debate_id=debate_id,
             context_id=ctx_id,
             symbol=symbol,
-            generated_at=datetime.utcnow()
+            generated_at=datetime.now(timezone.utc)
         )
         
         # 1. Execute Bull Agent

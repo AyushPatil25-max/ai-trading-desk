@@ -5,7 +5,7 @@ FastAPI endpoints for executing opportunity scans, querying ranked candidates,
 initiating batch replay, and viewing compute efficiency metrics.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -36,7 +36,7 @@ async def run_scanner(request: Optional[ScanRequest] = None) -> ScannerResult:
     """
     req = request or ScanRequest()
     cfg = req.config or ScannerConfig()
-    as_of = req.as_of or datetime.utcnow()
+    as_of = req.as_of or datetime.now(timezone.utc)
     universe = StockUniverse(universe_type=req.universe_type)
     scanner = OpportunityScanner(config=cfg)
 

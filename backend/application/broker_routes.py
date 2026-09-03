@@ -35,12 +35,15 @@ def get_broker_status() -> BrokerStatusSummary:
     Retrieve current broker configuration, active adapter name, capabilities,
     and verified paper-only safety invariants.
     """
+    from backend.config.app_config import get_app_config
+    app_config = get_app_config()
+    
     adapter = BrokerFactory.get_adapter()
     caps = adapter.get_capabilities()
     acct = adapter.get_account_state()
     conn = adapter.get_connection_state()
 
-    return BrokerStatusSummary(
+    summary = BrokerStatusSummary(
         active_broker_name=caps.broker_name,
         broker_mode=caps.mode,
         is_live_trading_enabled=False,
@@ -48,6 +51,77 @@ def get_broker_status() -> BrokerStatusSummary:
         capabilities=caps,
         account_summary=acct,
     )
+    
+    # Append the additional safety invariant required by Phase 43/Dhan integration
+    summary.safety_invariants["live_execution_authorized"] = app_config.live_execution_enabled
+    
+    return summary
+
+
+@broker_router.get(
+    "/profile",
+    summary="Get Broker Profile / Identity",
+)
+def get_broker_profile() -> Dict[str, Any]:
+    """
+    Query broker profile to verify authentication identity.
+    Crucially strips access tokens from output.
+    """
+    from backend.config.app_config import get_app_config
+    app_config = get_app_config()
+    adapter = BrokerFactory.get_adapter()
+    
+    if adapter.broker_name == "DhanBrokerAdapter":
+        if not app_config.dhan_client_id or not app_config.dhan_access_token:
+            return {
+                "connected": False,
+                "broker": adapter.broker_name,
+                "error": "Missing DHAN_CLIENT_ID or DHAN_ACCESS_TOKEN"
+            }
+            
+        if hasattr(adapter, "client") and adapter.client:
+            try:
+                profile = adapter.client.request("/profile")
+                client_id = adapter.client_id
+                masked_id = client_id[:2] + "****" + client_id[-2:] if len(client_id) > 4 else "****"
+                from backend.infrastructure.security_master import get_security_master
+                sm = get_security_master()
+                
+                from backend.adapters.dhan_ws_client import get_dhan_ws
+                ws_client = get_dhan_ws()
+                ws_status = ws_client.status if ws_client else "NOT_CONFIGURED"
+                
+                return {
+                    "connected": True,
+                    "broker": adapter.broker_name,
+                    "provider": "DHAN",
+                    "client_id": masked_id,
+                    "token_valid": True,
+                    "account_status": "CONNECTED",
+                    "static_ip_status": getattr(adapter, "static_ip_status", "UNKNOWN"),
+                    "instrument_master_count": sm.total_count,
+                    "order_update_ws": ws_status,
+                    "reconciliation": "IDLE"
+                }
+            except ValueError as e:
+                return {
+                    "connected": False,
+                    "broker": adapter.broker_name,
+                    "provider": "DHAN",
+                    "error": "Invalid credentials or unauthorized"
+                }
+            except Exception as e:
+                return {
+                    "connected": False,
+                    "broker": adapter.broker_name,
+                    "error": f"Network or Dhan API failure: {str(e)}"
+                }
+    
+    return {
+        "connected": False,
+        "broker": adapter.broker_name,
+        "error": "Profile fetch not supported or client not configured"
+    }
 
 
 @broker_router.get(

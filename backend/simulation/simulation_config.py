@@ -4,7 +4,7 @@ Simulation Configuration — Phase 5.2
 Pydantic model and loader for historical replay and paper trading simulation.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 import json
 import os
@@ -25,8 +25,8 @@ class SimulationMode(str, Enum):
 class SimulationConfig(BaseModel):
     simulation_id: str = Field(default="sim-default")
     initial_cash: float = Field(default=100000.0, gt=0)
-    start_date: datetime = Field(default_factory=datetime.utcnow)
-    end_date: datetime = Field(default_factory=datetime.utcnow)
+    start_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    end_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     symbols: List[str] = Field(default_factory=lambda: ["TCS.NS"])
     timeframe: str = Field(default="1D")
     commission_rate: float = Field(default=0.0003, ge=0.0)

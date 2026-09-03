@@ -8,7 +8,7 @@ missing-data categories, provenance, backward compatibility, and determinism.
 """
 
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from copy import deepcopy
 
 from backend.domain.schemas import (
@@ -30,7 +30,7 @@ class TestEvidenceAggregatorHardening(unittest.TestCase):
 
     def setUp(self):
         self.aggregator = EvidenceAggregator()
-        self.now = datetime.utcnow()
+        self.now = datetime.now(timezone.utc)
         self.ctx = MarketContext(
             context_id="ctx-hard-001",
             symbol="RELIANCE.NS",

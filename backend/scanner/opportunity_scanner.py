@@ -5,7 +5,7 @@ Orchestrates Stage A (deterministic pre-filtering and availability-aware ranking
 over Point-In-Time universe constituents and tracks compute efficiency gains.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 import time
 from typing import Any, Dict, List, Optional
 import uuid
@@ -38,7 +38,7 @@ class ScannerResult(BaseModel):
     config: ScannerConfig
     ranking_result: ScannerRankingResult
     efficiency: ScannerEfficiencyReport
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class OpportunityScanner:

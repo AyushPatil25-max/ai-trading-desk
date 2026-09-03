@@ -5,7 +5,7 @@ Deterministic tracking of simulated cash, positions, cost basis, realized/unreal
 and portfolio exposure.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Optional
 import uuid
 
@@ -30,7 +30,7 @@ class PaperPortfolio:
         self.positions: Dict[str, Position] = {}
         self.realized_pnl: float = 0.0
         self.daily_realized_pnl: float = 0.0
-        self.updated_at: datetime = datetime.utcnow()
+        self.updated_at: datetime = datetime.now(timezone.utc)
 
     def get_position(self, symbol: str) -> Optional[Position]:
         """Return the position for a given symbol, if open."""
@@ -46,8 +46,8 @@ class PaperPortfolio:
             pos.current_price = float(current_price)
             pos.market_value = pos.quantity * pos.current_price
             pos.unrealized_pnl = (pos.current_price - pos.average_price) * pos.quantity
-            pos.updated_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+            pos.updated_at = datetime.now(timezone.utc)
+        self.updated_at = datetime.now(timezone.utc)
 
     def apply_execution(self, execution: ExecutionResult) -> None:
         """
@@ -74,7 +74,7 @@ class PaperPortfolio:
                     market_value=qty * price,
                     unrealized_pnl=0.0,
                     realized_pnl=0.0,
-                    updated_at=datetime.utcnow(),
+                    updated_at=datetime.now(timezone.utc),
                 )
             else:
                 pos = self.positions[symbol]
@@ -89,7 +89,7 @@ class PaperPortfolio:
                 pos.current_price = price
                 pos.market_value = new_qty * price
                 pos.unrealized_pnl = (price - new_avg_price) * new_qty
-                pos.updated_at = datetime.utcnow()
+                pos.updated_at = datetime.now(timezone.utc)
 
         elif execution.side == OrderSide.SELL:
             proceeds = (qty * price) - commission
@@ -110,12 +110,12 @@ class PaperPortfolio:
                 pos.current_price = price
                 pos.market_value = new_qty * price
                 pos.unrealized_pnl = (price - pos.average_price) * new_qty if new_qty > 0 else 0.0
-                pos.updated_at = datetime.utcnow()
+                pos.updated_at = datetime.now(timezone.utc)
 
                 if new_qty == 0.0:
                     del self.positions[symbol]
 
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
 
     def get_state(self) -> PortfolioState:
         """Calculate and return the complete portfolio snapshot."""
@@ -151,4 +151,4 @@ class PaperPortfolio:
         self.positions.clear()
         self.realized_pnl = 0.0
         self.daily_realized_pnl = 0.0
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)

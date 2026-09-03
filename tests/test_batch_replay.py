@@ -4,7 +4,7 @@ Unit tests for Batch Replay Engine & Scanner API — Phase 5.3
 Validates multi-timestamp batch replay across universes and FastAPI endpoint routes.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import unittest
 
 from backend.scanner.batch_replay import BatchReplayEngine
@@ -102,7 +102,7 @@ class TestBatchReplay(unittest.IsolatedAsyncioTestCase):
         self.assertIsInstance(candidates, list)
 
         eff = await get_scanner_efficiency(scan_out.run_id)
-        self.assertEqual(eff.universe_size, len(StockUniverse().get_snapshot(datetime.utcnow()).constituents))
+        self.assertEqual(eff.universe_size, len(StockUniverse().get_snapshot(datetime.now(timezone.utc)).constituents))
 
         batch_out = await run_batch_replay_endpoint()
         self.assertIsNotNone(batch_out.batch_run_id)

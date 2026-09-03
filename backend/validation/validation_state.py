@@ -5,7 +5,7 @@ Schemas for walk-forward windows, leakage findings, regime segmentations,
 specialist attributions, ablation studies, cost sensitivity, and the final scorecard.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
@@ -140,4 +140,4 @@ class WalkForwardResult(BaseModel):
     cost_sensitivity: List[CostSensitivityPoint] = Field(default_factory=list)
     robustness: List[RobustnessResult] = Field(default_factory=list)
     scorecard: ValidationScorecard
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

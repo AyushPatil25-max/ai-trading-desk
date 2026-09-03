@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List, Dict, Optional, Any
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from backend.domain.debate_schemas import EvidenceReference
 
@@ -70,10 +70,92 @@ class InvestmentDecision(BaseModel):
     context_id: str
     symbol: str
     run_id: Optional[str] = None
-    generated_at: datetime = Field(default_factory=datetime.utcnow)
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     state: InvestmentDecisionState
     thesis: InvestmentThesis
     execution_plan: ExecutionPlan
     audit_trail: DecisionAudit
     confidence: float
     evidence_references: List[EvidenceReference] = Field(default_factory=list)
+
+# ── Phase 6.3: Investment Committee Decision Synthesis ──────────────────────
+
+from backend.domain.schemas import ContradictionRecord
+from backend.domain.debate_schemas import DebateArgument
+
+class CommitteeRecommendation(str, Enum):
+    STRONG_BUY = "STRONG_BUY"
+    BUY = "BUY"
+    HOLD = "HOLD"
+    WATCH = "WATCH"
+    AVOID = "AVOID"
+    SELL = "SELL"
+    INDETERMINATE = "INDETERMINATE"
+
+class DataQualityStatus(str, Enum):
+    AVAILABLE = "AVAILABLE"
+    PARTIAL = "PARTIAL"
+    DEGRADED = "DEGRADED"
+    INSUFFICIENT = "INSUFFICIENT"
+    STALE = "STALE"
+
+class CommitteeDecision(BaseModel):
+    decision_id: str
+    run_id: str = ""
+    context_id: str
+    symbol: str
+    started_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    completed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    duration_seconds: float = 0.0
+    decision_timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    time_horizon: str = "MEDIUM_TERM"
+
+    # Decision
+    recommendation: CommitteeRecommendation = CommitteeRecommendation.INDETERMINATE
+    conviction_score: float = Field(default=0.0, ge=0.0, le=1.0)
+    calibrated_conviction: Optional[float] = None
+    calibration_id: Optional[str] = None
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+
+    # Evidence
+    supporting_evidence_ids: List[str] = Field(default_factory=list)
+    opposing_evidence_ids: List[str] = Field(default_factory=list)
+    strongest_bull_arguments: List[DebateArgument] = Field(default_factory=list)
+    strongest_bear_arguments: List[DebateArgument] = Field(default_factory=list)
+    unresolved_contradictions: List[ContradictionRecord] = Field(default_factory=list)
+
+    # Risk
+    risk_score: float = 0.0
+    risk_level: str = "LOW"
+    risk_veto_applied: bool = False
+    risk_veto_reason: Optional[str] = None
+    key_risks: List[str] = Field(default_factory=list)
+    invalidation_conditions: List[str] = Field(default_factory=list)
+    assumptions: List[str] = Field(default_factory=list)
+
+    # Data Quality
+    evidence_coverage: float = Field(default=0.0, ge=0.0, le=1.0)
+    data_quality: DataQualityStatus = DataQualityStatus.AVAILABLE
+    degraded_specialists: List[str] = Field(default_factory=list)
+    failed_specialists: List[str] = Field(default_factory=list)
+    missing_critical_data: List[str] = Field(default_factory=list)
+
+    # Reasoning Summary
+    investment_thesis: str = ""
+    decision_summary: str = ""
+    why_bull_case_wins: str = ""
+    why_bear_case_wins: str = ""
+    what_would_change_the_decision: str = ""
+
+    # Traceability & Provenance
+    evidence_references: List[EvidenceReference] = Field(default_factory=list)
+    provenance: List[Any] = Field(default_factory=list)
+
+    # Backward compatibility / legacy fields
+    state: Optional[InvestmentDecisionState] = None
+    execution_plan: Optional[ExecutionPlan] = None
+    audit_trail: Optional[DecisionAudit] = None
+
+# Aliases
+InvestmentCommitteeResult = CommitteeDecision
+
