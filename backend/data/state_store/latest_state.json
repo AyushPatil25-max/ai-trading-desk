@@ -1,7 +1,7 @@
 {
   "strategy_governance": {
     "champion_defenses": 0,
-    "champion_id": "strat-d08847f8",
+    "champion_id": "strat-7f10ece1",
     "policy": {
       "champion_protection_lock": true,
       "confidence_level_pct": 95.0,
@@ -17,10 +17,10 @@
       "rollback_max_drawdown_pct": 25.0
     },
     "strategies": {
-      "strat-d08847f8": {
+      "strat-7f10ece1": {
         "author": "SYSTEM",
         "config_fingerprint": "03ea980f3445b6081d082a0d1fafc51fb5fb42131db8afb4037e5f313a4f63f2",
-        "created_at": "2026-09-03T09:21:52.152751Z",
+        "created_at": "2026-09-03T09:25:48.650924Z",
         "description": "",
         "evidence": [],
         "is_locked": false,
@@ -46,13 +46,13 @@
           "win_rate_pct": 0.0,
           "winning_trades": 0
         },
-        "promoted_at": "2026-09-03T09:21:52.170514Z",
-        "retired_at": "2026-09-03T09:21:52.179352Z",
+        "promoted_at": "2026-09-03T09:25:48.671064Z",
+        "retired_at": "2026-09-03T09:25:48.683019Z",
         "role": "RETIRED",
         "state": "RETIRED",
-        "strategy_id": "strat-d08847f8",
+        "strategy_id": "strat-7f10ece1",
         "tags": [],
-        "updated_at": "2026-09-03T09:21:52.179348Z",
+        "updated_at": "2026-09-03T09:25:48.683014Z",
         "version": "1.0.0"
       }
     }
