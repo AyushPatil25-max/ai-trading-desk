@@ -605,3 +605,54 @@ def get_live_order_status(order_id: str):
     if not order:
         raise HTTPException(status_code=404, detail="Order not found in tracker")
     return order
+
+from backend.application.dhan_reconciliation_engine import global_dhan_reconciliation_engine
+from backend.domain.broker_schemas import BrokerConnectivityStatus, ReconciliationResult
+
+@broker_router.get('/validation/status', response_model=BrokerConnectivityStatus, summary='Get Dhan Connectivity Status')
+def get_validation_status():
+    adapter = DhanBrokerAdapter()
+    return global_dhan_reconciliation_engine.check_connectivity(adapter)
+
+@broker_router.post('/reconciliation/run', response_model=ReconciliationResult, summary='Trigger READ-ONLY Reconciliation')
+def trigger_dhan_reconciliation():
+    from backend.execution.account_sync_service import global_account_sync_service
+    from backend.execution.order_tracker import global_order_tracker
+    
+    adapter = DhanBrokerAdapter()
+    local_state = {
+        "orders": global_order_tracker.get_all_tracked(),
+        "trades": global_order_tracker.get_all_tracked(),
+        "positions": global_account_sync_service.get_cached_positions(),
+        "holdings": global_account_sync_service.get_cached_holdings(),
+        "funds": global_account_sync_service.get_cached_account()
+    }
+    return global_dhan_reconciliation_engine.run_reconciliation(adapter, local_state)
+
+@broker_router.get('/reconciliation/history/latest', response_model=ReconciliationResult, summary='Get Latest Reconciliation')
+def get_latest_dhan_reconciliation():
+    if not global_dhan_reconciliation_engine.latest_result:
+        raise HTTPException(status_code=404, detail='No reconciliation history.')
+    return global_dhan_reconciliation_engine.latest_result
+
+@broker_router.get('/holdings', summary='Get Raw Broker Holdings')
+def get_raw_holdings():
+    adapter = DhanBrokerAdapter()
+    try:
+        h = adapter.get_holdings()
+        if h is None:
+            raise HTTPException(status_code=503, detail='Holdings unavailable or ERROR')
+        return h
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=str(e))
+
+@broker_router.get('/trades', summary='Get Raw Broker Trades')
+def get_raw_trades():
+    adapter = DhanBrokerAdapter()
+    try:
+        t = adapter.get_trade_book()
+        if t is None:
+            raise HTTPException(status_code=503, detail='Trades unavailable or ERROR')
+        return t
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=str(e))

@@ -210,51 +210,39 @@ class DhanBrokerAdapter(BrokerAdapter):
 
     def get_positions(self) -> Dict[str, BrokerPosition]:
         if self._connection_state != BrokerConnectionState.DHAN_CONNECTED:
-            return {}
-        try:
-            positions_data = self.client.request("/positions")
-            normalized = {}
-            for pos in positions_data.get("data", []):
-                sym = pos.get("tradingSymbol", "")
-                qty = pos.get("netQty", 0)
-                if qty == 0:
-                    continue
-                normalized[sym] = BrokerPosition(
-                    symbol=sym,
-                    quantity=qty,
-                    average_entry_price=pos.get("costPrice", 0.0),
-                    current_price=0.0,
-                    market_value=0.0,
-                    realized_pnl=pos.get("realizedProfit", 0.0),
-                    unrealized_pnl=pos.get("unrealizedProfit", 0.0)
-                )
-            return normalized
-        except Exception:
-            return {}
+            return None
+        positions_data = self.client.request("/positions")
+        normalized = {}
+        for pos in positions_data.get("data", []):
+            sym = pos.get("tradingSymbol", "")
+            qty = pos.get("netQty", 0)
+            if qty == 0:
+                continue
+            normalized[sym] = BrokerPosition(
+                symbol=sym,
+                quantity=qty,
+                average_entry_price=pos.get("costPrice", 0.0),
+                current_price=0.0,
+                market_value=0.0,
+                realized_pnl=pos.get("realizedProfit", 0.0),
+                unrealized_pnl=pos.get("unrealizedProfit", 0.0)
+            )
+        return normalized
 
     def get_holdings(self) -> List[Dict]:
         if self._connection_state != BrokerConnectionState.DHAN_CONNECTED:
-            return []
-        try:
-            return self.client.request("/holdings").get("data", [])
-        except Exception:
-            return []
+            return None
+        return self.client.request("/holdings").get("data", [])
 
     def get_order_book(self) -> List[Dict]:
         if self._connection_state != BrokerConnectionState.DHAN_CONNECTED:
-            return []
-        try:
-            return self.client.request("/orders").get("data", [])
-        except Exception:
-            return []
+            return None
+        return self.client.request("/orders").get("data", [])
 
     def get_trade_book(self) -> List[Dict]:
         if self._connection_state != BrokerConnectionState.DHAN_CONNECTED:
-            return []
-        try:
-            return self.client.request("/trades").get("data", [])
-        except Exception:
-            return []
+            return None
+        return self.client.request("/trades").get("data", [])
 
     def submit_order(
         self,

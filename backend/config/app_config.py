@@ -15,6 +15,15 @@ class AppConfig(BaseModel):
     dhan_api_base_url: str = "https://api.dhan.co/v2"
     dhan_static_ip_configured: bool = False
 
+    upstox_enabled: bool = False
+    upstox_client_id: str = ""
+    upstox_client_secret: str = ""
+    upstox_access_token: str = ""
+    
+    market_data_provider: str = "upstox"
+    execution_provider: str = "dhan"
+    market_data_stale_threshold_ms: int = 5000
+
     # LLM Config
     groq_api_key: str = ""
     openai_api_key: str = ""
@@ -46,6 +55,13 @@ def reload_app_config() -> AppConfig:
         dhan_access_token=os.getenv("DHAN_ACCESS_TOKEN", "").strip(),
         dhan_api_base_url=os.getenv("DHAN_API_BASE_URL", "https://api.dhan.co/v2").strip(),
         dhan_static_ip_configured=parse_bool("DHAN_STATIC_IP_CONFIGURED", False),
+        upstox_enabled=parse_bool("UPSTOX_ENABLED", False),
+        upstox_client_id=os.getenv("UPSTOX_CLIENT_ID", "").strip(),
+        upstox_client_secret=os.getenv("UPSTOX_CLIENT_SECRET", "").strip(),
+        upstox_access_token=os.getenv("UPSTOX_ACCESS_TOKEN", "").strip(),
+        market_data_provider=os.getenv("MARKET_DATA_PROVIDER", "upstox").strip().lower(),
+        execution_provider=os.getenv("EXECUTION_PROVIDER", "dhan").strip().lower(),
+        market_data_stale_threshold_ms=int(os.getenv("MARKET_DATA_STALE_THRESHOLD_MS", "5000")),
         groq_api_key=os.getenv("GROQ_API_KEY", "").strip(),
         openai_api_key=os.getenv("OPENAI_API_KEY", "").strip(),
         gemini_api_key=os.getenv("GEMINI_API_KEY", "").strip(),

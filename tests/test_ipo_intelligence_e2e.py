@@ -28,7 +28,7 @@ class TestIPOIntelligenceE2E(unittest.IsolatedAsyncioTestCase):
             segment=IPOType.MAINBOARD,
             status=IPOStatus.UPCOMING,
             issue_price=100.0,
-            market_lot=50,
+            market_lot=50, minimum_application_lots=1,
             total_issue_shares=100000,
             fresh_issue_shares=60000,
             ofs_shares=40000
@@ -41,7 +41,7 @@ class TestIPOIntelligenceE2E(unittest.IsolatedAsyncioTestCase):
     async def test_02_derived_issue_size(self):
         ipo = IPOMaster(
             id="IPO_2", company_name="Tech Corp", exchange="NSE", segment=IPOType.MAINBOARD, status=IPOStatus.UPCOMING,
-            issue_price=100.0, market_lot=50, total_issue_shares=100000, fresh_issue_shares=60000, ofs_shares=40000
+            issue_price=100.0, market_lot=50, minimum_application_lots=1, total_issue_shares=100000, fresh_issue_shares=60000, ofs_shares=40000
         )
         self.provider.add_ipo(ipo)
         fetched = await self.engine.get_ipo_details("IPO_2")
@@ -51,7 +51,7 @@ class TestIPOIntelligenceE2E(unittest.IsolatedAsyncioTestCase):
     async def test_03_derived_minimum_investment(self):
         ipo = IPOMaster(
             id="IPO_3", company_name="Tech Corp", exchange="NSE", segment=IPOType.MAINBOARD, status=IPOStatus.UPCOMING,
-            issue_price=100.0, market_lot=50
+            issue_price=100.0, market_lot=50, minimum_application_lots=1
         )
         self.provider.add_ipo(ipo)
         fetched = await self.engine.get_ipo_details("IPO_3")
@@ -60,7 +60,7 @@ class TestIPOIntelligenceE2E(unittest.IsolatedAsyncioTestCase):
     async def test_04_sme_ipo_type_distinction(self):
         ipo = IPOMaster(
             id="IPO_SME", company_name="SME Corp", exchange="NSE", segment=IPOType.SME, status=IPOStatus.OPEN,
-            issue_price=50.0, market_lot=1000
+            issue_price=50.0, market_lot=1000, minimum_application_lots=1
         )
         self.provider.add_ipo(ipo)
         fetched = await self.engine.get_ipo_details("IPO_SME")
@@ -98,7 +98,7 @@ class TestIPOIntelligenceE2E(unittest.IsolatedAsyncioTestCase):
 
     async def test_09_ofs_heavy_issue_penalization(self):
         ipo = IPOMaster(id="IPO_OFS", company_name="Hype", exchange="BSE", segment=IPOType.MAINBOARD, status=IPOStatus.CLOSED,
-            issue_price=200.0, total_issue_shares=1000, fresh_issue_shares=100, ofs_shares=900, lot_size=10)
+            issue_price=200.0, total_issue_shares=1000, fresh_issue_shares=100, ofs_shares=900, lot_size=10, minimum_application_lots=1)
         self.provider.add_ipo(ipo)
         self.provider.add_gmp("IPO_OFS", GMPObservation(id="IPO_OFS", gmp_value=200.0, source="Market", observed_at=datetime.now(timezone.utc)))
         self.provider.add_subscription("IPO_OFS", IPOSubscriptionObservation(id="IPO_OFS", observation_date=date.today(), total=100.0, source="Ex", observed_at=datetime.now(timezone.utc)))
@@ -107,7 +107,7 @@ class TestIPOIntelligenceE2E(unittest.IsolatedAsyncioTestCase):
 
     async def test_10_positive_fundamental_ipo_analysis(self):
         ipo = IPOMaster(id="IPO_STRONG", company_name="Solid", exchange="NSE", segment=IPOType.MAINBOARD, status=IPOStatus.OPEN,
-            issue_price=100.0, total_issue_shares=1000, fresh_issue_shares=1000, ofs_shares=0, revenue=500.0, pat=50.0, pe=15.0, lot_size=10)
+            issue_price=100.0, total_issue_shares=1000, fresh_issue_shares=1000, ofs_shares=0, revenue=500.0, pat=50.0, pe=15.0, lot_size=10, minimum_application_lots=1)
         self.provider.add_ipo(ipo)
         self.provider.add_gmp("IPO_STRONG", GMPObservation(id="IPO_STRONG", gmp_value=100.0, source="Market", observed_at=datetime.now(timezone.utc)))
         self.provider.add_subscription("IPO_STRONG", IPOSubscriptionObservation(id="IPO_STRONG", observation_date=date.today(), total=50.0, source="Ex", observed_at=datetime.now(timezone.utc)))

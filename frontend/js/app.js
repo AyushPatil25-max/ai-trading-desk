@@ -1,23 +1,28 @@
-
-import { renderDashboard } from './views/dashboard.js';
+import { renderTerminal } from './views/terminal.js';
+import { renderWatchlists } from './views/watchlists.js';
+import { renderScanner } from './views/scanner.js';
+import { renderChart } from './views/chart.js';
 import { renderStocks } from './views/stocks.js';
-import { renderOpportunities } from './views/opportunities.js';
 import { renderIPOs } from './views/ipo.js';
 import { renderPortfolio } from './views/portfolio.js';
-import { renderRiskSafety } from './views/risk.js';
-import { renderSystem } from './views/system.js';
+import { renderNews } from './views/news.js';
+import { renderAlerts } from './views/alerts.js';
+import { renderReconciliation } from './views/reconciliation.js';
 
 const routes = [
-    { id: 'dashboard', name: 'Dashboard', icon: 'layout-dashboard', render: renderDashboard },
-    { id: 'stocks', name: 'Stocks', icon: 'line-chart', render: renderStocks },
-    { id: 'opportunities', name: 'Opportunities', icon: 'zap', render: renderOpportunities },
-    { id: 'ipos', name: 'IPOs', icon: 'rocket', render: renderIPOs },
-    { id: 'portfolio', name: 'Portfolio & Trading', icon: 'briefcase', render: renderPortfolio },
-    { id: 'risk', name: 'Risk & Safety', icon: 'shield-alert', render: renderRiskSafety },
-    { id: 'system', name: 'System Architecture', icon: 'cpu', render: renderSystem }
+    { id: 'terminal', name: 'Terminal', icon: 'monitor', render: renderTerminal },
+    { id: 'broker', name: 'Broker Validation', icon: 'shield-check', render: renderReconciliation },
+    { id: 'watchlists', name: 'Watchlists', icon: 'list', render: renderWatchlists },
+    { id: 'scanner', name: 'Scanner', icon: 'zap', render: renderScanner },
+    { id: 'chart', name: 'Charts', icon: 'bar-chart-2', render: renderChart },
+    { id: 'stocks', name: 'Stock Intelligence', icon: 'line-chart', render: renderStocks },
+    { id: 'ipos', name: 'IPO Intelligence', icon: 'rocket', render: renderIPOs },
+    { id: 'portfolio', name: 'Portfolio', icon: 'pie-chart', render: renderPortfolio },
+    { id: 'news', name: 'News & Events', icon: 'newspaper', render: renderNews },
+    { id: 'alerts', name: 'Alerts', icon: 'bell', render: renderAlerts }
 ];
 
-let currentView = 'dashboard';
+let currentView = 'terminal';
 
 function initNav() {
     const nav = document.getElementById('mainNav');
@@ -50,5 +55,58 @@ window.navigateTo = (viewId) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
-    window.navigateTo('dashboard');
+    window.navigateTo('terminal');
+
+    // Update time
+    setInterval(() => {
+        const timeEl = document.getElementById('statusTime');
+        if (timeEl) {
+            const now = new Date();
+            timeEl.textContent = now.toLocaleTimeString('en-IN');
+        }
+    }, 1000);
+
+    // Global Market Data Bus
+    window.marketDataBus = {
+        listeners: new Set(),
+        subscribe(fn) {
+            this.listeners.add(fn);
+            return () => this.listeners.delete(fn);
+        },
+        publish(tick) {
+            this.listeners.forEach(fn => fn(tick));
+        },
+        latestTicks: {}
+    };
+
+    // Connect SSE
+    const sse = new EventSource('/api/v1/stream/market-data');
+    sse.addEventListener('tick', (e) => {
+        try {
+            const tick = JSON.parse(e.data);
+            window.marketDataBus.latestTicks[tick.symbol] = tick;
+            window.marketDataBus.publish(tick);
+        } catch (err) {
+            console.error('Error parsing tick', err);
+        }
+    });
+
+    const btnKillSwitch = document.getElementById('btnKillSwitch');
+    if (btnKillSwitch) {
+        btnKillSwitch.addEventListener('click', async () => {
+            if (confirm("EMERGENCY: Are you sure you want to trigger the KILL SWITCH? This will halt all trading.")) {
+                try {
+                    await fetch('/api/telemetry/kill-switch', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ action: 'trigger', reason: 'Operator manual emergency stop' })
+                    });
+                    alert("KILL SWITCH TRIGGERED");
+                } catch(e) {
+                    console.error(e);
+                    alert("Failed to trigger kill switch via API.");
+                }
+            }
+        });
+    }
 });

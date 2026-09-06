@@ -27,6 +27,7 @@ class SecurityDefinition(BaseModel):
     industry: Optional[str] = None
     aliases: List[str] = Field(default_factory=list)
     dhan_security_id: Optional[str] = None
+    upstox_instrument_token: Optional[str] = None
     is_active: bool = True
     market_cap_category: Optional[str] = "LARGE_CAP"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -428,4 +429,43 @@ def sync_dhan_master():
         sm.save_master()
         import logging
         logging.getLogger(__name__).info(f"Successfully synced {updated} existing and added {added} new equities from Dhan Master.")
+
+def sync_upstox_master():
+    """
+    Downloads Upstox's official instrument master and updates the local security master
+    with the corresponding Upstox instrument keys.
+    """
+    import urllib.request
+    import gzip
+    import csv
+    import io
+    
+    sm = get_security_master()
+    url = "https://assets.upstox.com/market-quote/instruments/exchange/NSE.csv.gz"
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        with urllib.request.urlopen(req) as response:
+            content = gzip.decompress(response.read()).decode('utf-8')
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error(f"Failed to sync Upstox Master: {e}")
+        return
+        
+    reader = csv.DictReader(io.StringIO(content))
+    updated = 0
+    for row in reader:
+        if row.get('instrument_type') == 'EQUITY':
+            sym = row.get('tradingsymbol')
+            inst_key = row.get('instrument_key')
+            if sym and inst_key:
+                sec = sm.resolve_symbol(sym)
+                if sec:
+                    sec.upstox_instrument_token = inst_key
+                    sm.register_security(sec)
+                    updated += 1
+    
+    if updated > 0:
+        sm.save_master()
+        import logging
+        logging.getLogger(__name__).info(f"Successfully synced {updated} Upstox instrument keys.")
 

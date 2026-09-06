@@ -515,3 +515,74 @@ class BrokerManagerStatus(BaseModel):
         }
     )
 
+
+# Phase 51 Reconciliation Schemas
+class RecStatus(str, Enum):
+    MATCHED = 'MATCHED'
+    MISMATCH = 'MISMATCH'
+    PARTIAL = 'PARTIAL'
+    ERROR = 'ERROR'
+    UNAVAILABLE = 'UNAVAILABLE'
+    MISSING_FROM_DHAN = 'MISSING_FROM_DHAN'
+    MISSING_LOCALLY = 'MISSING_LOCALLY'
+    STALE = 'STALE'
+    INSUFFICIENT_DATA = 'INSUFFICIENT_DATA'
+
+class DiscrepancyCategory(str, Enum):
+    MATCHED = 'MATCHED'
+    VALUE_MISMATCH = 'VALUE_MISMATCH'
+    QUANTITY_MISMATCH = 'QUANTITY_MISMATCH'
+    PRICE_MISMATCH = 'PRICE_MISMATCH'
+    STATUS_MISMATCH = 'STATUS_MISMATCH'
+    MISSING_FROM_BROKER = 'MISSING_FROM_BROKER'
+    MISSING_LOCALLY = 'MISSING_LOCALLY'
+    DUPLICATE = 'DUPLICATE'
+    STALE_BROKER_DATA = 'STALE_BROKER_DATA'
+    STALE_LOCAL_DATA = 'STALE_LOCAL_DATA'
+    UNAVAILABLE = 'UNAVAILABLE'
+    ERROR = 'ERROR'
+
+class DiscrepancyDetail(BaseModel):
+    entity_type: str
+    broker_key: Optional[str] = None
+    local_key: Optional[str] = None
+    field: Optional[str] = None
+    broker_value: Any = None
+    local_value: Any = None
+    difference: Any = None
+    severity: str
+    status: DiscrepancyCategory
+    reason: str
+
+class EntityRecResult(BaseModel):
+    status: RecStatus
+    matched_count: int = 0
+    mismatched_count: int = 0
+    missing_count: int = 0
+    unavailable_count: int = 0
+    fetched_at: Optional[datetime] = None
+    freshness: str = 'UNKNOWN'
+
+class ReconciliationResult(BaseModel):
+    reconciliation_id: str = Field(default_factory=lambda: f"rec-{uuid.uuid4().hex[:8]}")
+    started_at: datetime
+    completed_at: datetime
+    broker: str = "DhanBroker"
+    data_state: str = "COMPUTED"
+    overall_status: RecStatus
+    orders: EntityRecResult
+    trades: EntityRecResult
+    positions: EntityRecResult
+    holdings: EntityRecResult
+    funds: EntityRecResult
+    discrepancies: List[DiscrepancyDetail] = Field(default_factory=list)
+    warnings: List[str] = Field(default_factory=list)
+    provenance: str = "Dhan_Reconciliation_Engine"
+
+class BrokerConnectivityStatus(BaseModel):
+    broker_name: str = "DhanBroker"
+    connection_status: str
+    authentication_status: str
+    last_successful_call: Optional[datetime] = None
+    last_error: Optional[str] = None
+    latency_ms: Optional[float] = None

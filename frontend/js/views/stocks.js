@@ -81,52 +81,67 @@ export async function renderStocks(container) {
             const fund = resF.status === 200 ? await resF.json() : null;
             const tech = resT.status === 200 ? await resT.json() : null;
             
-            data.fundamental_data = fund;
-            data.technical_data = tech;
+            data.fundamental_data = fund || data.fundamental_data;
+            data.technical_data = tech || data.technical_data;
 
-            // Map verdict colors
+            const verdict = (data.verdict || data.decision || 'INSUFFICIENT_DATA').toString().toUpperCase();
+            const confScore = data.confidence_score !== undefined && data.confidence_score !== null ? data.confidence_score : Math.round((data.confidence || 0) * 100);
+
+            // Map verdict colors per Phase 4
             const vColors = {
-                'STRONG BUY': 'bg-emerald-900/50 text-emerald-400 border-emerald-800',
-                'BUY': 'bg-emerald-900/30 text-emerald-300 border-emerald-900',
-                'WATCH': 'bg-cyan-900/30 text-cyan-300 border-cyan-900',
+                'BULLISH': 'bg-emerald-900/50 text-emerald-400 border-emerald-800',
+                'BEARISH': 'bg-rose-900/50 text-rose-400 border-rose-800',
                 'HOLD': 'bg-yellow-900/30 text-yellow-300 border-yellow-900',
-                'AVOID': 'bg-rose-900/30 text-rose-400 border-rose-900',
+                'REJECT': 'bg-red-950 text-red-400 border-red-800',
                 'INSUFFICIENT_DATA': 'bg-gray-800 text-gray-400 border-gray-700'
             };
-            const vColor = vColors[data.verdict] || vColors['INSUFFICIENT_DATA'];
+            const vColor = vColors[verdict] || vColors['INSUFFICIENT_DATA'];
 
             container.innerHTML = `
                 <!-- Header -->
-                <div class="flex justify-between items-start mb-8">
+                <div class="flex justify-between items-start mb-6">
                     <div>
                         <div class="flex items-center gap-3 mb-1">
                             <h2 class="text-3xl font-bold text-white tracking-tight">${data.symbol}</h2>
-                            <span class="px-2 py-1 bg-gray-800 rounded text-xs font-mono text-gray-400 border border-gray-700">${data.fundamental_data?.sector || 'Unknown Sector'}</span>
+                            <span class="px-2 py-1 bg-gray-800 rounded text-xs font-mono text-gray-400 border border-gray-700">${data.fundamental_data?.sector || 'NSE Equity'}</span>
                         </div>
-                        <p class="text-gray-400">${data.fundamental_data?.company_name || symbol}</p>
+                        <p class="text-gray-400">${data.company_name || data.fundamental_data?.company_name || symbol}</p>
                     </div>
                     <div class="text-right">
-                        <div class="text-2xl font-bold text-white mb-1">₹${data.technical_data?.current_price || '--'}</div>
-                        <div class="text-sm ${data.technical_data?.daily_return > 0 ? 'text-emerald-400' : 'text-rose-400'}">
-                            ${data.technical_data?.daily_return > 0 ? '+' : ''}${(data.technical_data?.daily_return * 100).toFixed(2)}%
+                        <div class="text-2xl font-bold text-white mb-1">${data.technical_data?.current_price ? '₹' + data.technical_data.current_price : '₹ --'}</div>
+                        <div class="text-sm ${data.technical_data?.daily_return > 0 ? 'text-emerald-400' : (data.technical_data?.daily_return < 0 ? 'text-rose-400' : 'text-gray-400')}">
+                            ${data.technical_data?.daily_return !== null && data.technical_data?.daily_return !== undefined ? (data.technical_data.daily_return > 0 ? '+' : '') + (data.technical_data.daily_return * 100).toFixed(2) + '%' : 'Outside Trading Hours'}
                         </div>
                     </div>
                 </div>
 
+                <!-- Status Banner if Insufficient Data -->
+                ${verdict === 'INSUFFICIENT_DATA' ? `
+                <div class="bg-amber-950/40 border border-amber-800/60 rounded-xl p-4 mb-6 flex items-start gap-3">
+                    <i data-lucide="info" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                    <div class="text-xs text-amber-200/90 leading-relaxed">
+                        <span class="font-semibold text-amber-400">DATA STATUS: INSUFFICIENT DATA</span> — Real-time tick stream requires active NSE trading hours (09:15–15:30 IST) or live ticks on the Upstox WebSocket feed. Deterministic technical analysis will calculate dynamically when live market quotes arrive.
+                    </div>
+                </div>
+                ` : ''}
+
                 <!-- AI Assessment Card -->
                 <div class="bg-gray-900/80 border border-gray-700/50 rounded-xl p-5 mb-8">
-                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 border-b border-gray-800 pb-2">AI Assessment</div>
+                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 border-b border-gray-800 pb-2 flex justify-between">
+                        <span>Evidence-Based Assessment</span>
+                        <span class="text-gray-400 font-mono">Source: ${data.data_source || 'Upstox'} | State: ${data.data_status || 'FRESH'}</span>
+                    </div>
                     
                     <div class="flex items-center justify-between mb-6">
                         <div class="flex items-center gap-4">
                             <div class="text-4xl font-black text-white">${data.overall_score}<span class="text-lg text-gray-500 font-normal">/100</span></div>
                             <div class="px-4 py-1.5 rounded-lg border font-bold text-sm tracking-wide ${vColor}">
-                                ${data.verdict.replace('_', ' ')}
+                                ${verdict.replace(/_/g, ' ')}
                             </div>
                         </div>
                         <div class="text-right">
                             <div class="text-xs text-gray-500 mb-1">Confidence</div>
-                            <div class="text-sm font-semibold text-white">${data.confidence_score}%</div>
+                            <div class="text-sm font-semibold text-white">${confScore}%</div>
                         </div>
                     </div>
                     
@@ -144,7 +159,7 @@ export async function renderStocks(container) {
                             <div class="text-lg font-bold ${data.technical_score > 70 ? 'text-emerald-400' : 'text-white'}">${data.technical_score}</div>
                         </div>
                         <div class="bg-gray-950 p-3 rounded-lg border border-gray-800">
-                            <div class="text-[10px] text-gray-500 uppercase mb-1">Risk</div>
+                            <div class="text-[10px] text-gray-500 uppercase mb-1">Risk Condition</div>
                             <div class="text-lg font-bold ${data.risk_score < 40 ? 'text-emerald-400' : 'text-amber-400'}">${data.risk_score}</div>
                         </div>
                     </div>
@@ -214,7 +229,16 @@ export async function renderStocks(container) {
             `;
             lucide.createIcons();
         } catch (e) {
-            container.innerHTML = `<div class="p-6 text-center text-rose-400">Error fetching analysis.</div>`;
+            console.error("Stock analysis load failure for " + symbol, e);
+            container.innerHTML = `
+                <div class="p-8 text-center flex flex-col items-center justify-center">
+                    <i data-lucide="alert-circle" class="w-10 h-10 text-rose-400 mb-3"></i>
+                    <div class="text-white font-semibold mb-1">Analysis Query Failed</div>
+                    <div class="text-xs text-rose-300 font-mono mb-4">${e.message || 'Network or schema failure'}</div>
+                    <p class="text-xs text-gray-500 max-w-md">Verify backend connection or try searching for another canonical equity symbol.</p>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
         }
     };
 }

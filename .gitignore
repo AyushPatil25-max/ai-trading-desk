@@ -30,3 +30,10 @@ walkthrough.md
 fix*.py
 old_engine.py
 patch.txt
+
+# Trading OS runtime state
+backend/data/execution_state/*.json
+backend/data/execution_state/*.jsonl
+backend/data/journal/*.jsonl
+backend/data/state_store/*.json
+backend/data/state_store/*.jsonl

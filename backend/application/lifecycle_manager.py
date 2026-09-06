@@ -34,11 +34,17 @@ class LifecycleManager:
         # 3. Persistent State initialization (can run async or sync depending on implementation)
         # Assuming synchronous or already handled by underlying stores.
         
+        # 4. Start Market Data Gateway
+        from backend.application.market_data_gateway import get_market_data_gateway
+        get_market_data_gateway().start()
+        
         logger.info("System startup sequence completed safely.")
         
     @classmethod
     def shutdown_sequence(cls):
         logger.info("Initializing system lifecycle shutdown sequence.")
+        from backend.application.market_data_gateway import get_market_data_gateway
+        get_market_data_gateway().stop()
         global_live_arming_store.disarm()
         logger.info("System shutdown sequence completed safely.")
 

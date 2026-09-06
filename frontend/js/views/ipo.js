@@ -200,28 +200,36 @@ export async function renderIPOs(container) {
                             </div>
                             <div class="flex justify-between border-b border-gray-800/50 pb-2">
                                 <span class="text-gray-500">Lot Size</span>
-                                <span class="text-gray-200">${detail.market_lot || detail.lot_size || 'TBD'} shares</span>
+                                <span class="text-gray-200">${detail.market_lot || detail.lot_size || 'N/A'} shares</span>
                             </div>
                             <div class="flex justify-between border-b border-gray-800/50 pb-2">
-                                <span class="text-gray-500">Min Investment</span>
-                                <span class="text-gray-200">₹${detail.minimum_investment || 'TBD'}</span>
+                                <span class="text-gray-500 flex items-center gap-1">Min Investment</span>
+                                <span class="text-gray-200">₹${detail.minimum_investment || 'N/A'}</span>
                             </div>
                             <div class="flex justify-between pb-2">
                                 <span class="text-gray-500">Open - Close</span>
-                                <span class="text-gray-200">${detail.open_date || 'TBD'} to ${detail.close_date || 'TBD'}</span>
+                                <span class="text-gray-200">${detail.open_date || 'N/A'} to ${detail.close_date || 'N/A'}</span>
                             </div>
+                        </div>
+                        
+                        <div class="mt-4 text-[10px] text-gray-600">
+                            <strong>Source:</strong> ${detail.source_name || 'Official'} 
+                            | <strong>Data Quality:</strong> ${detail.data_quality_status || 'N/A'}
                         </div>
                     </div>
                     
                     <div>
                         <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-2 flex items-center justify-between">
                             <span>Market Sentiment (GMP)</span>
-                            <span class="text-[9px] text-amber-500/70 border border-amber-900/50 px-1.5 py-0.5 rounded bg-amber-950/20">* Unofficial Data</span>
+                            <span class="text-[9px] text-amber-500/70 border border-amber-900/50 px-1.5 py-0.5 rounded bg-amber-950/20 uppercase tracking-widest font-bold">Unofficial Data</span>
                         </h3>
                         <div class="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
                             <div class="text-center mb-4">
-                                <div class="text-3xl font-bold text-emerald-400">₹${detail.latest_gmp?.gmp_value || '--'}</div>
-                                <div class="text-sm text-emerald-500/70 mt-1">Est. Premium: ${detail.latest_gmp?.gmp_percentage ? detail.latest_gmp.gmp_percentage.toFixed(1) + '%' : '--'}</div>
+                                <div class="text-3xl font-bold text-emerald-400">₹${detail.latest_gmp?.gmp_value || 'N/A'}</div>
+                                <div class="text-sm text-emerald-500/70 mt-1 flex items-center justify-center gap-2">
+                                    <span>Est. Premium: ${detail.latest_gmp?.gmp_percentage ? detail.latest_gmp.gmp_percentage.toFixed(1) + '%' : 'N/A'}</span>
+                                    <span class="text-[9px] bg-emerald-900/40 border border-emerald-800 text-emerald-400 px-1 rounded uppercase tracking-widest font-bold">AI Estimate</span>
+                                </div>
                             </div>
                             <div class="text-xs text-gray-500 text-center">
                                 GMP is highly volatile market sentiment and does not guarantee listing gains. Evaluate fundamentals before investing.

@@ -121,6 +121,17 @@ app.include_router(trading_os_router)
 app.include_router(production_router)
 app.include_router(stock_router)
 
+from backend.application.realtime_stream_server import router as realtime_stream_router
+app.include_router(realtime_stream_router)
+from backend.application.opportunity_scanner_routes import router as phase46_scanner_router
+app.include_router(phase46_scanner_router)
+from backend.application.chart_routes import router as chart_router
+from backend.application.news_routes import router as news_router
+from backend.application.portfolio_routes import router as portfolio_router
+app.include_router(chart_router)
+app.include_router(news_router)
+app.include_router(portfolio_router)
+
 # API Endpoint
 @app.get("/api/analyze")
 async def analyze_stock(symbol: str = Query(default="TCS.NS")):
@@ -131,6 +142,16 @@ async def analyze_stock(symbol: str = Query(default="TCS.NS")):
 
 if __name__ == "__main__":
     import uvicorn
+    import socket
+    import sys
+    
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = sock.connect_ex(('127.0.0.1', 5000))
+    sock.close()
+    if result == 0:
+        print("ERROR: Port 5000 is already in use by another process. Please stop it before starting AI-Trading-Desk.", file=sys.stderr)
+        sys.exit(1)
+
     # Pass app instance directly without reload to prevent Windows subprocess deadlock
     uvicorn.run(app, host="127.0.0.1", port=5000)
 from backend.infrastructure.provider_orchestrator import ResilientProviderOrchestrator

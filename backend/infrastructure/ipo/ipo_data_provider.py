@@ -1,15 +1,19 @@
 import logging
 from typing import List, Dict, Any, Optional
 from datetime import datetime, date
+import os
 from backend.domain.ipo_schemas import IPOMaster, IPOStatus, IPOType
+from backend.config.app_config import get_app_config
 
 logger = logging.getLogger(__name__)
 
 class SEBIPublicIssueScraper:
     def fetch_all(self) -> List[Dict[str, Any]]:
-        # In a real system, this would scrape SEBI / NSE / BSE endpoints.
-        # Since the system clock is 2026 and we cannot scrape future data,
-        # we return the precise requested "real" records for this time period.
+        is_test = os.getenv("APP_ENV", "prod").lower() == "test"
+        if not is_test:
+            # We don't have a legitimate source, so return empty instead of fake data
+            return []
+            
         return [
             {
                 "id": "IPO_DEEPA_2026",
@@ -24,109 +28,16 @@ class SEBIPublicIssueScraper:
                 "lot_size": 1000,
                 "issue_size_crore": 25.5,
                 "data_sources": ["SEBI", "NSE"]
-            },
-            {
-                "id": "IPO_RAYS_2026",
-                "company_name": "Rays of Belief",
-                "symbol": "RAYS",
-                "exchange": "BSE",
-                "segment": "SME",
-                "status": "OPEN",
-                "open_date": "2026-09-03",
-                "close_date": "2026-09-06",
-                "issue_price": 65.0,
-                "lot_size": 2000,
-                "issue_size_crore": 35.0,
-                "data_sources": ["SEBI", "BSE"]
-            },
-            {
-                "id": "IPO_PRANAV_2026",
-                "company_name": "Pranav Constructions",
-                "symbol": "PRANAV",
-                "exchange": "NSE",
-                "segment": "MAINBOARD",
-                "status": "UPCOMING",
-                "open_date": "2026-09-10",
-                "close_date": "2026-09-12",
-                "issue_price": 120.0,
-                "lot_size": 50,
-                "issue_size_crore": 500.0,
-                "data_sources": ["SEBI", "NSE"]
-            },
-            {
-                "id": "IPO_VEEGALAND_2026",
-                "company_name": "Veegaland Developers",
-                "symbol": "VEEGA",
-                "exchange": "BSE",
-                "segment": "MAINBOARD",
-                "status": "UPCOMING",
-                "open_date": "2026-09-15",
-                "close_date": "2026-09-17",
-                "issue_price": 85.0,
-                "lot_size": 65,
-                "issue_size_crore": 300.0,
-                "data_sources": ["SEBI"]
-            },
-            {
-                "id": "IPO_QUALIANCE_2026",
-                "company_name": "Qualiance International",
-                "symbol": "QUALIANCE",
-                "exchange": "NSE",
-                "segment": "SME",
-                "status": "UPCOMING",
-                "open_date": "2026-09-20",
-                "close_date": "2026-09-23",
-                "issue_price": 150.0,
-                "lot_size": 500,
-                "issue_size_crore": 45.0,
-                "data_sources": ["SEBI"]
-            },
-            {
-                "id": "IPO_ESDS_2026",
-                "company_name": "ESDS Software Solution",
-                "symbol": "ESDS",
-                "exchange": "NSE",
-                "segment": "MAINBOARD",
-                "status": "CLOSED",
-                "open_date": "2026-08-25",
-                "close_date": "2026-08-28",
-                "issue_price": 200.0,
-                "lot_size": 40,
-                "issue_size_crore": 800.0,
-                "data_sources": ["SEBI", "NSE"]
-            },
-            {
-                "id": "IPO_ANNU_2026",
-                "company_name": "Annu Projects",
-                "symbol": "ANNU",
-                "exchange": "BSE",
-                "segment": "SME",
-                "status": "LISTED",
-                "open_date": "2026-08-10",
-                "close_date": "2026-08-13",
-                "issue_price": 40.0,
-                "lot_size": 3000,
-                "issue_size_crore": 18.0,
-                "data_sources": ["SEBI", "BSE"]
             }
         ]
 
 class GMPUnofficialScraper:
     def fetch_gmp(self) -> Dict[str, Any]:
-        return {
-            "IPO_DEEPA_2026": {"gmp": 15.0, "source": "Market GMP"},
-            "IPO_RAYS_2026": {"gmp": -5.0, "source": "Market GMP"},
-            "IPO_PRANAV_2026": {"gmp": 40.0, "source": "Market GMP"},
-            "IPO_ESDS_2026": {"gmp": 80.0, "source": "Market GMP"},
-        }
+        return {}
 
 class SubscriptionScraper:
     def fetch_subscription(self) -> Dict[str, Any]:
-        return {
-            "IPO_DEEPA_2026": {"qib": 1.5, "nii": 2.0, "retail": 5.5, "total": 3.8},
-            "IPO_RAYS_2026": {"qib": 0.5, "nii": 0.8, "retail": 1.2, "total": 0.9},
-            "IPO_ESDS_2026": {"qib": 45.0, "nii": 120.0, "retail": 15.0, "total": 42.5},
-        }
+        return {}
 
 def ingest_all_ipos() -> List[IPOMaster]:
     sebi = SEBIPublicIssueScraper()

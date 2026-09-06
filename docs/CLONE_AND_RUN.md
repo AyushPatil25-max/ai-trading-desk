@@ -97,3 +97,9 @@ Paper mode is strictly enforced if `LIVE_EXECUTION_ENABLED=false`. All generated
 - **Missing Modules**: If you get an `ImportError`, ensure you have activated your `venv` and run `pip install -r requirements.txt`.
 - **Dhan Auth Errors**: Check your `DHAN_CLIENT_ID` and `DHAN_ACCESS_TOKEN` in `.env`.
 - **Port Conflicts**: If port 8000 is taken, use `python -m http.server 8080` for the frontend and update any backend CORS configuration accordingly.
+
+### Upstox Integration
+1. Register an API app on Upstox.
+2. Generate an OAuth2 access token.
+3. Add \UPSTOX_ENABLED=true\ and \UPSTOX_ACCESS_TOKEN=<your_token>\ to your \.env\ file.
+4. Start the backend. Live market data will automatically stream to the frontend via SSE.

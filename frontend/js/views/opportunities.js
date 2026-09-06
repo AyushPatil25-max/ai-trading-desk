@@ -31,7 +31,14 @@ export async function renderOpportunities(container) {
             const data = await res.json();
             
             if (!data || data.length === 0) {
-                resDiv.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500 text-sm">No undervalued opportunities met the strict fundamental criteria.</div>';
+                resDiv.innerHTML = `
+                    <div class="col-span-full py-10 px-6 text-center border border-dashed border-gray-800 rounded-xl bg-gray-950/40">
+                        <div class="text-amber-400 font-semibold text-sm mb-1">NO DATA / INSUFFICIENT DATA AVAILABLE</div>
+                        <p class="text-xs text-gray-500 max-w-lg mx-auto leading-relaxed">
+                            Generating legitimate opportunity setups requires real-time live market ticks from the active Upstox feed and full quarterly statements. No synthetic or fake opportunities are generated.
+                        </p>
+                    </div>
+                `;
                 return;
             }
 

@@ -209,3 +209,114 @@ class MarketPortfolioIntelligence(BaseModel):
         async def _passthrough():
             return self
         return _passthrough().__await__()
+class PortfolioDataState(str, Enum):
+    LIVE = "LIVE"
+    FRESH = "FRESH"
+    STALE = "STALE"
+    PARTIAL = "PARTIAL"
+    UNAVAILABLE = "UNAVAILABLE"
+    ERROR = "ERROR"
+    INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
+
+class PortfolioProvenance(BaseModel):
+    broker_source: str
+    market_data_source: Optional[str] = None
+    historical_reference: Optional[str] = None
+    fetched_at: str
+
+class PortfolioHolding(BaseModel):
+    symbol: str
+    exchange: str = "NSE"
+    security_identifier: Optional[str] = None
+    quantity: Optional[int] = None
+    average_price: Optional[float] = None
+    current_price: Optional[float] = None
+    invested_value: Optional[float] = None
+    current_value: Optional[float] = None
+    unrealized_pnl: Optional[float] = None
+    pnl_percentage: Optional[float] = None
+    day_pnl: Optional[float] = None
+    portfolio_weight: Optional[float] = None
+    source: str
+    timestamp: str
+    data_state: PortfolioDataState
+
+class PortfolioAccountState(BaseModel):
+    total_invested_value: Optional[float] = None
+    total_current_value: Optional[float] = None
+    unrealized_pnl: Optional[float] = None
+    unrealized_pnl_percentage: Optional[float] = None
+    realized_pnl: Optional[float] = None
+    total_pnl: Optional[float] = None
+    total_pnl_percentage: Optional[float] = None
+    day_pnl: Optional[float] = None
+    cash: Optional[float] = None
+    net_portfolio_value: Optional[float] = None
+
+class RiskMetrics(BaseModel):
+    volatility: Optional[float] = None
+    portfolio_beta: Optional[float] = None
+    maximum_drawdown: Optional[float] = None
+    sharpe_ratio: Optional[float] = None
+    downside_risk: Optional[float] = None
+    methodology: str = "Standard Deviation / historical data"
+    data_period: str = "1Y"
+    confidence: str = "UNKNOWN"
+
+class BenchmarkComparison(BaseModel):
+    benchmark_name: str = "NIFTY 50"
+    portfolio_return: Optional[float] = None
+    benchmark_return: Optional[float] = None
+    portfolio_volatility: Optional[float] = None
+    benchmark_volatility: Optional[float] = None
+    drawdown_comparison: Optional[str] = None
+
+class PortfolioExposure(BaseModel):
+    top_5_concentration_weight: Optional[float] = None
+    top_10_concentration_weight: Optional[float] = None
+    sector_exposure: Dict[str, float] = {}
+    cash_allocation_weight: Optional[float] = None
+
+class PortfolioHealth(BaseModel):
+    score: Optional[int] = None
+    confidence: str = "UNKNOWN"
+    components: Dict[str, Any] = {}
+    methodology: str = "Heuristic combination of diversification, risk, and concentration"
+    warnings: List[str] = []
+
+class Phase49Portfolio(BaseModel):
+    portfolio_id: str
+    broker: str
+    account_state: PortfolioAccountState
+    fetched_at: str
+    data_state: PortfolioDataState
+    holdings: List[PortfolioHolding]
+    positions: List[PortfolioHolding]
+    exposure: Optional[PortfolioExposure] = None
+    risk_metrics: Optional[RiskMetrics] = None
+    benchmark_comparison: Optional[BenchmarkComparison] = None
+    health: Optional[PortfolioHealth] = None
+    provenance: PortfolioProvenance
+
+class PortfolioAIInsight(BaseModel):
+    summary: str
+    overall_assessment: str
+    strengths: List[str] = []
+    risks: List[str] = []
+    concentration_warnings: List[str] = []
+    valuation_observations: List[str] = []
+    technical_observations: List[str] = []
+    news_observations: List[str] = []
+    diversification_observations: List[str] = []
+    watch_items: List[str] = []
+    confidence: str
+    generated_at: str
+    data_snapshot_time: str
+    methodology: str
+    data_quality: str
+
+class PortfolioResponse(BaseModel):
+    data: Optional[Phase49Portfolio] = None
+    state: PortfolioDataState
+    timestamp: str
+    error_message: Optional[str] = None
