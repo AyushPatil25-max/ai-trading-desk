@@ -1,4 +1,4 @@
-﻿export class ScannerView {
+export class ScannerView {
     constructor() {
         this.currentView = 'top';
         this.opportunities = [];
@@ -6,8 +6,8 @@
     }
 
     async render(container) {
-        container.innerHTML = 
-            <div class="flex flex-col h-full overflow-hidden">
+        container.innerHTML = `
+                <div class="flex flex-col h-full overflow-hidden">
                 <div class="flex-none bg-gray-900 border-b border-gray-800 px-6 py-4">
                     <div class="flex justify-between items-center">
                         <div>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-        ;
+        `;
         
         lucide.createIcons();
         this.bindEvents(container);
@@ -74,12 +74,12 @@
         if (!content) return;
 
         this.loading = true;
-        content.innerHTML = 
+        content.innerHTML = `
             <div class="flex items-center justify-center h-full text-gray-500">
                 <i data-lucide="loader-2" class="w-8 h-8 animate-spin"></i>
                 <span class="ml-3 font-mono text-sm uppercase tracking-widest">Scanning Market Universe...</span>
             </div>
-        ;
+        `;
         lucide.createIcons();
 
         try {
@@ -98,13 +98,13 @@
             this.renderOpportunities(content);
         } catch (error) {
             console.error("Scanner error:", error);
-            content.innerHTML = 
-                <div class="text-center text-rose-500 py-12">
+            content.innerHTML = `
+            <div class="text-center text-rose-500 py-12">
                     <i data-lucide="alert-triangle" class="w-12 h-12 mx-auto mb-4"></i>
                     <p class="font-bold">Failed to load scanner results.</p>
-                    <p class="text-sm text-gray-400 mt-2">\</p>
+                    <p class="text-sm text-gray-400 mt-2">${error.message || 'Unknown error'}</p>
                 </div>
-            ;
+        `;
             lucide.createIcons();
         } finally {
             this.loading = false;
@@ -113,12 +113,12 @@
 
     renderOpportunities(container) {
         if (this.opportunities.length === 0) {
-            container.innerHTML = 
+            container.innerHTML = `
                 <div class="text-center text-gray-500 py-12">
                     <i data-lucide="shield-alert" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
                     <p>No high-confidence opportunities found for this criteria.</p>
                 </div>
-            ;
+        `;
             lucide.createIcons();
             return;
         }
@@ -138,46 +138,51 @@
             
             const directionColor = op.opportunity.direction === 'BULLISH' ? 'text-emerald-400' : (op.opportunity.direction === 'BEARISH' ? 'text-rose-400' : 'text-gray-400');
             
-            html += 
-                <div class="bg-gray-900 border border-gray-800 rounded-lg p-4 hover:border-gray-700 transition-colors cursor-pointer scanner-card" data-symbol="\">
+            html += `
+                <div class="bg-gray-900 border border-gray-800 rounded-lg p-4 hover:border-gray-700 transition-colors cursor-pointer scanner-card" data-symbol="${op.symbol}">
                     <div class="flex justify-between items-start mb-3">
                         <div>
-                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">\</h3>
-                            <div class="text-[10px] uppercase tracking-widest \ px-1.5 py-0.5 rounded mt-1 inline-block">\</div>
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">${op.symbol}</h3>
+                            <div class="text-[10px] uppercase tracking-widest ${statusColor} px-1.5 py-0.5 rounded mt-1 inline-block">${op.market.data_quality}</div>
                         </div>
                         <div class="text-right">
-                            <div class="text-sm font-mono text-white">₹\</div>
+                            <div class="text-sm font-mono text-white">₹${ltp}</div>
                         </div>
                     </div>
                     
                     <div class="mb-4">
                         <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Signal</div>
-                        <div class="font-bold \ flex items-center gap-1">
-                            <i data-lucide="\" class="w-4 h-4"></i>
-                            \
+                        <div class="font-bold ${directionColor} flex items-center gap-1">
+                            <i data-lucide="${op.opportunity.direction === 'BULLISH' ? 'trending-up' : (op.opportunity.direction === 'BEARISH' ? 'trending-down' : 'minus')}" class="w-4 h-4"></i>
+                            ${op.opportunity.direction}
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-2 mb-4">
                         <div class="bg-gray-950 p-2 rounded border border-gray-800/50">
                             <div class="text-[9px] text-gray-500 uppercase tracking-widest">Score</div>
-                            <div class="text-lg font-bold text-white">\</div>
+                            <div class="text-lg font-bold text-white">${score}</div>
                         </div>
                         <div class="bg-gray-950 p-2 rounded border border-gray-800/50">
                             <div class="text-[9px] text-gray-500 uppercase tracking-widest">Confidence</div>
-                            <div class="text-lg font-bold text-white">\%</div>
+                            <div class="text-lg font-bold text-white">${conf}%</div>
                         </div>
                     </div>
                     
                     <div class="text-xs text-gray-400 border-t border-gray-800 pt-3 line-clamp-2">
-                        \
+                        ${op.opportunity.reasoning || op.opportunity.type}
                     </div>
                 </div>
-            ;
+        `;
         });
         
         html += '</div>';
         container.innerHTML = html;
         lucide.createIcons();
     }
+}
+
+export function renderScanner(container) {
+    const view = new ScannerView();
+    view.render(container);
 }

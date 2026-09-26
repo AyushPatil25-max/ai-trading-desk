@@ -1,4 +1,6 @@
 import { renderTerminal } from './views/terminal.js';
+import { renderResearchWorkspace } from './views/research_workspace.js';
+import { renderAIResearchChat } from './views/ai_research_chat.js';
 import { renderWatchlists } from './views/watchlists.js';
 import { renderScanner } from './views/scanner.js';
 import { renderChart } from './views/chart.js';
@@ -8,6 +10,9 @@ import { renderPortfolio } from './views/portfolio.js';
 import { renderNews } from './views/news.js';
 import { renderAlerts } from './views/alerts.js';
 import { renderReconciliation } from './views/reconciliation.js';
+
+import { renderHistoricalResearch } from './views/historical_research.js';
+import { renderProductionIntelligence } from './views/production_intelligence.js';
 
 const routes = [
     { id: 'terminal', name: 'Terminal', icon: 'monitor', render: renderTerminal },
@@ -19,6 +24,10 @@ const routes = [
     { id: 'ipos', name: 'IPO Intelligence', icon: 'rocket', render: renderIPOs },
     { id: 'portfolio', name: 'Portfolio', icon: 'pie-chart', render: renderPortfolio },
     { id: 'news', name: 'News & Events', icon: 'newspaper', render: renderNews },
+    { id: 'research', name: 'Research', icon: 'brain', render: renderResearchWorkspace },
+    { id: 'ai-research-chat', name: 'AI Chat', icon: 'message-circle', render: renderAIResearchChat },
+    { id: 'historical-research', name: 'Historical Research', icon: 'history', render: renderHistoricalResearch },
+    { id: 'production-intelligence', name: 'Production Intelligence', icon: 'server', render: renderProductionIntelligence },
     { id: 'alerts', name: 'Alerts', icon: 'bell', render: renderAlerts }
 ];
 

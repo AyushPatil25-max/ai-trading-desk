@@ -90,6 +90,11 @@ from backend.application.trading_os_routes import router as trading_os_router
 from backend.application.production_routes import production_router
 
 from backend.application.stock_routes import router as stock_router
+from backend.application.research_synthesis_routes import router as research_synthesis_router
+from backend.application.intelligent_screener_routes import router as intelligent_screener_router
+from backend.application.stock_comparison_routes import router as stock_comparison_router
+from backend.application.research_workspace_routes import router as research_workspace_router
+from backend.application.research_chat_routes import router as research_chat_router
 
 app.include_router(alert_router)
 app.include_router(broker_router)
@@ -120,6 +125,11 @@ app.include_router(telemetry_router)
 app.include_router(trading_os_router)
 app.include_router(production_router)
 app.include_router(stock_router)
+app.include_router(research_synthesis_router)
+app.include_router(intelligent_screener_router)
+app.include_router(stock_comparison_router)
+app.include_router(research_workspace_router)
+app.include_router(research_chat_router)
 
 from backend.application.realtime_stream_server import router as realtime_stream_router
 app.include_router(realtime_stream_router)
@@ -128,9 +138,18 @@ app.include_router(phase46_scanner_router)
 from backend.application.chart_routes import router as chart_router
 from backend.application.news_routes import router as news_router
 from backend.application.portfolio_routes import router as portfolio_router
+from backend.application.portfolio_intelligence_routes import router as portfolio_intelligence_router
+from backend.application.earnings_routes import router as earnings_router
+from backend.application.historical_research_routes import router as historical_research_router
+from backend.application.production_intelligence_routes import production_intelligence_routes
+
 app.include_router(chart_router)
 app.include_router(news_router)
+app.include_router(production_intelligence_routes)
 app.include_router(portfolio_router)
+app.include_router(portfolio_intelligence_router)
+app.include_router(earnings_router)
+app.include_router(historical_research_router)
 
 # API Endpoint
 @app.get("/api/analyze")

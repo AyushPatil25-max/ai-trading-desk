@@ -1,5 +1,5 @@
-﻿export function renderChart(container) {
-    container.innerHTML = \
+export function renderChart(container) {
+    container.innerHTML = `
         <div class="flex flex-col h-full space-y-4">
             <!-- Header Controls -->
             <div class="glass-panel p-4 rounded-xl border border-gray-800/60 flex flex-wrap gap-4 items-center justify-between">
@@ -67,7 +67,7 @@
                 <div id="adx-chart" class="h-32 border-t border-gray-800/60 hidden"></div>
             </div>
         </div>
-    \;
+    `;
     
     // Global references for cleanup/resize
     let charts = {};
@@ -147,7 +147,7 @@
         document.getElementById('chart-loading').classList.remove('hidden');
         
         try {
-            const res = await fetch(\/api/v1/charts/\?timeframe=\\);
+            const res = await fetch(`/api/v1/charts?symbol=${symbol}&timeframe=${tf}`);
             const data = await res.json();
             
             if (!res.ok) {

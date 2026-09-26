@@ -219,12 +219,13 @@ class UpstoxMarketDataProvider(IMarketDataProvider):
                 tech_data.distance_low_52w = ((price - tech_data.low_52w) / tech_data.low_52w) * 100
                 
             # Trend
-            if price > tech_data.sma_50 and tech_data.sma_50 > tech_data.sma_200:
-                tech_data.trend = "BULLISH"
-            elif price < tech_data.sma_50 and tech_data.sma_50 < tech_data.sma_200:
-                tech_data.trend = "BEARISH"
-            else:
-                tech_data.trend = "NEUTRAL"
+            if price and tech_data.sma_50 and tech_data.sma_200:
+                if price > tech_data.sma_50 and tech_data.sma_50 > tech_data.sma_200:
+                    tech_data.trend = "BULLISH"
+                elif price < tech_data.sma_50 and tech_data.sma_50 < tech_data.sma_200:
+                    tech_data.trend = "BEARISH"
+                else:
+                    tech_data.trend = "NEUTRAL"
                 
             # Support/Resistance based on recent highs/lows and pivots
             if tech_data.pivot_points:

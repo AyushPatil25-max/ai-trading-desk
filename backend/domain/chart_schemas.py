@@ -74,3 +74,38 @@ class ChartResponse(BaseModel):
     live_source: Optional[str] = None
     generated_at: str
     last_market_update: Optional[str] = None
+
+class TrendRegime(str, Enum):
+    STRONG_UPTREND = 'STRONG_UPTREND'
+    WEAK_UPTREND = 'WEAK_UPTREND'
+    RANGING = 'RANGING'
+    WEAK_DOWNTREND = 'WEAK_DOWNTREND'
+    STRONG_DOWNTREND = 'STRONG_DOWNTREND'
+
+class ChartPatternIntelligencePayload(BaseModel):
+    symbol: str
+    timeframe: str
+    trend_regime: TrendRegime
+    summary_claim: str
+
+class VolatilityRegime(str, Enum):
+    LOW = 'LOW'
+    NORMAL = 'NORMAL'
+    HIGH = 'HIGH'
+    EXTREME = 'EXTREME'
+
+class PatternStatus(str, Enum):
+    FORMING = 'FORMING'
+    CONFIRMED = 'CONFIRMED'
+    INVALIDATED = 'INVALIDATED'
+
+class BreakoutType(str, Enum):
+    BULLISH = 'BULLISH'
+    BEARISH = 'BEARISH'
+    FALSE_BULLISH = 'FALSE_BULLISH'
+    FALSE_BEARISH = 'FALSE_BEARISH'
+
+class BreakoutSignal(BaseModel):
+    breakout_type: BreakoutType
+    confidence: float
+    price_level: float

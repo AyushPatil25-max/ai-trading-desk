@@ -48,6 +48,7 @@ class YFinanceProvider(BaseProvider):
             ownership=True,
             deals=False,
             delivery=False,
+            earnings_calendar=True,
         )
 
     @property
@@ -573,6 +574,53 @@ class YFinanceProvider(BaseProvider):
 
     async def get_ownership(self, symbol: str) -> ProviderResult:
         return await asyncio.to_thread(self._get_ownership_sync, symbol)
+
+    def _get_earnings_calendar_sync(self, symbol: str) -> ProviderResult:
+        try:
+            import yfinance as yf
+            import pandas as pd
+            normalized = self._normalize_ticker(symbol)
+            ticker = yf.Ticker(normalized)
+            calendar_df = getattr(ticker, "earnings_dates", None)
+            
+            if calendar_df is None or calendar_df.empty:
+                return ProviderResult(status="SUCCESS_EMPTY", data=[])
+                
+            now = datetime.now(timezone.utc)
+            events = []
+            
+            for dt, row in calendar_df.iterrows():
+                # yfinance earnings_dates index is the Earnings Date
+                # Columns: 'EPS Estimate', 'Reported EPS', 'Surprise(%)'
+                eps_est = row.get("EPS Estimate")
+                eps_act = row.get("Reported EPS")
+                surprise = row.get("Surprise(%)")
+                
+                # Convert date to ISO format
+                if pd.isna(dt):
+                    continue
+                    
+                # Clean NaNs
+                eps_est = float(eps_est) if pd.notna(eps_est) else None
+                eps_act = float(eps_act) if pd.notna(eps_act) else None
+                surprise = float(surprise) if pd.notna(surprise) else None
+                
+                event_dict = {
+                    "symbol": symbol,
+                    "earnings_date": dt.isoformat() if hasattr(dt, 'isoformat') else str(dt),
+                    "eps_estimate": eps_est,
+                    "reported_eps": eps_act,
+                    "surprise_pct": surprise
+                }
+                events.append(event_dict)
+                
+            return ProviderResult(status="SUCCESS", data={"events": events}, provenance=[])
+        except Exception as e:
+            return ProviderResult(status="ERROR", error=str(e))
+
+    async def get_earnings_calendar(self, symbol: str) -> ProviderResult:
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self._get_earnings_calendar_sync, symbol)
 
     def _get_news_sync(self, symbol: str) -> ProviderResult:
         try:

@@ -179,6 +179,12 @@ class PortfolioIntelligence(BaseModel):
     provenance: List[Dict[str, Any]] = Field(default_factory=list)
     evaluated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     engine_version: str = PORTFOLIO_ENGINE_VERSION
+    
+    # Phase 17 Aggregated Risk
+    aggregated_bullish_score: float = 0.0
+    aggregated_bearish_score: float = 0.0
+    overall_portfolio_risk_state: str = "UNKNOWN"
+    aggregated_risk_factors: List[Dict[str, Any]] = Field(default_factory=list)
 
     def __await__(self):
         """Allows dual synchronous or awaitable invocation."""

@@ -45,6 +45,7 @@ class PortfolioIntelligenceEngine:
         candidate_plan: Optional[Any] = None,
         historical_prices: Optional[Dict[str, List[float]]] = None,
         constraint_config: Optional[PortfolioConstraintConfig] = None,
+        portfolio_contexts: Optional[Dict[str, MarketContext]] = None,
     ) -> PortfolioIntelligence:
         """
         Analyze current portfolio state and evaluate the marginal risk impact
@@ -129,6 +130,46 @@ class PortfolioIntelligenceEngine:
             warnings=warnings,
         )
 
+        # ── 9. Bull/Bear Risk Aggregation (Phase 17) ──────────────────────────
+        agg_bullish = 0.0
+        agg_bearish = 0.0
+        agg_risk_state = "UNKNOWN"
+        agg_risk_factors = []
+        valid_contexts = 0
+        
+        if portfolio_contexts:
+            total_weight = sum([p.weight for p in positions.values() if p.symbol in portfolio_contexts])
+            
+            for sym, pos in positions.items():
+                ctx = portfolio_contexts.get(sym)
+                if ctx and hasattr(ctx, "bull_bear_risk") and ctx.bull_bear_risk:
+                    bb = ctx.bull_bear_risk
+                    normalized_weight = (pos.weight / total_weight) if total_weight > 0 else 0
+                    
+                    agg_bullish += getattr(bb, "bullish_score", 0.0) * normalized_weight
+                    agg_bearish += getattr(bb, "bearish_score", 0.0) * normalized_weight
+                    
+                    if hasattr(bb, "risk_factors") and bb.risk_factors:
+                        for rf in bb.risk_factors:
+                            # Avoid duplicates loosely
+                            if not any(existing.get("factor_type") == rf.factor_type for existing in agg_risk_factors):
+                                agg_risk_factors.append({
+                                    "symbol": sym,
+                                    "factor_type": rf.factor_type,
+                                    "severity": rf.severity.value if hasattr(rf.severity, "value") else str(rf.severity),
+                                    "description": rf.description
+                                })
+                    valid_contexts += 1
+            
+            if valid_contexts > 0:
+                diff = agg_bullish - agg_bearish
+                if diff > 10:
+                    agg_risk_state = "LOW"
+                elif diff < -10:
+                    agg_risk_state = "HIGH"
+                else:
+                    agg_risk_state = "MODERATE"
+
         provenance.append({
             "source": "PortfolioIntelligenceEngine",
             "version": PORTFOLIO_ENGINE_VERSION,
@@ -160,6 +201,10 @@ class PortfolioIntelligenceEngine:
             provenance=provenance,
             evaluated_at=now,
             engine_version=PORTFOLIO_ENGINE_VERSION,
+            aggregated_bullish_score=round(agg_bullish, 2),
+            aggregated_bearish_score=round(agg_bearish, 2),
+            overall_portfolio_risk_state=agg_risk_state,
+            aggregated_risk_factors=agg_risk_factors,
         )
 
     def create_unified_intelligence(

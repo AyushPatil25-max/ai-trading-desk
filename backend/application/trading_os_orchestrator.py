@@ -73,6 +73,7 @@ from backend.application.risk_engine import RiskEngine
 from backend.application.execution_preflight_engine import ExecutionPreflightEngine
 from backend.application.paper_broker_adapter import PaperBrokerAdapter
 from backend.application.execution_telemetry_engine import ExecutionTelemetryEngine, global_telemetry_engine
+from backend.application.bull_bear_engine import BullBearRiskEngine
 
 logger = logging.getLogger(__name__)
 
@@ -96,6 +97,7 @@ class TradingOSOrchestrator:
         preflight_engine: Optional[ExecutionPreflightEngine] = None,
         paper_broker: Optional[PaperBrokerAdapter] = None,
         telemetry_engine: Optional[ExecutionTelemetryEngine] = None,
+        bull_bear_engine: Optional[BullBearRiskEngine] = None,
     ):
         self.evidence_aggregator = evidence_aggregator if evidence_aggregator is not None else EvidenceAggregator()
         self.debate_engine = debate_engine if debate_engine is not None else DebateEngine()
@@ -108,6 +110,7 @@ class TradingOSOrchestrator:
         self.preflight_engine = preflight_engine if preflight_engine is not None else ExecutionPreflightEngine()
         self.telemetry_engine = telemetry_engine if telemetry_engine is not None else global_telemetry_engine
         self.paper_broker = paper_broker if paper_broker is not None else PaperBrokerAdapter(telemetry_engine=self.telemetry_engine)
+        self.bull_bear_engine = bull_bear_engine if bull_bear_engine is not None else BullBearRiskEngine()
 
     # ── Full Pipeline Execution ───────────────────────────────────────────────
 
@@ -198,6 +201,22 @@ class TradingOSOrchestrator:
                         evidence_records=[],
                         contradictions=[],
                     )
+
+            # --- Phase 13 Integration ---
+            bull_bear_result = self.bull_bear_engine.evaluate(market_context, evidence_summary)
+            if hasattr(evidence_summary, "evidence_records"):
+                evidence_summary.evidence_records.extend(bull_bear_result.active_evidence)
+            elif hasattr(evidence_summary, "records"):
+                evidence_summary.records.extend(bull_bear_result.active_evidence)
+            run.stages["BULL_BEAR"] = PipelineStageResult(
+                stage_name="BULL_BEAR",
+                status=StageStatus.COMPLETED,
+                started_at=now,
+                completed_at=now,
+                duration_ms=round((time.monotonic() - s_t0) * 1000.0, 2),
+                details={"directional_state": bull_bear_result.directional_state.value, "risk_state": bull_bear_result.risk_state.value},
+            )
+            # ---------------------------
 
             ev_records = getattr(evidence_summary, "evidence_records", getattr(evidence_summary, "records", []))
             ev_contradictions = getattr(evidence_summary, "contradictions", [])

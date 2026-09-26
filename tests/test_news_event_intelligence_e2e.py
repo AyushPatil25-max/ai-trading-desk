@@ -21,7 +21,7 @@ def news_engine():
 @pytest.mark.asyncio
 async def test_get_company_news_normal(news_engine):
     mock_res = MagicMock()
-    mock_res.success = True
+    mock_res.status = 'SUCCESS'
     mock_res.data = [
         {"title": "Company reports record Q1 earnings and beats estimates", "link": "http://test1", "publisher": "TestProv"},
         {"title": "Stock plunges on regulatory fears", "link": "http://test2", "pubDate": "2020-01-01T00:00:00Z"},
@@ -53,7 +53,7 @@ async def test_get_company_news_normal(news_engine):
 @pytest.mark.asyncio
 async def test_get_corporate_actions(news_engine):
     mock_res = MagicMock()
-    mock_res.success = True
+    mock_res.status = 'SUCCESS'
     mock_res.data = {
         "Dividends": [
             {"Date": "2023-05-15 00:00:00-04:00", "Dividends": 10.0}
@@ -178,9 +178,9 @@ def test_api_alerts_endpoints():
 @pytest.mark.asyncio
 async def test_news_provider_failure(news_engine):
     mock_res = MagicMock()
-    mock_res.success = False
+    mock_res.status = 'ERROR'
     mock_res.data = None
-    mock_res.error_message = "API Timeout"
+    mock_res.error = "API Timeout"
     news_engine.orchestrator.get_news = AsyncMock(return_value=mock_res)
     
     resp = await news_engine.get_company_news("RELIANCE")

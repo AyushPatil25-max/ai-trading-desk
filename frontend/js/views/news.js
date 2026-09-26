@@ -1,5 +1,5 @@
 export function renderNews(container) {
-    container.innerHTML = 
+    container.innerHTML = `
         <div class="flex flex-col h-full space-y-4">
             <!-- Header Controls -->
             <div class="glass-panel p-4 rounded-xl border border-gray-800/60 flex flex-wrap gap-4 items-center justify-between">
@@ -40,7 +40,7 @@ export function renderNews(container) {
                 </div>
             </div>
         </div>
-    ;
+    `;
 
     document.getElementById('news-load-btn').addEventListener('click', loadData);
     document.getElementById('news-symbol').addEventListener('keypress', (e) => {
@@ -65,8 +65,8 @@ export function renderNews(container) {
         
         try {
             const [newsRes, eventsRes] = await Promise.all([
-                fetch(/api/v1/news/),
-                fetch(/api/v1/events/)
+                fetch(`/api/v1/news/${symbol}`),
+                fetch(`/api/v1/events/${symbol}`)
             ]);
             
             const newsPayload = await newsRes.json();
@@ -75,7 +75,7 @@ export function renderNews(container) {
             const news = newsPayload.data || [];
             const events = eventsPayload.data || [];
             
-            document.getElementById('news-count').textContent = ${news.length || 0} items;
+            document.getElementById('news-count').textContent = `${news.length || 0} items`;
             
             if (newsPayload.state === 'ERROR') {
                 document.getElementById('news-feed').innerHTML = '<div class="text-center text-red-500 mt-10 text-sm">Error loading news.</div>';
@@ -111,31 +111,30 @@ export function renderNews(container) {
                 stateBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-yellow-900/50 text-yellow-400">STALE</span>';
             }
             
-            const aiText = item.rule_sentiment ? (% Rule-Based) : '';
+            const aiText = item.rule_sentiment ? `(${item.rule_sentiment} Rule-Based)` : '';
             
-            html += 
+            html += `
                 <div class="bg-gray-900/50 border border-gray-800/60 rounded-lg p-4 hover:border-gray-700 transition-colors">
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex gap-2 items-center flex-wrap">
-                            <span class="px-2 py-1 rounded bg-gray-800 text-xs font-medium text-gray-300"></span>
-                            <span class="px-2 py-1 rounded  text-[10px] font-medium uppercase tracking-wider"></span>
-                            <span class="text-xs text-gray-500"></span>
-                            
+                            <span class="px-2 py-1 rounded bg-gray-800 text-xs font-medium text-gray-300">${date}</span>
+                            <span class="px-2 py-1 rounded ${getCategoryStyle(item.category)} text-[10px] font-medium uppercase tracking-wider">${item.category}</span>
+                            <span class="text-xs text-gray-500">${stateBadge}</span>
                         </div>
                     </div>
-                    <a href="" target="" rel="noopener noreferrer" class="text-sm font-semibold text-white hover:text-cyan-400 block mb-2 transition-colors">
-                        
+                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-white hover:text-cyan-400 block mb-2 transition-colors">
+                        ${escapeHTML(item.title)}
                     </a>
-                    <p class="text-xs text-gray-400 line-clamp-2"></p>
+                    <p class="text-xs text-gray-400 line-clamp-2">${escapeHTML(item.summary)}</p>
                     
                     <div class="mt-3 flex gap-2">
-                        <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded ">
-                             
+                        <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded ${getSentimentStyle(item.sentiment_state)}">
+                            ${item.sentiment_state} ${aiText}
                         </span>
-                        <span class="text-[10px] text-gray-500 font-mono">Provenance: </span>
+                        <span class="text-[10px] text-gray-500 font-mono">Provenance: ${item.provenance}</span>
                     </div>
                 </div>
-            ;
+            `;
         });
         feed.innerHTML = html;
     }
@@ -151,16 +150,16 @@ export function renderNews(container) {
         eventsList.forEach(item => {
             const date = item.scheduled_time ? new Date(item.scheduled_time).toLocaleDateString() : "Unknown Date";
             
-            html += 
+            html += `
                 <div class="bg-gray-900/50 border border-gray-800/60 rounded-lg p-3">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="px-2 py-0.5 rounded bg-cyan-900/30 text-cyan-400 border border-cyan-800/50 text-[10px] font-medium uppercase"></span>
-                        <span class="text-[10px] text-gray-500"></span>
+                        <span class="px-2 py-0.5 rounded bg-cyan-900/30 text-cyan-400 border border-cyan-800/50 text-[10px] font-medium uppercase">${item.type}</span>
+                        <span class="text-[10px] text-gray-500">${date}</span>
                     </div>
-                    <h3 class="text-xs font-medium text-gray-200"></h3>
-                    <div class="mt-2 text-[10px] text-gray-500">Source:  ()</div>
+                    <h3 class="text-xs font-medium text-gray-200">${escapeHTML(item.title)}</h3>
+                    <div class="mt-2 text-[10px] text-gray-500">Source: ${item.source} (${item.state})</div>
                 </div>
-            ;
+            `;
         });
         feed.innerHTML = html;
     }

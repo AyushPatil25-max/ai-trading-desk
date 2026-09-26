@@ -24,7 +24,7 @@ OBSERVABILITY_SCHEMA_VERSION = "23.0.0"
 SENSITIVE_KEYS = frozenset({
     "api_key", "secret", "password", "token", "credential", "auth",
     "access_token", "auth_token", "private_key", "groq_api_key", "alpaca_secret",
-    "authorization", "bearer", "cookie", "session_id", "broker_secret",
+    "authorization", "bearer", "cookie", "broker_secret",
     "confirmation_token", "dhan_access_token", "client_secret",
 })
 

@@ -17,7 +17,7 @@ class TestAPI(unittest.TestCase):
 
     @patch("backend.application.orchestration.RiskAgentAdapter.execute", new_callable=AsyncMock)
     @patch("backend.application.orchestration.TechnicalAgentAdapter.execute", new_callable=AsyncMock)
-    @patch("backend.infrastructure.data_providers.YFinanceProvider.get_market_context")
+    @patch("backend.infrastructure.providers.orchestrator.MultiSourceOrchestrator.get_market_context")
     def test_analyze_stock_approved(self, mock_market_data, mock_tech_agent, mock_risk_agent):
         from backend.domain.schemas import MarketContext
         from datetime import datetime, timezone

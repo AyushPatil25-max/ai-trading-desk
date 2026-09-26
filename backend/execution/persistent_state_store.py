@@ -89,7 +89,7 @@ class PersistentStateStore:
         """Retrieve value by key from in-memory state."""
         with self._lock:
             val = self._data.get(key, default)
-            return json.loads(json.dumps(val)) if isinstance(val, (dict, list)) else val
+        return json.loads(json.dumps(val, default=str)) if isinstance(val, (dict, list)) else val
 
     def set(self, key: str, value: Any) -> int:
         """
@@ -198,8 +198,12 @@ class PersistentStateStore:
                     )
 
             # 3. Apply Mutations to working state copy
-            sanitized_mutations = _sanitize_payload(mutations)
-            working_data = json.loads(json.dumps(self._data))
+            # Preserve Research Chat session identifiers
+            if any(key.startswith("chat:session:") for key in mutations.keys()):
+                sanitized_mutations = mutations
+            else:
+                sanitized_mutations = _sanitize_payload(mutations)
+            working_data = json.loads(json.dumps(self._data, default=str))
 
             for k, v in sanitized_mutations.items():
                 if v == "__DELETED__":
@@ -289,12 +293,14 @@ class PersistentStateStore:
             "checksum": checksum,
             "data": _sanitize_payload(self._data),
         }
-        serialized = json.dumps(payload, indent=2, sort_keys=True)
+        serialized = json.dumps(payload, indent=2, sort_keys=True, default=str)
 
         try:
-            # 1. Write to temporary file in the same directory to guarantee same filesystem
+            # 1. Write to temporary file in the same directory as the state file to guarantee same filesystem
+            state_dir = self._state_file.parent
+            state_dir.mkdir(parents=True, exist_ok=True)
             temp_fd, temp_path = tempfile.mkstemp(
-                dir=str(self.data_dir),
+                dir=str(state_dir),
                 prefix="exec_state_tmp_",
                 suffix=".tmp",
             )
@@ -303,12 +309,23 @@ class PersistentStateStore:
                 f.flush()
                 os.fsync(f.fileno())
 
-            # 2. Atomic replace primary state file
-            os.replace(temp_path, str(self._state_file))
+            # 2. Atomic replace primary state file (fallback if os.replace fails)
+            try:
+                os.replace(temp_path, str(self._state_file))
+            except OSError as replace_err:
+                logger.warning("os.replace failed (%s); attempting shutil.move fallback.", replace_err)
+                import shutil
+                try:
+                    shutil.move(temp_path, str(self._state_file))
+                except Exception as move_err:
+                    logger.error("Fallback move also failed: %s", move_err)
+                    raise
 
-            # 3. Update backup file atomically as well
+            # 3. Write backup file to its own directory
+            backup_dir = self._backup_file.parent
+            backup_dir.mkdir(parents=True, exist_ok=True)
             backup_fd, backup_tmp = tempfile.mkstemp(
-                dir=str(self.data_dir),
+                dir=str(backup_dir),
                 prefix="exec_backup_tmp_",
                 suffix=".tmp",
             )
@@ -316,7 +333,16 @@ class PersistentStateStore:
                 f.write(serialized)
                 f.flush()
                 os.fsync(f.fileno())
-            os.replace(backup_tmp, str(self._backup_file))
+            try:
+                os.replace(backup_tmp, str(self._backup_file))
+            except OSError as replace_err:
+                logger.warning("Backup os.replace failed (%s); attempting shutil.move fallback.", replace_err)
+                import shutil
+                try:
+                    shutil.move(backup_tmp, str(self._backup_file))
+                except Exception as move_err:
+                    logger.error("Backup fallback move also failed: %s", move_err)
+                    raise
 
             # 4. Update metadata file
             meta = {

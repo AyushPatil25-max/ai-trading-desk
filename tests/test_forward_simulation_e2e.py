@@ -205,7 +205,7 @@ class TestPhase12ForwardSimulationE2E(unittest.TestCase):
     def test_07_market_hours_enforcement_tick_rejection(self):
         """Verify ticks rejected when market_hours_enforced is True and market is closed."""
         engine_strict = ForwardSimulationEngine(
-            config=ForwardSimulationConfig(market_hours_enforced=True, max_data_age_seconds=864000.0),
+            config=ForwardSimulationConfig(market_hours_enforced=True, max_data_age_seconds=99999999.0),
         )
         saturday_tick = MarketDataTick(
             symbol="TCS.NS",

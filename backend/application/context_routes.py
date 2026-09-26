@@ -9,8 +9,8 @@ from backend.domain.schemas import HistoricalWindow
 context_router = APIRouter()
 
 def get_context_service() -> ContextService:
-    from backend.main import get_context_service as global_get
-    return global_get()
+    from backend.application.orchestration import _context_service
+    return _context_service
 
 @context_router.get("/status")
 async def get_context_status(service: ContextService = Depends(get_context_service)):

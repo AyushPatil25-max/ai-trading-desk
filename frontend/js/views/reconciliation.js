@@ -73,17 +73,17 @@ export function renderReconciliation(container) {
         let html = '<div class="grid grid-cols-2 gap-6">';
         ['orders', 'trades', 'positions', 'holdings', 'funds'].forEach(k => {
             const v = data[k] || {};
-            html += \`
+            html += `
                 <div class="border border-gray-800 rounded p-3 bg-gray-900/30">
-                    <h3 class="font-bold text-gray-300 uppercase mb-2">\${k}</h3>
+                    <h3 class="font-bold text-gray-300 uppercase mb-2">${k}</h3>
                     <div class="text-xs grid grid-cols-2 gap-1">
-                        <span class="text-gray-500">Status:</span> <span class="font-medium \${v.status==='MATCHED'?'text-emerald-400':(v.status==='UNAVAILABLE'?'text-gray-500':'text-yellow-400')}">\${v.status || 'UNKNOWN'}</span>
-                        <span class="text-gray-500">Matched:</span> <span class="text-white">\${v.matched_count || 0}</span>
-                        <span class="text-gray-500">Mismatched:</span> <span class="text-red-400">\${v.mismatched_count || 0}</span>
-                        <span class="text-gray-500">Missing:</span> <span class="text-red-400">\${v.missing_count || 0}</span>
+                        <span class="text-gray-500">Status:</span> <span class="font-medium ${v.status==='MATCHED'?'text-emerald-400':(v.status==='UNAVAILABLE'?'text-gray-500':'text-yellow-400')}">${v.status || 'UNKNOWN'}</span>
+                        <span class="text-gray-500">Matched:</span> <span class="text-white">${v.matched_count || 0}</span>
+                        <span class="text-gray-500">Mismatched:</span> <span class="text-red-400">${v.mismatched_count || 0}</span>
+                        <span class="text-gray-500">Missing:</span> <span class="text-red-400">${v.missing_count || 0}</span>
                     </div>
                 </div>
-            \`;
+            `;
         });
         html += '</div>';
 
@@ -91,14 +91,14 @@ export function renderReconciliation(container) {
             html += '<h3 class="font-bold text-gray-300 mt-6 mb-2">DISCREPANCIES</h3>';
             html += '<table class="w-full text-left text-xs"><thead class="text-gray-500 border-b border-gray-800"><tr><th class="py-1">Entity</th><th>Field</th><th>Broker</th><th>Local</th><th>Diff</th><th>Status</th></tr></thead><tbody>';
             data.discrepancies.forEach(d => {
-                html += \`<tr class="border-b border-gray-800/30">
-                    <td class="py-1 text-gray-300">\${d.entity_type} \${d.broker_key || d.local_key || ''}</td>
-                    <td class="text-gray-400">\${d.field || ''}</td>
-                    <td class="text-gray-200">\${d.broker_value}</td>
-                    <td class="text-gray-200">\${d.local_value}</td>
-                    <td class="text-yellow-400">\${d.difference || ''}</td>
-                    <td class="text-red-400">\${d.status}</td>
-                </tr>\`;
+                html += `<tr class="border-b border-gray-800/30">
+                    <td class="py-1 text-gray-300">${d.entity_type} ${d.broker_key || d.local_key || ''}</td>
+                    <td class="text-gray-400">${d.field || ''}</td>
+                    <td class="text-gray-200">${d.broker_value}</td>
+                    <td class="text-gray-200">${d.local_value}</td>
+                    <td class="text-yellow-400">${d.difference || ''}</td>
+                    <td class="text-red-400">${d.status}</td>
+                </tr>`;
             });
             html += '</tbody></table>';
         }

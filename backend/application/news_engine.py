@@ -49,8 +49,8 @@ class NewsEngine:
         except Exception as e:
             return NewsResponse(state=ProviderResponseState.ERROR, data=[], error_message=str(e))
             
-        if not res.success:
-            return NewsResponse(state=ProviderResponseState.ERROR, data=[], error_message=res.error_message)
+        if not res.status == 'SUCCESS':
+            return NewsResponse(state=ProviderResponseState.ERROR, data=[], error_message=res.error)
             
         if not res.data:
             return NewsResponse(state=ProviderResponseState.SUCCESS_EMPTY, data=[])
@@ -155,8 +155,8 @@ class NewsEngine:
         except Exception as e:
             return NewsResponse(state=ProviderResponseState.ERROR, data=[], error_message=str(e))
         
-        if not res.success:
-            return NewsResponse(state=ProviderResponseState.ERROR, data=[], error_message=res.error_message)
+        if not res.status == 'SUCCESS':
+            return NewsResponse(state=ProviderResponseState.ERROR, data=[], error_message=res.error)
             
         if not res.data:
             return NewsResponse(state=ProviderResponseState.SUCCESS_EMPTY, data=[])

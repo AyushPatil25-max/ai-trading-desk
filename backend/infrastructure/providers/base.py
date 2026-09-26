@@ -19,6 +19,7 @@ class ProviderCapabilities(BaseModel):
     ownership: bool = False
     deals: bool = False
     delivery: bool = False
+    earnings_calendar: bool = False
 
 class ProviderResult(BaseModel):
     status: str
@@ -56,6 +57,9 @@ class BaseProvider(ABC):
 
     async def get_corporate_actions(self, symbol: str) -> ProviderResult:
         return ProviderResult(status="ERROR", error="Corporate actions not supported by provider")
+
+    async def get_earnings_calendar(self, symbol: str) -> ProviderResult:
+        return ProviderResult(status="ERROR", error="Earnings calendar not supported by provider")
 
     async def get_news(self, symbol: str) -> ProviderResult:
         return ProviderResult(status="ERROR", error="News not supported by provider")

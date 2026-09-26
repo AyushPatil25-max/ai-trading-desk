@@ -423,7 +423,7 @@
     "total_subscription": null,
     "subscription_timestamp": null,
     "gmp": 25.0,
-    "gmp_timestamp": "2026-09-06T08:50:18.212981Z",
+    "gmp_timestamp": "2026-09-24T12:43:59.241944Z",
     "gmp_source": "Market",
     "gmp_is_official": false,
     "gmp_history": [
@@ -431,7 +431,7 @@
         "ipo_id": "IPO_GMP1",
         "gmp_value": 25.0,
         "source": "Market",
-        "observed_at": "2026-09-06T08:50:18.212981Z",
+        "observed_at": "2026-09-24T12:43:59.241944Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -512,7 +512,7 @@
     "data_quality": null,
     "data_quality_status": null,
     "data_quality_reasons": [],
-    "gmp_age_days": 1.431574074074074e-06,
+    "gmp_age_days": 1.8058680555555556e-06,
     "calculation_price_used": "issue_price"
   },
   {
@@ -551,7 +551,7 @@
     "total_subscription": null,
     "subscription_timestamp": null,
     "gmp": 10.0,
-    "gmp_timestamp": "2026-09-06T08:50:18.226604Z",
+    "gmp_timestamp": "2026-09-24T12:43:59.258995Z",
     "gmp_source": "Market X",
     "gmp_is_official": false,
     "gmp_history": [
@@ -559,7 +559,7 @@
         "ipo_id": "IPO_ZERO",
         "gmp_value": 10.0,
         "source": "Market X",
-        "observed_at": "2026-09-06T08:50:18.226604Z",
+        "observed_at": "2026-09-24T12:43:59.258995Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -618,7 +618,7 @@
     "data_quality": null,
     "data_quality_status": null,
     "data_quality_reasons": [],
-    "gmp_age_days": 1.2739930555555557e-06,
+    "gmp_age_days": 1.6086458333333334e-06,
     "calculation_price_used": null
   },
   {
@@ -657,7 +657,7 @@
     "total_subscription": null,
     "subscription_timestamp": null,
     "gmp": 15.0,
-    "gmp_timestamp": "2026-09-06T08:50:18.241762Z",
+    "gmp_timestamp": "2026-09-24T12:43:59.278733Z",
     "gmp_source": "A",
     "gmp_is_official": false,
     "gmp_history": [
@@ -665,7 +665,7 @@
         "ipo_id": "IPO_TREND",
         "gmp_value": 10.0,
         "source": "A",
-        "observed_at": "2026-09-06T08:50:18.239673Z",
+        "observed_at": "2026-09-24T12:43:59.275360Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       },
@@ -673,7 +673,7 @@
         "ipo_id": "IPO_TREND",
         "gmp_value": 15.0,
         "source": "A",
-        "observed_at": "2026-09-06T08:50:18.241762Z",
+        "observed_at": "2026-09-24T12:43:59.278733Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -732,7 +732,7 @@
     "data_quality": null,
     "data_quality_status": null,
     "data_quality_reasons": [],
-    "gmp_age_days": 1.2296064814814814e-06,
+    "gmp_age_days": 1.5132291666666667e-06,
     "calculation_price_used": null
   },
   {
@@ -866,9 +866,9 @@
     "retail_subscription": null,
     "employee_subscription": null,
     "total_subscription": 100.0,
-    "subscription_timestamp": "2026-09-06T08:50:18.269932Z",
+    "subscription_timestamp": "2026-09-24T12:43:59.318657Z",
     "gmp": 200.0,
-    "gmp_timestamp": "2026-09-06T08:50:18.267770Z",
+    "gmp_timestamp": "2026-09-24T12:43:59.315841Z",
     "gmp_source": "Market",
     "gmp_is_official": false,
     "gmp_history": [
@@ -876,7 +876,7 @@
         "ipo_id": "IPO_OFS",
         "gmp_value": 200.0,
         "source": "Market",
-        "observed_at": "2026-09-06T08:50:18.267770Z",
+        "observed_at": "2026-09-24T12:43:59.315841Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -884,10 +884,10 @@
     "subscription_history": [
       {
         "ipo_id": "IPO_OFS",
-        "observation_date": "2026-09-06",
+        "observation_date": "2026-09-24",
         "total": 100.0,
         "source": "Ex",
-        "observed_at": "2026-09-06T08:50:18.269932Z"
+        "observed_at": "2026-09-24T12:43:59.318657Z"
       }
     ],
     "gmp_status": "UNAVAILABLE",
@@ -970,7 +970,7 @@
       "Missing promoter data",
       "Missing P/E"
     ],
-    "gmp_age_days": 6.549652777777777e-07,
+    "gmp_age_days": 7.945023148148148e-07,
     "calculation_price_used": "issue_price"
   },
   {
@@ -1007,9 +1007,9 @@
     "retail_subscription": null,
     "employee_subscription": null,
     "total_subscription": 50.0,
-    "subscription_timestamp": "2026-09-06T08:50:18.288068Z",
+    "subscription_timestamp": "2026-09-24T12:43:59.339545Z",
     "gmp": 100.0,
-    "gmp_timestamp": "2026-09-06T08:50:18.286022Z",
+    "gmp_timestamp": "2026-09-24T12:43:59.336990Z",
     "gmp_source": "Market",
     "gmp_is_official": false,
     "gmp_history": [
@@ -1017,7 +1017,7 @@
         "ipo_id": "IPO_STRONG",
         "gmp_value": 100.0,
         "source": "Market",
-        "observed_at": "2026-09-06T08:50:18.286022Z",
+        "observed_at": "2026-09-24T12:43:59.336990Z",
         "gmp_percentage": null,
         "estimated_listing_price": null
       }
@@ -1025,10 +1025,10 @@
     "subscription_history": [
       {
         "ipo_id": "IPO_STRONG",
-        "observation_date": "2026-09-06",
+        "observation_date": "2026-09-24",
         "total": 50.0,
         "source": "Ex",
-        "observed_at": "2026-09-06T08:50:18.288068Z"
+        "observed_at": "2026-09-24T12:43:59.339545Z"
       }
     ],
     "gmp_status": "UNAVAILABLE",
@@ -1109,7 +1109,7 @@
       "Missing promoter data",
       "Missing peer valuation context"
     ],
-    "gmp_age_days": 7.174652777777778e-07,
+    "gmp_age_days": 8.391087962962962e-07,
     "calculation_price_used": "issue_price"
   },
   {
@@ -1924,7 +1924,7 @@
     "total_subscription": 100.0,
     "subscription_timestamp": null,
     "gmp": 40.0,
-    "gmp_timestamp": "2026-09-06T14:12:00.601162",
+    "gmp_timestamp": "2026-09-24T18:14:56.953134",
     "gmp_source": null,
     "gmp_is_official": false,
     "gmp_history": [],
@@ -2008,7 +2008,7 @@
     "data_quality_reasons": [
       "Missing peer valuation context"
     ],
-    "gmp_age_days": 0.005760958969907407,
+    "gmp_age_days": 6.365740740740741e-10,
     "calculation_price_used": "issue_price"
   },
   {

@@ -2,15 +2,22 @@ import math
 from typing import Dict, Any, Optional
 import asyncio
 import pandas as pd
-from backend.infrastructure.data_providers import YFinanceProvider
+from backend.infrastructure.providers.yfinance_provider import YFinanceProvider
+from backend.infrastructure.providers.market_data_provider import UpstoxMarketDataProvider
+from backend.infrastructure.providers.orchestrator import MultiSourceOrchestrator
 from backend.infrastructure.cache import InMemoryContextCache
 from backend.application.context_service import ContextService
 from backend.domain.schemas import AgentInput, MarketContext, DataQualityStatus
 from backend.adapters.legacy_agents import TechnicalAgentAdapter, RiskAgentAdapter
 from backend.utils.json_safety import sanitize_for_json
+import os
 
 _global_cache = InMemoryContextCache(ttl_seconds=60)
-_global_provider = YFinanceProvider()
+_providers = [YFinanceProvider()]
+if os.getenv("UPSTOX_API_KEY") and os.getenv("UPSTOX_API_KEY") != "mock":
+    _providers.insert(0, UpstoxMarketDataProvider(api_key=os.getenv("UPSTOX_API_KEY")))
+
+_global_provider = MultiSourceOrchestrator(providers=_providers)
 _context_service = ContextService(_global_provider, _global_cache)
 
 def _safe_float(val: Any) -> Optional[float]:
